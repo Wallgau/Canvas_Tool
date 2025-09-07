@@ -1,0 +1,147 @@
+/* Responsive canvas with touch support and flex layout */
+.canvas {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  overflow: auto;
+  min-height: 400px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
+}
+
+/* Desktop: Use absolute positioning for free placement */
+@media (min-width: 769px) {
+  .canvas {
+    /* Absolute positioning mode for desktop */
+  }
+}
+
+/* Mobile: Use flex layout for automatic vertical stacking */
+@media (max-width: 768px) {
+  .canvas {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+}
+
+/* Empty state */
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyState {
+  text-align: center;
+  color: #666;
+  max-width: 400px;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.emptyTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.emptyDescription {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Mobile canvas optimizations - consolidated */
+@media (max-width: 768px) {
+  .canvas {
+    height: calc(100vh - 120px);
+    min-height: calc(100vh - 120px);
+    padding: 15px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    overflow-x: auto;
+    overflow-y: auto;
+    /* Flex layout is already applied above */
+  }
+  
+  .emptyState {
+    padding: 2rem 1rem;
+  }
+  
+  .emptyIcon {
+    font-size: 3rem;
+  }
+  
+  .emptyTitle {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .emptyDescription {
+    font-size: 0.9rem;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .canvas {
+    height: calc(100vh - 100px);
+    min-height: calc(100vh - 100px);
+    padding: 10px;
+    border-radius: 0;
+  }
+  
+  .emptyState {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .emptyIcon {
+    font-size: 2.5rem;
+  }
+  
+  .emptyTitle {
+    font-size: 1.1rem;
+  }
+  
+  .emptyDescription {
+    font-size: 0.85rem;
+    max-width: 250px;
+  }
+}
+
+/* Desktop enhancements */
+@media (min-width: 1200px) {
+  .canvas {
+    height: 700px;
+    min-height: 500px;
+    padding: 24px;
+  }
+  
+  .emptyIcon {
+    font-size: 5rem;
+  }
+  
+  .emptyTitle {
+    font-size: 1.75rem;
+  }
+  
+  .emptyDescription {
+    font-size: 1.1rem;
+    max-width: 500px;
+  }
+}
