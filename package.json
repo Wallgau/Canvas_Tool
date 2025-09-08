@@ -5,35 +5,22 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:fast": "vite build --watch --mode development",
-    "dev:100": "npm run build && npx serve dist -p 5173 --no-clipboard",
     "build": "tsc -b && vite build",
-    "build:watch": "npm run build && npx serve dist -p 5173 --no-clipboard & npm run watch",
-    "watch": "nodemon --watch src --ext ts,tsx,css,html --exec 'npm run build'",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run --reporter=verbose",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "type-check": "tsc --noEmit",
-    "check-all": "npm run type-check && npm run lint && npm run format:check",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:run": "node --max-old-space-size=8192 ./node_modules/.bin/vitest run --reporter=verbose --run",
-    "test:coverage": "vitest run --coverage",
-    "test:regression": "vitest run --reporter=verbose",
-    "lighthouse": "lhci autorun",
-    "bundle-analyze": "npx vite-bundle-analyzer dist",
-    "audit": "npm audit --audit-level=moderate",
-    "audit:fix": "npm audit fix"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.33.0",
-    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
@@ -50,13 +37,10 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "jsdom": "^26.1.0",
-    "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
-    "rollup-plugin-visualizer": "^5.12.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2",
-    "vite-bundle-analyzer": "^0.11.0",
     "vitest": "^3.2.4"
   }
 }
