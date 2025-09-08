@@ -18,6 +18,7 @@ export const useDraggable = ({
   isDragging: boolean;
   dragProps: {
     onMouseDown: (e: React.MouseEvent) => void;
+    style?: React.CSSProperties;
   };
 } => {
   const [position, setPosition] = useState<Position>(initialPosition);
@@ -131,6 +132,7 @@ export const useDraggableOptimized = ({
   isDragging: boolean;
   dragProps: {
     onMouseDown: (e: React.MouseEvent) => void;
+    style?: React.CSSProperties;
   };
 } => {
   const [position, setPosition] = useState<Position>(initialPosition);

@@ -144,7 +144,7 @@ const calculateDesktopPosition = (
     const rightmostInRow = row[row.length - 1];
 
     // Calculate the actual width of the rightmost tool
-    const rightmostToolWidth = estimateToolWidth(rightmostInRow);
+    const rightmostToolWidth = estimateToolWidth();
     const newXRem =
       rightmostInRow.position.x + rightmostToolWidth + config.spacing;
 

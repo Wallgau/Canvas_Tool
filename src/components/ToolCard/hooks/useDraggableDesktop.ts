@@ -23,6 +23,7 @@ export const useDraggableDesktop = ({
   isDragging: boolean;
   dragProps: {
     onMouseDown: (e: React.MouseEvent) => void;
+    style?: React.CSSProperties;
   };
 } => {
   const [position, setPosition] = useState<Position>(initialPosition);
