@@ -4,10 +4,7 @@ import styles from './App.module.css';
 
 function App(): React.JSX.Element {
   return (
-    <div
-      className={styles.App || 'App'}
-      role='application'
-    >
+    <div className={styles.App || 'App'} role='application'>
       {/* ARIA live region for screen reader announcements */}
       <div
         id='live-region'

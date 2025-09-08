@@ -38,7 +38,7 @@ h1 {
 }
 
 /* Global button styles - minimal to avoid conflicts with CSS modules */
-button:not([class*="button"]) {
+button:not([class*='button']) {
   border-radius: 8px;
   border: 1px solid transparent;
   font-size: 1em;
