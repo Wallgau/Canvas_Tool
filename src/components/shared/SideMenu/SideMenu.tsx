@@ -119,7 +119,9 @@ const SideMenu = <T,>({
         {/* Options */}
         <div className={styles.content || 'content'}>
           {options.length === 0 ? (
-            <p className={styles.emptyState || 'emptyState'}>No options available</p>
+            <p className={styles.emptyState || 'emptyState'}>
+              No options available
+            </p>
           ) : (
             <div className={styles.optionsList || 'optionsList'}>
               {options.map((option: SideMenuOption<T>, index: number) => (
@@ -130,13 +132,19 @@ const SideMenu = <T,>({
                   onClick={() => handleSelect(option)}
                   onKeyDown={handleOptionKeyDown}
                   disabled={option.disabled}
-                  className={`${styles.option || 'option'} ${option.disabled ? (styles.disabled || 'disabled') : ''}`}
+                  className={`${styles.option || 'option'} ${option.disabled ? styles.disabled || 'disabled' : ''}`}
                   aria-label={`Select ${option.title}`}
                 >
                   <div className={styles.optionContent || 'optionContent'}>
-                    <div className={styles.optionTitle || 'optionTitle'}>{option.title}</div>
+                    <div className={styles.optionTitle || 'optionTitle'}>
+                      {option.title}
+                    </div>
                     {option.description && (
-                      <div className={styles.optionDescription || 'optionDescription'}>
+                      <div
+                        className={
+                          styles.optionDescription || 'optionDescription'
+                        }
+                      >
                         {option.description}
                       </div>
                     )}

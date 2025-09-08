@@ -1,106 +1,38 @@
-# 🛠️ Tool Canvas
+# 🛠️ Tool Canvas V2
 
-> **A visual drag-and-drop interface for configuring development tools and workflows**
+A modern, accessible visual workflow builder that allows you to create, organize, and manage tool workflows on a drag-and-drop canvas.
 
-[![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-7.1.2-646CFF.svg)](https://vitejs.dev/)
-[![Vitest](https://img.shields.io/badge/Vitest-3.2.4-6E9F18.svg)](https://vitest.dev/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Tool Canvas V2](https://img.shields.io/badge/version-2.0.0-blue)
+![Node.js](https://img.shields.io/badge/node-%3E%3D22.12.0-green)
+![React](https://img.shields.io/badge/react-19.1.1-blue)
+![TypeScript](https://img.shields.io/badge/typescript-5.8.3-blue)
+![Vite](https://img.shields.io/badge/vite-7.1.5-purple)
 
-## 🎯 Overview
+## ✨ Features
 
-Tool Canvas is a **production-ready** visual tool configuration interface that allows developers to build, arrange, and manage development workflows through an intuitive drag-and-drop interface. This project demonstrates the evolution from a simple MVP to a scalable, maintainable architecture.
-
-### ✨ Key Features
-
-- 🎨 **Visual Tool Arrangement** - Drag and drop tools on an interactive canvas
-- ⚙️ **Real-time Parameter Editing** - Click-to-edit tool parameters with validation
-- 📱 **Responsive Design** - Mobile-first approach with touch support
-- 💾 **Persistent State** - Auto-save with localStorage and export/import
-- ♿ **Accessibility** - Full ARIA support and keyboard navigation
-- 🧪 **Comprehensive Testing** - 85%+ test coverage with React Testing Library
-- ⚡ **Performance Optimized** - LCP under 1s with skeleton loading
-- 🔧 **TypeScript** - Full type safety and excellent developer experience
-
-## 🚀 Live Demo
-
-- **V2 (Production)**: [Live Demo](https://tool-canvas-v2.vercel.app) - Clean architecture, optimized performance
-- **V1 (MVP)**: [Live Demo](https://tool-canvas-v1.vercel.app) - Original implementation for comparison
-
-## 📊 Architecture Evolution
-
-This project showcases two distinct approaches to building the same functionality:
-
-### V1: MVP Approach
-
-- **Single monolithic component** (400+ lines)
-- **Rapid prototyping** and fast development
-- **Basic functionality** with working drag-and-drop
-- **Suitable for**: Prototypes, demos, simple use cases
-
-### V2: Production Architecture
-
-- **Modular component structure** with custom hooks
-- **Clean separation of concerns** (UI, business logic, persistence)
-- **Comprehensive testing** and accessibility
-- **Performance optimizations** and responsive design
-- **Suitable for**: Production applications, team development, long-term maintenance
-
-## 🏗️ Technical Architecture
-
-### Component Structure
-
-```
-src/
-├── components/
-│   ├── ToolCanvasV2/           # Main canvas component
-│   │   ├── components/         # Sub-components
-│   │   │   ├── Canvas/         # Canvas display
-│   │   │   ├── Toolbar/        # Action toolbar
-│   │   │   └── ToolSelector/   # Tool selection modal
-│   │   ├── hooks/              # Custom business logic hooks
-│   │   │   ├── useCanvasSize.ts
-│   │   │   ├── useToolManagement.ts
-│   │   │   └── useToolPersistence.ts
-│   │   └── utils/              # Utility functions
-│   ├── ToolCard/               # Individual tool component
-│   │   └── hooks/
-│   │       ├── useDraggable.ts
-│   │       └── useDraggableResponsive.ts
-│   └── shared/                 # Reusable components
-│       ├── Button/
-│       └── SideMenu/
-├── types/                      # TypeScript definitions
-└── utils/                      # Global utilities
-```
-
-### Custom Hooks Architecture
-
-```typescript
-// Separated business logic into reusable hooks
-const canvasSize = useCanvasSize('canvas');
-const { tools, setTools } = useToolPersistence({ canvasSize });
-const { addTool, updateTool, deleteTool } = useToolManagement({
-  tools,
-  setTools,
-});
-```
+- **🎨 Visual Workflow Builder** - Drag and drop tools to create workflows
+- **🔧 5 Built-in Tools** - Weather, Wikipedia, Email, Calculator, Translator
+- **📱 Responsive Design** - Works on desktop and mobile devices
+- **♿ Accessibility** - WCAG 2.1 AA compliant with screen reader support
+- **💾 Data Persistence** - Auto-saves to localStorage
+- **📤 Export/Import** - Save and share configurations as JSON
+- **🎯 TypeScript** - Full type safety and IntelliSense
+- **⚡ Performance** - Optimized with lazy loading and code splitting
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- **Node.js** 20.19+ (required for Vite 7)
-- **npm** or **yarn**
+- **Node.js 22.12.0 or higher** (required for Vite 7.1.5)
+- **npm 10.0.0 or higher**
 
 ### Installation
 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/tool-canvas.git
-   cd tool-canvas
+   git clone https://github.com/Wallgau/Tool_Canvas.git
+   cd Tool_Canvas
    ```
 
 2. **Install dependencies**
@@ -115,238 +47,239 @@ const { addTool, updateTool, deleteTool } = useToolManagement({
    npm run dev
    ```
 
-4. **Open in browser**
+4. **Open your browser**
    Navigate to `http://localhost:5173`
 
-### Available Scripts
+## 📋 Available Scripts
 
-| Command                     | Description                       |
-| --------------------------- | --------------------------------- |
-| `nvm use 22 && npm run dev` | Start development server with HMR |
-| `npm run build`             | Build for production              |
-| `npm run preview`           | Preview production build          |
-| `npm test`                  | Run test suite                    |
-| `npm run test:ui`           | Run tests with UI                 |
-| `npm run lint`              | Run ESLint                        |
+| Command              | Description               |
+| -------------------- | ------------------------- |
+| `npm run dev`        | Start development server  |
+| `npm run build`      | Build for production      |
+| `npm run preview`    | Preview production build  |
+| `npm run test`       | Run tests in watch mode   |
+| `npm run test:run`   | Run tests once            |
+| `npm run lint`       | Check code quality        |
+| `npm run lint:fix`   | Fix linting issues        |
+| `npm run format`     | Format code with Prettier |
+| `npm run type-check` | Check TypeScript types    |
 
-## 🎮 Usage Guide
-
-### Basic Operations
-
-1. **Adding Tools**
-   - Click "Add Tool" button
-   - Select from available tool types
-   - Tool appears on canvas with default parameters
-
-2. **Editing Parameters**
-   - Click any parameter value
-   - Edit in the input field
-   - Save or cancel changes
-
-3. **Moving Tools**
-   - Drag tool cards to reposition
-   - Desktop: Free positioning
-   - Mobile: Reordering within layout
-
-4. **Exporting Configuration**
-   - Click "Export" to download JSON
-   - Share configurations with team
-   - Import into other systems
-
-### Supported Tool Types
-
-- 🌤️ **Weather Forecast** - Get weather information
-- 🔍 **Web Search** - Search the internet
-- 📧 **Email Sender** - Send email messages
-- 🧮 **Calculator** - Perform calculations
-- 🌐 **Text Translator** - Translate between languages
-- 📊 **Data Processor** - Process and transform data
-
-## ⚡ Performance Features
-
-### Optimizations Implemented
-
-- **Skeleton Loading** - Immediate visual feedback (LCP < 1s)
-- **Code Splitting** - Separate vendor and component chunks
-- **Critical CSS Inlining** - Faster first paint
-- **Lazy Loading** - Components load on demand
-- **Memoization** - Optimized re-renders
-- **Bundle Analysis** - Automated size monitoring
-
-### Performance Metrics
+## 🏗️ Project Structure
 
 ```
-Metric                V1      V2      Improvement
-LCP                  9.2s    0.8s    95% faster
-First Paint          2.1s    0.3s    85% faster
-Time to Interactive  4.5s    1.2s    73% faster
-Bundle Size          194KB   200KB   Better caching
-Accessibility Score  65/100  95/100  46% improvement
+src/
+├── App/                    # Main app component
+├── components/
+│   ├── shared/            # Reusable components
+│   │   ├── Button/        # Button component
+│   │   ├── SideMenu/      # Side menu component
+│   │   └── ConfirmationModal/
+│   ├── ToolCanvasV2/      # Main canvas component
+│   │   ├── components/    # Canvas sub-components
+│   │   ├── hooks/         # Custom hooks
+│   │   └── utils/         # Canvas utilities
+│   └── ToolCard/          # Individual tool cards
+├── types/                 # TypeScript type definitions
+├── utils/                 # Utility functions
+└── test/                  # Test setup files
 ```
 
-## ♿ Accessibility Features
+## 🎯 How to Use
 
-- **ARIA Labels** - Comprehensive screen reader support
-- **Keyboard Navigation** - Full keyboard accessibility
-- **Focus Management** - Proper focus flow and indicators
-- **Semantic HTML** - Meaningful markup structure
-- **Color Contrast** - WCAG AA compliant
-- **Touch Support** - Mobile-optimized interactions
+### 1. Adding Tools
 
-## 🧪 Testing Strategy
+- Click the **"Add Tool"** button in the toolbar
+- Select from 5 available tools:
+  - 🌤️ **Weather Forecast** - Get weather information
+  - 🔍 **Wikipedia Search** - Search Wikipedia articles
+  - 📧 **Email Sender** - Compose and send emails
+  - 🧮 **Calculator** - Perform calculations
+  - 🌍 **Text Translator** - Translate text
 
-### Test Coverage
+### 2. Configuring Tools
 
-- **Component Testing** - React Testing Library
-- **Hook Testing** - Custom hook testing utilities
-- **Integration Testing** - User workflow testing
-- **Accessibility Testing** - Automated a11y checks
-- **E2E Testing** - Playwright for full user journeys
+- Click on any parameter to edit it
+- Press **Enter** to save or **Escape** to cancel
+- Parameters are validated based on input type
 
-### Running Tests
+### 3. Organizing Workflow
+
+- **Drag and drop** tools to rearrange them
+- Tools automatically save their positions
+- Visual feedback during dragging
+
+### 4. Exporting Workflow
+
+- Click **"Export"** to download configuration as JSON
+- Share configurations with others
+- Import by replacing localStorage data
+
+### 5. Starting Over
+
+- Click **"Clear"** to remove all tools
+- Confirmation dialog prevents accidental clearing
+
+## 🛠️ Development
+
+### Node.js Version Requirements
+
+This project requires **Node.js 22.12.0 or higher** due to Vite 7.1.5 compatibility requirements.
+
+**Check your Node.js version:**
 
 ```bash
-# Run all tests
-npm test
+node --version
+```
 
-# Run tests with UI
-npm run test:ui
+**If you need to upgrade Node.js:**
 
-# Run tests in CI mode
+- **Using nvm (recommended):**
+  ```bash
+  nvm install 22
+  nvm use 22
+  ```
+- **Direct download:** [nodejs.org](https://nodejs.org/)
+- **Using Homebrew:**
+  ```bash
+  brew install node@22
+  ```
+
+### Local Development Setup
+
+1. **Ensure Node.js 22+ is installed**
+   ```bash
+   node --version  # Should show v22.x.x or higher
+   ```
+
+````
+
+2. **Install dependencies**
+ ```bash
+npm install
+````
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+````
+
+4. **Run tests**
+ ```bash
 npm run test:run
+````
 
-# Run E2E tests
-npm run test:e2e
+5. **Check code quality**
+   ```bash
+   npm run lint
+   npm run type-check
+   ```
+
+````
+
+### Building for Production
+
+```bash
+npm run build
+npm run preview
+````
+
+## 🧪 Testing
+
+The project uses **Vitest** for testing with comprehensive coverage:
+
+- **Unit tests** - Individual component testing
+- **Hook tests** - Custom hook testing
+- **Utility tests** - Function testing
+- **Integration tests** - Component interaction testing
+
+**Run tests:**
+
+```bash
+npm run test        # Watch mode
+npm run test:run    # Single run
 ```
 
-## 🔒 Security Features
+## ♿ Accessibility
 
-### Input Sanitization
+This project is built with accessibility in mind:
 
-- **XSS Protection** - HTML sanitization and text validation
-- **SQL Injection Prevention** - Parameterized inputs and validation
-- **Input Validation** - Type checking and length limits
-- **Content Security Policy** - Strict CSP headers
+- **Screen reader support** - ARIA labels and live regions
+- **Keyboard navigation** - Full keyboard accessibility
+- **Focus management** - Proper focus handling
+- **High contrast** - CSS supports high contrast mode
+- **WCAG 2.1 AA compliant**
 
-### Data Protection
+## 🚀 Deployment
 
-- **Client-side Storage** - Secure localStorage usage
-- **No Server Dependencies** - All data stays in browser
-- **Export Security** - Safe JSON export/import
+### GitHub Pages (Automatic)
 
-## 🔧 Development
+- Pushes to `main` branch automatically deploy
+- Available at: `https://wallgau.github.io/Tool_Canvas/`
 
-### Adding New Tools
+### Netlify
 
-1. Edit `src/types/index.ts`
-2. Add tool to `PREDEFINED_TOOLS` array
-3. Define parameters and description
-4. Tool automatically appears in UI
+- Connect your GitHub repository
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Node.js version: `22`
 
-```typescript
-{
-  name: 'my_tool',
-  displayName: 'My Custom Tool',
-  description: 'What this tool does',
-  defaultParams: {
-    param1: 'default_value',
-    param2: 'another_default'
-  }
-}
+### Manual Deployment
+
+```bash
+npm run build
+# Upload dist/ folder to your hosting provider
 ```
 
-### Code Quality
+## 🔧 Configuration
 
-- **ESLint** - Code linting and formatting
-- **TypeScript** - Type checking and safety
-- **Prettier** - Code formatting (optional)
-- **Husky** - Git hooks for quality gates
+### Environment Variables
 
-## 📱 Browser Support
+No environment variables required for basic functionality.
 
-- ✅ **Chrome** 90+
-- ✅ **Firefox** 88+
-- ✅ **Safari** 14+
-- ✅ **Edge** 90+
-- ✅ **Mobile Safari** 14+
-- ✅ **Chrome Mobile** 90+
+### Customization
 
-## 🛠️ Tech Stack
+- **Add new tools** - Edit `src/types/global.ts`
+- **Modify styling** - Update CSS modules in component folders
+- **Change behavior** - Modify hooks in `src/components/ToolCanvasV2/hooks/`
 
-### Core Technologies
+## 📊 Performance
 
-- **React 19.1.1** - UI framework with concurrent features
-- **TypeScript 5.8.3** - Type-safe JavaScript
-- **Vite 7.1.2** - Fast build tool and dev server
-
-### Development Tools
-
-- **Vitest 3.2.4** - Unit testing framework
-- **Testing Library** - React component testing
-- **ESLint** - Code linting
-- **jsdom** - DOM testing environment
-
-### Build & Deployment
-
-- **Vite Build** - Optimized production builds
-- **Code Splitting** - Automatic chunk optimization
-- **Tree Shaking** - Dead code elimination
-- **Source Maps** - Debug-friendly builds
-
-## 📈 Roadmap
-
-### Planned Features
-
-- [ ] **Real-time Collaboration** - Multi-user editing
-- [ ] **Plugin System** - Extensible tool architecture
-- [ ] **Advanced Positioning** - Snap-to-grid and alignment
-- [ ] **Undo/Redo** - Action history management
-- [ ] **Server Persistence** - Cloud storage integration
-- [ ] **Analytics Dashboard** - Usage insights and metrics
-
-### Performance Improvements
-
-- [ ] **Service Worker** - Offline support
-- [ ] **Web Workers** - Background processing
-- [ ] **Virtual Scrolling** - Large canvas support
-- [ ] **Progressive Loading** - Incremental tool loading
+- **Lazy loading** - Components loaded on demand
+- **Code splitting** - Reduced initial bundle size
+- **CSS optimization** - Critical CSS inlined
+- **React optimizations** - Memoization and efficient re-renders
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
-
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass
-6. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📄 License
+## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- **React Team** - For the amazing framework
-- **Vite Team** - For the lightning-fast build tool
-- **Testing Library** - For excellent testing utilities
-- **TypeScript Team** - For type safety and developer experience
+- **React** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **Vitest** - Testing framework
+- **Testing Library** - Component testing utilities
 
 ## 📞 Support
 
-- **Issues** - [GitHub Issues](https://github.com/yourusername/tool-canvas/issues)
-- **Discussions** - [GitHub Discussions](https://github.com/yourusername/tool-canvas/discussions)
-- **Email** - your.email@example.com
+If you encounter any issues or have questions:
+
+1. Check the [Issues](https://github.com/Wallgau/Tool_Canvas/issues) page
+2. Ensure you're using Node.js 22.12.0 or higher
+3. Verify all dependencies are installed correctly
+4. Create a new issue with detailed information
 
 ---
 
-<div align="center">
-
-**Built with ❤️ by [Your Name]**
-
-[⭐ Star this repo](https://github.com/yourusername/tool-canvas) • [🐛 Report Bug](https://github.com/yourusername/tool-canvas/issues) • [💡 Request Feature](https://github.com/yourusername/tool-canvas/issues)
-
-</div>
+**Happy building! 🚀**
