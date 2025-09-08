@@ -7,7 +7,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
-    // Performance optimizations
+    // Memory optimizations - use processes instead of threads
     pool: 'forks',
     poolOptions: {
       forks: {
@@ -19,6 +19,16 @@ export default defineConfig({
     // Disable coverage for faster runs
     coverage: {
       enabled: false,
+    },
+    // Memory management
+    maxConcurrency: 1,
+    // Reduce memory usage
+    isolate: true,
+    // Disable file watching
+    watch: false,
+    // Force sequential execution
+    sequence: {
+      concurrent: false,
     },
   },
 });

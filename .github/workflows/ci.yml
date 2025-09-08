@@ -34,7 +34,7 @@ jobs:
       - name: Run tests
         run: npm run test:run
         env:
-          NODE_OPTIONS: --max-old-space-size=8192
+          NODE_OPTIONS: --max-old-space-size=12288 --expose-gc
 
       - name: Build application
         run: npm run build
