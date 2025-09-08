@@ -89,7 +89,7 @@ const SideMenu = <T,>({
   };
 
   return (
-    <div className="overlay" onClick={onClose}>
+    <div className='overlay' onClick={onClose}>
       <div
         ref={sideMenuRef}
         className={`side-menu ${position}`}
@@ -101,8 +101,8 @@ const SideMenu = <T,>({
         tabIndex={-1}
       >
         {/* Header */}
-        <header className="header">
-          <h3 id='side-menu-title' className="title">
+        <header className='header'>
+          <h3 id='side-menu-title' className='title'>
             {title}
           </h3>
           <Button
@@ -110,18 +110,18 @@ const SideMenu = <T,>({
             size='sm'
             onClick={onClose}
             aria-label='Close menu'
-            className="closeButton"
+            className='closeButton'
           >
             ×
           </Button>
         </header>
 
         {/* Options */}
-        <div className="content">
+        <div className='content'>
           {options.length === 0 ? (
-            <p className="emptyState">No options available</p>
+            <p className='emptyState'>No options available</p>
           ) : (
-            <div className="optionsList">
+            <div className='optionsList'>
               {options.map((option: SideMenuOption<T>, index: number) => (
                 <Button
                   key={option.id}
@@ -133,10 +133,10 @@ const SideMenu = <T,>({
                   className={`option ${option.disabled ? 'disabled' : ''}`}
                   aria-label={`Select ${option.title}`}
                 >
-                  <div className="optionContent">
-                    <div className="optionTitle">{option.title}</div>
+                  <div className='optionContent'>
+                    <div className='optionTitle'>{option.title}</div>
                     {option.description && (
-                      <div className="optionDescription">
+                      <div className='optionDescription'>
                         {option.description}
                       </div>
                     )}

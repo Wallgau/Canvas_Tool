@@ -77,30 +77,26 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         aria-describedby='modal-message'
         tabIndex={-1}
       >
-        <div className="header">
-          <h2 id='modal-title' className="title">
+        <div className='header'>
+          <h2 id='modal-title' className='title'>
             {title}
           </h2>
         </div>
 
-        <div className="content">
-          <p id='modal-message' className="message">
+        <div className='content'>
+          <p id='modal-message' className='message'>
             {message}
           </p>
         </div>
 
-        <div className="actions">
-          <Button
-            variant='outline'
-            onClick={onCancel}
-            className="cancelButton"
-          >
+        <div className='actions'>
+          <Button variant='outline' onClick={onCancel} className='cancelButton'>
             {cancelText}
           </Button>
           <Button
             variant={variant === 'danger' ? 'destructive' : 'primary'}
             onClick={handleConfirm}
-            className="confirmButton"
+            className='confirmButton'
             autoFocus
           >
             {confirmText}

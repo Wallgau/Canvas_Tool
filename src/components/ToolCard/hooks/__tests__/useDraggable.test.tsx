@@ -79,7 +79,7 @@ describe('useDraggable', () => {
     it('should not start dragging if target is not a drag handle', () => {
       const { result } = renderHook(() => useDraggable());
       const mockEvent = createReactMouseEvent('mousedown', 100, 100);
-      (mockEvent.target as any).closest.mockReturnValue(null);
+      (mockEvent.target as HTMLElement).closest = vi.fn().mockReturnValue(null);
 
       act(() => {
         result.current.dragProps.onMouseDown(mockEvent);
@@ -91,7 +91,7 @@ describe('useDraggable', () => {
     it('should start dragging when clicking on drag handle', () => {
       const { result } = renderHook(() => useDraggable());
       const mockEvent = createReactMouseEvent('mousedown', 100, 100);
-      (mockEvent.target as any).closest.mockReturnValue({});
+      (mockEvent.target as HTMLElement).closest.mockReturnValue({});
 
       act(() => {
         result.current.dragProps.onMouseDown(mockEvent);
@@ -105,7 +105,7 @@ describe('useDraggable', () => {
     it('should update position during drag', () => {
       const { result } = renderHook(() => useDraggable());
       const mockEvent = createReactMouseEvent('mousedown', 100, 100);
-      (mockEvent.target as any).closest.mockReturnValue({});
+      (mockEvent.target as HTMLElement).closest.mockReturnValue({});
 
       // Start dragging
       act(() => {
@@ -128,7 +128,7 @@ describe('useDraggable', () => {
     it('should prevent negative positions', () => {
       const { result } = renderHook(() => useDraggable());
       const mockEvent = createReactMouseEvent('mousedown', 100, 100);
-      (mockEvent.target as any).closest.mockReturnValue({});
+      (mockEvent.target as HTMLElement).closest.mockReturnValue({});
 
       // Start dragging
       act(() => {
@@ -150,7 +150,7 @@ describe('useDraggable', () => {
       const onDragEnd = vi.fn();
       const { result } = renderHook(() => useDraggable({ onDragEnd }));
       const mockEvent = createReactMouseEvent('mousedown', 100, 100);
-      (mockEvent.target as any).closest.mockReturnValue({});
+      (mockEvent.target as HTMLElement).closest.mockReturnValue({});
 
       // Start dragging
       act(() => {
@@ -172,7 +172,7 @@ describe('useDraggable', () => {
     it('should restore document styles on drag end', () => {
       const { result } = renderHook(() => useDraggable());
       const mockEvent = createReactMouseEvent('mousedown', 100, 100);
-      (mockEvent.target as any).closest.mockReturnValue({});
+      (mockEvent.target as HTMLElement).closest.mockReturnValue({});
 
       // Start dragging
       act(() => {
@@ -216,7 +216,7 @@ describe('useDraggable', () => {
     it('should update style when dragging', () => {
       const { result } = renderHook(() => useDraggable());
       const mockEvent = createReactMouseEvent('mousedown', 100, 100);
-      (mockEvent.target as any).closest.mockReturnValue({});
+      (mockEvent.target as HTMLElement).closest.mockReturnValue({});
 
       // Start dragging
       act(() => {
@@ -236,7 +236,7 @@ describe('useDraggable', () => {
     it('should convert pixels to rem correctly', () => {
       const { result } = renderHook(() => useDraggable());
       const mockEvent = createReactMouseEvent('mousedown', 0, 0);
-      (mockEvent.target as any).closest.mockReturnValue({});
+      (mockEvent.target as HTMLElement).closest.mockReturnValue({});
 
       // Start dragging
       act(() => {
@@ -279,7 +279,7 @@ describe('useDraggableOptimized', () => {
     const onDragEnd = vi.fn();
     const { result } = renderHook(() => useDraggableOptimized({ onDragEnd }));
     const mockEvent = createReactMouseEvent('mousedown', 100, 100);
-    (mockEvent.target as any).closest.mockReturnValue({});
+    (mockEvent.target as HTMLElement).closest = vi.fn().mockReturnValue({});
 
     // Start dragging
     act(() => {

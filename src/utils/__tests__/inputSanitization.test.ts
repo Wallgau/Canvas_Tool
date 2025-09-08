@@ -195,7 +195,9 @@ describe('Input Sanitization', () => {
       const result = sanitizeToolData(tool);
       expect(result.id).toBe('tool-1');
       expect(result.name).toBe('weather_forecast');
-      expect((result.params as Record<string, unknown>).location).toBe('New York');
+      expect((result.params as Record<string, unknown>).location).toBe(
+        'New York'
+      );
       expect((result.params as Record<string, unknown>).units).toBe('celsius');
       expect(result.position).toEqual({ x: 100, y: 200 });
     });
@@ -267,8 +269,15 @@ describe('Input Sanitization', () => {
       ]);
       const result = validateLocalStorageData(corruptedData);
       expect(result.isValid).toBe(true);
-      expect((result.sanitizedData as Record<string, unknown>[])[0].id).toBe('tool-1');
-      expect(((result.sanitizedData as Record<string, unknown>[])[0].params as Record<string, unknown>).location).toBe('New York');
+      expect((result.sanitizedData as Record<string, unknown>[])[0].id).toBe(
+        'tool-1'
+      );
+      expect(
+        (
+          (result.sanitizedData as Record<string, unknown>[])[0]
+            .params as Record<string, unknown>
+        ).location
+      ).toBe('New York');
     });
   });
 

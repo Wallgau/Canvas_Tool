@@ -66,9 +66,9 @@ export const ToolCard = ({
       tabIndex={0}
       aria-label={`${displayName} tool card`}
     >
-      <header className="toolHeader">
+      <header className='toolHeader'>
         <button
-          className="dragHandle"
+          className='dragHandle'
           data-drag-handle='true'
           type='button'
           aria-label={`Move ${displayName} tool. Use arrow keys to reposition.`}
@@ -79,7 +79,7 @@ export const ToolCard = ({
             }
           }}
         >
-          <div className="dragIcon" aria-hidden='true'>
+          <div className='dragIcon' aria-hidden='true'>
             <span></span>
             <span></span>
             <span></span>
@@ -87,7 +87,7 @@ export const ToolCard = ({
         </button>
         <div
           id={`tool-${tool.id}-name`}
-          className="toolName"
+          className='toolName'
           role='heading'
           aria-level={3}
         >
@@ -95,7 +95,7 @@ export const ToolCard = ({
         </div>
         <button
           type='button'
-          className="deleteBtn"
+          className='deleteBtn'
           onClick={() => onDelete(tool.id)}
           aria-label={`Delete ${displayName} tool`}
           title='Delete tool'
@@ -106,14 +106,14 @@ export const ToolCard = ({
 
       <div
         id={`tool-${tool.id}-params`}
-        className="toolParams"
+        className='toolParams'
         role='group'
         aria-label='Tool parameters'
       >
         {Object.entries(tool.params).map(([key, value]) => (
-          <div key={key} className="paramRow">
+          <div key={key} className='paramRow'>
             <label
-              className="paramLabel"
+              className='paramLabel'
               htmlFor={`param-${tool.id}-${key}`}
               id={`label-${tool.id}-${key}`}
             >
@@ -125,7 +125,7 @@ export const ToolCard = ({
                 type='text'
                 value={editParams[key] || ''}
                 onChange={e => handleParamChange(key, e.target.value)}
-                className="paramInput"
+                className='paramInput'
                 aria-label={`Edit ${key} parameter`}
                 aria-describedby={`label-${tool.id}-${key}`}
                 autoFocus
@@ -140,7 +140,7 @@ export const ToolCard = ({
             ) : (
               <button
                 type='button'
-                className="paramValue"
+                className='paramValue'
                 onClick={() => startEditing(key)}
                 onKeyDown={e => handleKeyPress(e, key)}
                 aria-label={`${key}: ${value || 'empty'}. Press Enter or Space to edit`}
@@ -155,15 +155,11 @@ export const ToolCard = ({
       </div>
 
       {isEditing && (
-        <div
-          className="editActions"
-          role='group'
-          aria-label='Edit actions'
-        >
+        <div className='editActions' role='group' aria-label='Edit actions'>
           <button
             type='button'
             onClick={handleSaveParams}
-            className="saveBtn"
+            className='saveBtn'
             aria-label='Save parameter changes'
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -177,7 +173,7 @@ export const ToolCard = ({
           <button
             type='button'
             onClick={handleCancelEdit}
-            className="cancelBtn"
+            className='cancelBtn'
             aria-label='Cancel parameter changes'
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {

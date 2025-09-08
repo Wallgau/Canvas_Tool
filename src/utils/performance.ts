@@ -87,7 +87,10 @@ export const optimizeImage = (img: HTMLImageElement): void => {
 
 // Performance monitoring
 export const measurePerformance = (name: string, fn: () => void): void => {
-  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'development') {
+  if (
+    typeof process !== 'undefined' &&
+    process.env.NODE_ENV === 'development'
+  ) {
     const start = performance.now();
     fn();
     const end = performance.now();

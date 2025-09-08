@@ -24,7 +24,13 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "src/types/jsx.d.ts", "src/types/css-modules.d.ts", "src/vite-env.d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/types/jsx.d.ts",
+    "src/types/css-modules.d.ts",
+    "src/vite-env.d.ts"
+  ],
   "exclude": [
     "**/*.test.*",
     "**/*.spec.*",
@@ -35,6 +41,8 @@
     "**/vitest.config.*",
     "**/vite.config.*",
     "**/*.test.tsx",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "**/__tests__/**/*",
+    "**/test/**/*"
   ]
 }
