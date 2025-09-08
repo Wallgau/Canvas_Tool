@@ -1,79 +1,136 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => {
   const isProduction = command === 'build';
-  
+
   return {
-    plugins: [react()],
+    plugins: [
+      react({
+        // Disable React DevTools in dev
+        include: '**/*.{jsx,tsx}',
+        // Optimize JSX runtime
+        jsxRuntime: 'automatic',
+      }),
+    ],
+    esbuild: {
+      target: 'es2020',
+      logOverride: { 'this-is-undefined-in-esm': 'silent' },
+      ...(command === 'serve' && {
+        logLevel: 'silent',
+        logOverride: { 'this-is-undefined-in-esm': 'silent' },
+        // More aggressive dev optimizations
+        treeShaking: true,
+        drop: ['console', 'debugger'],
+        legalComments: 'none',
+        sourcemap: false,
+      }),
+      drop: isProduction ? ['console', 'debugger'] : [],
+    },
     server: {
       port: 5173,
       host: true,
       strictPort: true,
-      // Extreme performance optimizations
-      hmr: {
-        overlay: false,
-        port: 24678, // Use different port for HMR
-      },
-      // Minimal file watching
+      // Extreme performance optimizations - disable HMR entirely
+      hmr: false, // Completely disable HMR for maximum performance
+      // Minimal file watching - more aggressive
       watch: {
         usePolling: false,
-        interval: 300,
-        ignored: ['**/node_modules/**', '**/dist/**']
+        interval: 2000, // Even less frequent checks
+        ignored: [
+          '**/node_modules/**',
+          '**/dist/**',
+          '**/coverage/**',
+          '**/*.test.*',
+          '**/*.spec.*',
+          '**/*_backup.*',
+          '**/*_fixed.*',
+          '**/.git/**',
+          '**/src/**/*.test.*',
+          '**/src/**/*.spec.*',
+        ],
       },
       // Faster middleware
       middlewareMode: false,
+      // Enable compression
+      compression: true,
+      // Disable fs strict mode for faster file access
+      fs: {
+        strict: false,
+        allow: ['..'],
+      },
+      // Disable source map serving for faster dev
+      // sourcemapIgnoreList: true // Removed - not supported in this Vite version
     },
-    // Aggressive development optimizations
+    // Optimized CSS handling
     css: {
       devSourcemap: false,
-      postcss: undefined, // Skip PostCSS in dev
+      postcss: undefined,
       preprocessorOptions: {},
-      modules: false, // Disable CSS modules for faster processing
+      modules: {
+        localsConvention: 'camelCase',
+        generateScopedName: '[name]__[local]___[hash:base64:5]',
+      },
     },
+    // Additional performance optimizations
+    logLevel: 'warn', // Reduce log verbosity
+    clearScreen: false, // Don't clear screen on restart
+    // Disable TypeScript checking in dev for faster builds
+    ...(command === 'serve' && {
+      build: {
+        rollupOptions: {
+          external: (): boolean => {
+            // Skip TypeScript checking for faster dev builds
+            return false;
+          },
+        },
+      },
+    }),
     // Minimal transforms in development
     define: {
       __DEV__: !isProduction,
     },
-  build: {
-    target: 'es2015',
-    minify: 'esbuild',
-    cssMinify: true,
-    sourcemap: true, // Add sourcemaps for debugging like dev
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom']
-        }
-      }
-    },
-    reportCompressedSize: false, // Faster builds
-    chunkSizeWarningLimit: 1000
-  },
     optimizeDeps: {
       include: ['react', 'react-dom'],
-      // Force immediate optimization
-      force: true,
+      force: false, // Don't force re-optimization unless needed
       entries: ['./src/main.tsx'],
       esbuildOptions: {
         target: 'es2020',
         loader: { '.js': 'jsx' },
-        // Ultra-fast dev transforms
-        minify: false,
+        minify: true,
         keepNames: false,
-        treeShaking: false,
+        treeShaking: true,
         sourcemap: false,
-      }
+        // More aggressive optimizations
+        drop: ['console', 'debugger'],
+        legalComments: 'none',
+      },
     },
-    // Faster builds
-    esbuild: {
-      target: 'es2020',
-      logOverride: { 'this-is-undefined-in-esm': 'silent' },
-      // Skip unnecessary features in dev
-      drop: isProduction ? ['console', 'debugger'] : [],
+    // Performance optimizations
+    build: {
+      target: 'es2015',
+      minify: 'esbuild',
+      cssMinify: true,
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            components: [
+              './src/components/ToolCanvasV2/ToolCanvasV2.tsx',
+              './src/components/ToolCard/ToolCard.tsx',
+            ],
+          },
+        },
+      },
+      reportCompressedSize: true,
+      chunkSizeWarningLimit: 1000,
+      assetsInlineLimit: 4096,
+      cssCodeSplit: true, // Split CSS for better caching
     },
+    // Faster builds - esbuild config moved up
     test: {
       globals: true,
       environment: 'jsdom',

@@ -1,9 +1,10 @@
+/* Desktop-optimized Button */
 .button {
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: 1px solid transparent;
+  border: 1px solid transparent !important;
   border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
@@ -12,6 +13,8 @@
   text-decoration: none;
   outline: none;
   white-space: nowrap;
+  background-color: transparent !important;
+  color: inherit !important;
 }
 
 .button:disabled {
@@ -37,8 +40,12 @@
 
 /* Color variants */
 .primary {
-  background-color: #007bff;
-  color: white;
+  background-color: #007bff !important;
+  color: #ffffff !important;
+}
+
+.primary .content {
+  color: #ffffff !important;
 }
 
 .primary:hover {
@@ -46,8 +53,12 @@
 }
 
 .secondary {
-  background-color: #6c757d;
-  color: white;
+  background-color: #6c757d !important;
+  color: #ffffff !important;
+}
+
+.secondary .content {
+  color: #ffffff !important;
 }
 
 .secondary:hover {
@@ -55,8 +66,12 @@
 }
 
 .destructive {
-  background-color: #dc3545;
-  color: white;
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+}
+
+.destructive .content {
+  color: #ffffff !important;
 }
 
 .destructive:hover {
@@ -64,9 +79,13 @@
 }
 
 .outline {
-  border: 1px solid #007bff;
-  background-color: transparent;
-  color: #007bff;
+  border: 1px solid #007bff !important;
+  background-color: transparent !important;
+  color: #007bff !important;
+}
+
+.outline .content {
+  color: #007bff !important;
 }
 
 .outline:hover {
@@ -77,61 +96,6 @@
 /* Loading state */
 .loading {
   pointer-events: none;
-}
-
-/* Mobile touch optimizations */
-@media (max-width: 768px) {
-  .button {
-    min-height: 44px;
-    padding: 0.75rem 1.25rem;
-    font-size: 0.95rem;
-    touch-action: manipulation;
-  }
-  
-  .sm {
-    min-height: 40px;
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-  }
-  
-  .md {
-    min-height: 44px;
-    padding: 0.75rem 1.25rem;
-    font-size: 0.95rem;
-  }
-  
-  .lg {
-    min-height: 48px;
-    padding: 1rem 1.75rem;
-    font-size: 1.05rem;
-  }
-}
-
-/* Small mobile devices */
-@media (max-width: 480px) {
-  .button {
-    min-height: 48px;
-    padding: 0.75rem 1rem;
-    border-radius: 10px;
-  }
-  
-  .sm {
-    min-height: 40px;
-    padding: 0.5rem 0.75rem;
-    border-radius: 8px;
-  }
-  
-  .md {
-    min-height: 48px;
-    padding: 0.75rem 1rem;
-    border-radius: 10px;
-  }
-  
-  .lg {
-    min-height: 52px;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-  }
 }
 
 .spinner {
@@ -173,4 +137,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: inherit !important;
+}
+
+.fullWidth {
+  width: 100%;
 }

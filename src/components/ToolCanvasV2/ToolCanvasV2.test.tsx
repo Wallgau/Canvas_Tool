@@ -2,6 +2,7 @@
  * ToolCanvasV2 tests - focused on user critical features
  */
 
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
@@ -168,7 +169,11 @@ describe('ToolCanvasV2 - User Critical Features', () => {
 
     // Modal should open
     expect(screen.getByText('Clear All Tools')).toBeInTheDocument();
-    expect(screen.getByText('Are you sure you want to clear all tools? This action cannot be undone.')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Are you sure you want to clear all tools? This action cannot be undone.'
+      )
+    ).toBeInTheDocument();
 
     // User confirms the clear action
     const confirmButton = screen.getByRole('button', { name: /clear all/i });

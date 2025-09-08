@@ -10,11 +10,6 @@ export interface ToolCanvasV2Props {
 }
 
 // Canvas related types
-export interface CanvasSize {
-  width: number;
-  height: number;
-}
-
 export interface Position {
   x: number;
   y: number;
@@ -24,11 +19,10 @@ export interface Position {
 export interface ToolManagementState {
   tools: Tool[];
   availableTools: ToolTemplate[];
-  canvasSize: CanvasSize;
 }
 
 export interface ToolManagementActions {
-  addTool: (template: ToolTemplate) => void;
+  addTool: (template: ToolTemplate) => string;
   updateTool: (id: string, updates: Partial<Tool>) => void;
   deleteTool: (id: string) => void;
   clearAllTools: () => void;
@@ -55,7 +49,6 @@ export interface ToolSelectorProps {
 // Canvas types
 export interface CanvasProps {
   tools: Tool[];
-  canvasSize: CanvasSize;
   onUpdateTool: (id: string, updates: Partial<Tool>) => void;
   onDeleteTool: (id: string) => void;
   onReorderTools?: (fromIndex: number, toIndex: number) => void;

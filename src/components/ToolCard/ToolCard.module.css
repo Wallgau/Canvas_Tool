@@ -1,48 +1,40 @@
-/* Solid Tool Card with proper contrast */
+/* Desktop-optimized Tool Card */
 .toolCard {
   background-color: #fff;
   color: #333;
   border: 2px solid #ddd;
   border-radius: 8px;
-  box-shadow: 
+  box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   padding: 1.5rem;
-  width: 13.5rem;
-  box-sizing: border-box; /* Include padding and border in width */
+  width: 18rem;
+  box-sizing: border-box;
   user-select: none;
   transition: all 0.2s ease;
   position: relative;
   z-index: 1;
 }
 
-.toolCard:hover {
+.toolCard:hover,
+.toolCard:focus {
   border-color: #007bff;
-  box-shadow: 
+  box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05),
     0 0 0 1px rgba(0, 123, 255, 0.5);
   transform: translateY(-2px);
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
 }
 
 .toolCard.dragging {
   transform: scale(1.05) rotate(2deg);
-  box-shadow: 
+  box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.25),
     0 0 0 2px #007bff;
   border-color: #007bff;
   z-index: 1000;
-}
-
-/* Mobile reordering state */
-.toolCard.mobileReordering {
-  transform: scale(1.02) rotate(2deg);
-  opacity: 0.8;
-  z-index: 1000;
-  box-shadow: 
-    0 0.5rem 1rem rgba(0, 0, 0, 0.3),
-    0 0 0 2px #007bff;
-  border-color: #007bff;
 }
 
 .toolHeader {
@@ -54,7 +46,7 @@
 
 .dragHandle {
   cursor: grab;
-  color: #666;
+  color: #333;
   user-select: none;
   padding: 0.5rem;
   border-radius: 8px;
@@ -71,14 +63,16 @@
 
 .dragHandle:hover,
 .dragHandle:focus {
-  background-color: rgba(0, 123, 255, 0.1);
-  color: #007bff;
+  background-color: rgba(0, 123, 255, 0.15);
+  color: #0056b3;
   outline: none;
 }
 
 .dragHandle:focus-visible {
   outline: 2px solid #007bff;
   outline-offset: 2px;
+  background-color: rgba(0, 123, 255, 0.2);
+  color: #0056b3;
 }
 
 .dragHandle:active {
@@ -126,7 +120,7 @@
 .deleteBtn {
   background: none;
   border: 1px solid transparent;
-  color: #666;
+  color: #333;
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0;
@@ -148,8 +142,10 @@
 }
 
 .deleteBtn:focus-visible {
-  outline: 2px solid #007bff;
+  outline: 2px solid #dc3545;
   outline-offset: 2px;
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
 }
 
 /* Tool Parameters */
@@ -168,7 +164,7 @@
 .paramLabel {
   font-size: 0.85rem;
   font-weight: 500;
-  color: #666;
+  color: #333;
   min-width: 60px;
 }
 
@@ -188,7 +184,7 @@
 
 .paramValue:hover,
 .paramValue:focus {
-  background-color: rgba(0, 123, 255, 0.05);
+  background-color: rgba(0, 123, 255, 0.1);
   border-color: #007bff;
   outline: none;
 }
@@ -196,6 +192,8 @@
 .paramValue:focus-visible {
   outline: 2px solid #007bff;
   outline-offset: 2px;
+  background-color: rgba(0, 123, 255, 0.1);
+  border-color: #007bff;
 }
 
 .paramInput {
@@ -207,6 +205,13 @@
   outline: none;
   background-color: #fff;
   color: #333;
+  transition: all 0.15s ease;
+}
+
+.paramInput:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 /* Edit Actions */
@@ -238,6 +243,8 @@
 .saveBtn:focus-visible {
   outline: 2px solid #007bff;
   outline-offset: 2px;
+  background-color: #0056b3;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
 .cancelBtn {
@@ -259,146 +266,8 @@
 }
 
 .cancelBtn:focus-visible {
-  outline: 2px solid #007bff;
+  outline: 2px solid #6c757d;
   outline-offset: 2px;
+  background-color: #545b62;
+  box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.2);
 }
-
-/* Mobile and tablet optimizations */
-@media (max-width: 768px) {
-  .toolCard {
-    min-width: 280px;
-    max-width: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 1.25rem;
-    touch-action: manipulation;
-    position: static !important;
-    left: auto !important;
-    top: auto !important;
-    transform: none !important;
-  }
-  
-  .toolCard:hover {
-    transform: none;
-  }
-  
-  .toolHeader {
-    margin-bottom: 1.25rem;
-  }
-  
-  .dragHandle,
-  .deleteBtn {
-    min-width: 44px;
-    min-height: 44px;
-    padding: 0.75rem;
-  }
-  
-  .toolName {
-    font-size: 1.2rem;
-    line-height: 1.3;
-  }
-  
-  .paramValue,
-  .paramInput {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
-    min-height: 44px;
-    border-radius: 10px;
-  }
-  
-  .paramLabel {
-    font-size: 0.9rem;
-    min-width: 70px;
-  }
-  
-  .saveBtn,
-  .cancelBtn {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-    min-height: 44px;
-    border-radius: 10px;
-  }
-}
-
-/* Small mobile devices */
-@media (max-width: 480px) {
-  .toolCard {
-    min-width: 260px;
-    max-width: 100%;
-    width: 100%;
-    padding: 1rem;
-    margin: 0;
-    position: static !important;
-    left: auto !important;
-    top: auto !important;
-    transform: none !important;
-  }
-  
-  .toolHeader {
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .dragHandle,
-  .deleteBtn {
-    min-width: 40px;
-    min-height: 40px;
-    padding: 0.5rem;
-  }
-  
-  .toolName {
-    font-size: 1.1rem;
-  }
-  
-  .paramRow {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.25rem;
-  }
-  
-  .paramLabel {
-    min-width: auto;
-    font-size: 0.85rem;
-  }
-  
-  .paramValue,
-  .paramInput {
-    padding: 0.5rem;
-    font-size: 0.85rem;
-    min-height: 40px;
-  }
-  
-  .editActions {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .saveBtn,
-  .cancelBtn {
-    width: 100%;
-    justify-content: center;
-    min-height: 48px;
-  }
-}
-
-/* Desktop enhancements */
-@media (min-width: 1200px) {
-  .toolCard {
-    min-width: 260px;
-    max-width: 360px;
-    padding: 1.5rem;
-  }
-  
-  .toolName {
-    font-size: 1.2rem;
-  }
-  
-  .paramValue,
-  .paramInput {
-    padding: 0.35rem 0.6rem;
-  }
-  
-  .dragHandle:hover .dragIcon span {
-    width: 20px;
-  }
-} 

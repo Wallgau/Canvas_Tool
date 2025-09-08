@@ -2,7 +2,7 @@
  * SideMenu component types and interfaces
  */
 
-export interface SideMenuOption<T = any> {
+export interface SideMenuOption<T = unknown> {
   id: string;
   title: string;
   description?: string;
@@ -11,7 +11,7 @@ export interface SideMenuOption<T = any> {
   disabled?: boolean;
 }
 
-export interface SideMenuProps<T = any> {
+export interface SideMenuProps<T = unknown> {
   options: SideMenuOption<T>[];
   isVisible: boolean;
   onSelect: (option: SideMenuOption<T>) => void;

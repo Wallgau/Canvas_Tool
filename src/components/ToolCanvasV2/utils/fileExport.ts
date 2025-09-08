@@ -20,7 +20,7 @@ export const createExportData = (tools: Tool[]): ExportData => {
   return {
     tools,
     timestamp: new Date().toISOString(),
-    version: FILE_EXPORT_CONSTANTS.VERSION
+    version: FILE_EXPORT_CONSTANTS.VERSION,
   };
 };
 
@@ -30,30 +30,32 @@ export const createExportData = (tools: Tool[]): ExportData => {
 export const exportToolsToJSON = (tools: Tool[]): void => {
   const exportData = createExportData(tools);
   const jsonString = JSON.stringify(exportData, null, 2);
-  
+
   // Create blob and URL
-  const blob = new Blob([jsonString], { type: FILE_EXPORT_CONSTANTS.MIME_TYPE });
+  const blob = new Blob([jsonString], {
+    type: FILE_EXPORT_CONSTANTS.MIME_TYPE,
+  });
   const url = URL.createObjectURL(blob);
-  
+
   // Generate filename with timestamp
   const timestamp = generateTimestamp();
   const filename = `${FILE_EXPORT_CONSTANTS.FILE_PREFIX}-${timestamp}.json`;
-  
+
   // Create temporary download link
   const link = document.createElement('a');
   link.href = url;
   link.download = filename;
   link.style.display = 'none';
-  
+
   // Trigger download
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  
+
   // Clean up the URL
   URL.revokeObjectURL(url);
-  
-  console.log('Exported JSON file:', filename);
+
+  // Exported JSON file successfully
 };
 
 /**

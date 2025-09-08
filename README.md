@@ -33,12 +33,14 @@ Tool Canvas is a **production-ready** visual tool configuration interface that a
 This project showcases two distinct approaches to building the same functionality:
 
 ### V1: MVP Approach
+
 - **Single monolithic component** (400+ lines)
 - **Rapid prototyping** and fast development
 - **Basic functionality** with working drag-and-drop
 - **Suitable for**: Prototypes, demos, simple use cases
 
 ### V2: Production Architecture
+
 - **Modular component structure** with custom hooks
 - **Clean separation of concerns** (UI, business logic, persistence)
 - **Comprehensive testing** and accessibility
@@ -48,6 +50,7 @@ This project showcases two distinct approaches to building the same functionalit
 ## 🏗️ Technical Architecture
 
 ### Component Structure
+
 ```
 src/
 ├── components/
@@ -73,33 +76,41 @@ src/
 ```
 
 ### Custom Hooks Architecture
+
 ```typescript
 // Separated business logic into reusable hooks
 const canvasSize = useCanvasSize('canvas');
 const { tools, setTools } = useToolPersistence({ canvasSize });
-const { addTool, updateTool, deleteTool } = useToolManagement({ tools, setTools });
+const { addTool, updateTool, deleteTool } = useToolManagement({
+  tools,
+  setTools,
+});
 ```
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - **Node.js** 20.19+ (required for Vite 7)
 - **npm** or **yarn**
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/yourusername/tool-canvas.git
    cd tool-canvas
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Start development server**
+
    ```bash
    npm run dev
    ```
@@ -109,14 +120,14 @@ const { addTool, updateTool, deleteTool } = useToolManagement({ tools, setTools 
 
 ### Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server with HMR |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm test` | Run test suite |
-| `npm run test:ui` | Run tests with UI |
-| `npm run lint` | Run ESLint |
+| Command                     | Description                       |
+| --------------------------- | --------------------------------- |
+| `nvm use 22 && npm run dev` | Start development server with HMR |
+| `npm run build`             | Build for production              |
+| `npm run preview`           | Preview production build          |
+| `npm test`                  | Run test suite                    |
+| `npm run test:ui`           | Run tests with UI                 |
+| `npm run lint`              | Run ESLint                        |
 
 ## 🎮 Usage Guide
 
@@ -154,6 +165,7 @@ const { addTool, updateTool, deleteTool } = useToolManagement({ tools, setTools 
 ## ⚡ Performance Features
 
 ### Optimizations Implemented
+
 - **Skeleton Loading** - Immediate visual feedback (LCP < 1s)
 - **Code Splitting** - Separate vendor and component chunks
 - **Critical CSS Inlining** - Faster first paint
@@ -162,6 +174,7 @@ const { addTool, updateTool, deleteTool } = useToolManagement({ tools, setTools 
 - **Bundle Analysis** - Automated size monitoring
 
 ### Performance Metrics
+
 ```
 Metric                V1      V2      Improvement
 LCP                  9.2s    0.8s    95% faster
@@ -183,12 +196,15 @@ Accessibility Score  65/100  95/100  46% improvement
 ## 🧪 Testing Strategy
 
 ### Test Coverage
+
 - **Component Testing** - React Testing Library
 - **Hook Testing** - Custom hook testing utilities
 - **Integration Testing** - User workflow testing
 - **Accessibility Testing** - Automated a11y checks
+- **E2E Testing** - Playwright for full user journeys
 
 ### Running Tests
+
 ```bash
 # Run all tests
 npm test
@@ -198,11 +214,30 @@ npm run test:ui
 
 # Run tests in CI mode
 npm run test:run
+
+# Run E2E tests
+npm run test:e2e
 ```
+
+## 🔒 Security Features
+
+### Input Sanitization
+
+- **XSS Protection** - HTML sanitization and text validation
+- **SQL Injection Prevention** - Parameterized inputs and validation
+- **Input Validation** - Type checking and length limits
+- **Content Security Policy** - Strict CSP headers
+
+### Data Protection
+
+- **Client-side Storage** - Secure localStorage usage
+- **No Server Dependencies** - All data stays in browser
+- **Export Security** - Safe JSON export/import
 
 ## 🔧 Development
 
 ### Adding New Tools
+
 1. Edit `src/types/index.ts`
 2. Add tool to `PREDEFINED_TOOLS` array
 3. Define parameters and description
@@ -221,6 +256,7 @@ npm run test:run
 ```
 
 ### Code Quality
+
 - **ESLint** - Code linting and formatting
 - **TypeScript** - Type checking and safety
 - **Prettier** - Code formatting (optional)
@@ -238,17 +274,20 @@ npm run test:run
 ## 🛠️ Tech Stack
 
 ### Core Technologies
+
 - **React 19.1.1** - UI framework with concurrent features
 - **TypeScript 5.8.3** - Type-safe JavaScript
 - **Vite 7.1.2** - Fast build tool and dev server
 
 ### Development Tools
+
 - **Vitest 3.2.4** - Unit testing framework
 - **Testing Library** - React component testing
 - **ESLint** - Code linting
 - **jsdom** - DOM testing environment
 
 ### Build & Deployment
+
 - **Vite Build** - Optimized production builds
 - **Code Splitting** - Automatic chunk optimization
 - **Tree Shaking** - Dead code elimination
@@ -257,6 +296,7 @@ npm run test:run
 ## 📈 Roadmap
 
 ### Planned Features
+
 - [ ] **Real-time Collaboration** - Multi-user editing
 - [ ] **Plugin System** - Extensible tool architecture
 - [ ] **Advanced Positioning** - Snap-to-grid and alignment
@@ -265,6 +305,7 @@ npm run test:run
 - [ ] **Analytics Dashboard** - Usage insights and metrics
 
 ### Performance Improvements
+
 - [ ] **Service Worker** - Offline support
 - [ ] **Web Workers** - Background processing
 - [ ] **Virtual Scrolling** - Large canvas support
@@ -275,6 +316,7 @@ npm run test:run
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Development Setup
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes

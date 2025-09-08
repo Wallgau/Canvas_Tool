@@ -2,5 +2,6 @@
  * ToolCanvasV2 - Clean exports
  */
 
-export { ToolCanvasV2 } from './ToolCanvasV2';
-export type { ToolCanvasV2Props } from './ToolCanvasV2.types';
+export { default as ToolCanvasV2 } from './ToolCanvasV2';
+export { default } from './ToolCanvasV2';
+// Types are now exported from src/types/components.ts

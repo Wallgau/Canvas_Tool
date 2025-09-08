@@ -2,6 +2,7 @@
  * Tests for useParameterEditing hook
  */
 
+import React from 'react';
 import { renderHook, act } from '@testing-library/react';
 import { useParameterEditing } from '../useParameterEditing';
 import type { Tool } from '../../../../types';

@@ -1,4 +1,4 @@
-/* Responsive canvas with touch support and flex layout */
+/* Desktop-optimized canvas */
 .canvas {
   position: relative;
   width: 100%;
@@ -10,25 +10,6 @@
   overflow: auto;
   min-height: 400px;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  touch-action: manipulation;
-}
-
-/* Desktop: Use absolute positioning for free placement */
-@media (min-width: 769px) {
-  .canvas {
-    /* Absolute positioning mode for desktop */
-  }
-}
-
-/* Mobile: Use flex layout for automatic vertical stacking */
-@media (max-width: 768px) {
-  .canvas {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
 }
 
 /* Empty state */
@@ -40,7 +21,7 @@
 
 .emptyState {
   text-align: center;
-  color: #666;
+  color: #444;
   max-width: 400px;
 }
 
@@ -63,67 +44,6 @@
   line-height: 1.5;
 }
 
-/* Mobile canvas optimizations - consolidated */
-@media (max-width: 768px) {
-  .canvas {
-    height: calc(100vh - 120px);
-    min-height: calc(100vh - 120px);
-    padding: 15px;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    overflow-x: auto;
-    overflow-y: auto;
-    /* Flex layout is already applied above */
-  }
-  
-  .emptyState {
-    padding: 2rem 1rem;
-  }
-  
-  .emptyIcon {
-    font-size: 3rem;
-  }
-  
-  .emptyTitle {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .emptyDescription {
-    font-size: 0.9rem;
-    max-width: 280px;
-    margin: 0 auto;
-  }
-}
-
-/* Small mobile devices */
-@media (max-width: 480px) {
-  .canvas {
-    height: calc(100vh - 100px);
-    min-height: calc(100vh - 100px);
-    padding: 10px;
-    border-radius: 0;
-  }
-  
-  .emptyState {
-    padding: 1.5rem 0.75rem;
-  }
-  
-  .emptyIcon {
-    font-size: 2.5rem;
-  }
-  
-  .emptyTitle {
-    font-size: 1.1rem;
-  }
-  
-  .emptyDescription {
-    font-size: 0.85rem;
-    max-width: 250px;
-  }
-}
-
 /* Desktop enhancements */
 @media (min-width: 1200px) {
   .canvas {
@@ -131,15 +51,15 @@
     min-height: 500px;
     padding: 24px;
   }
-  
+
   .emptyIcon {
     font-size: 5rem;
   }
-  
+
   .emptyTitle {
     font-size: 1.75rem;
   }
-  
+
   .emptyDescription {
     font-size: 1.1rem;
     max-width: 500px;

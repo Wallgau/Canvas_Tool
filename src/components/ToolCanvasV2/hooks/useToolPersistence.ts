@@ -11,6 +11,9 @@ import { getDefaultPosition } from '../utils/positioning';
 export const useToolPersistence = (): {
   tools: Tool[];
   setTools: React.Dispatch<React.SetStateAction<Tool[]>>;
+  updateDefaultToolPosition: () => void;
+  clearStorage: () => void;
+  hasUnsavedChanges: () => boolean;
 } => {
   // Track if this is initial load to prevent saving default data immediately
   const isInitialLoadRef = useRef(true);

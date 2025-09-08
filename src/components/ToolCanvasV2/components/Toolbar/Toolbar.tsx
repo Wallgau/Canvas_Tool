@@ -4,7 +4,8 @@
  */
 
 // Toolbar component - pure UI
-import { Button } from '../../../shared/Button/Button';
+import React from 'react';
+import Button from '../../../shared/Button/Button';
 import type { ToolbarProps } from '../../ToolCanvasV2.types';
 // CSS inlined in index.html for optimal performance
 
@@ -13,40 +14,40 @@ export const Toolbar = ({
   onExport,
   onClear,
   showAddTool,
-  hasTools
-}: ToolbarProps) => {
+  hasTools,
+}: ToolbarProps): React.JSX.Element => {
   return (
-    <header className="toolbar" role="banner">
-      <h1 id="main-heading">🛠️ Tool Canvas</h1>
-      <nav className="actions" role="toolbar" aria-label="Canvas actions">
+    <header className='toolbar' role='banner'>
+      <h1 id='main-heading'>Tool Canvas</h1>
+      <div className='actions' role='toolbar' aria-label='Canvas actions'>
         <Button
-          variant="primary"
+          variant='primary'
           onClick={onAddTool}
           aria-expanded={showAddTool}
-          aria-haspopup="menu"
-          aria-label="Add a new tool to the canvas"
+          aria-haspopup='menu'
+          aria-label='Add a new tool to the canvas'
         >
           Add Tool
         </Button>
-        
+
         <Button
-          variant="outline"
+          variant='outline'
           onClick={onExport}
           disabled={!hasTools}
-          aria-label="Export current canvas configuration as JSON file"
+          aria-label='Export current canvas configuration as JSON file'
         >
           Export
         </Button>
-        
+
         <Button
-          variant="destructive"
+          variant='destructive'
           onClick={onClear}
           disabled={!hasTools}
-          aria-label="Remove all tools from the canvas"
+          aria-label='Remove all tools from the canvas'
         >
           Clear All
         </Button>
-      </nav>
+      </div>
     </header>
   );
 };

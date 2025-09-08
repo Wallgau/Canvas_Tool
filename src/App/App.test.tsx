@@ -1,10 +1,11 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import App from './App';
 
 // Mock the ToolCanvasV2 component
 vi.mock('../components/ToolCanvasV2/ToolCanvasV2', () => ({
-  default: (): JSX.Element => (
+  default: (): React.JSX.Element => (
     <div data-testid='tool-canvas-v2'>Tool Canvas V2 Component</div>
   ),
 }));

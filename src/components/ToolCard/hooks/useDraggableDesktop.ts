@@ -65,6 +65,21 @@ export const useDraggableDesktop = ({
     setPosition(newPosition);
   }, []);
 
+  const handleMouseUp = useCallback((): void => {
+    if (!isDraggingRef.current) return;
+
+    setIsDragging(false);
+
+    // Call onDragEnd with final position
+    if (onDragEndRef.current) {
+      onDragEndRef.current(positionRef.current);
+    }
+
+    // Remove global event listeners
+    document.removeEventListener('mousemove', handleDesktopPosition);
+    document.removeEventListener('mouseup', handleMouseUp);
+  }, [handleDesktopPosition]);
+
   const handleMouseDown = useCallback(
     (e: React.MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -87,21 +102,6 @@ export const useDraggableDesktop = ({
     },
     [handleDesktopPosition, handleMouseUp]
   );
-
-  const handleMouseUp = useCallback((): void => {
-    if (!isDraggingRef.current) return;
-
-    setIsDragging(false);
-
-    // Call onDragEnd with final position
-    if (onDragEndRef.current) {
-      onDragEndRef.current(positionRef.current);
-    }
-
-    // Remove global event listeners
-    document.removeEventListener('mousemove', handleDesktopPosition);
-    document.removeEventListener('mouseup', handleMouseUp);
-  }, [handleDesktopPosition]);
 
   // Cleanup on unmount
   useEffect(() => {

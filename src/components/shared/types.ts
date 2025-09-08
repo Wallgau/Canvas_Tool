@@ -1,17 +1,4 @@
 /**
- * Shared component types - central export for all component types
+ * @deprecated This file is deprecated. Use src/types/components.ts instead.
+ * This file will be removed in a future version.
  */
-
-// Button types
-export type { 
-  ButtonVariant, 
-  ButtonSize, 
-  ButtonProps 
-} from './Button/Button.types';
-
-// SideMenu types
-export type { 
-  SideMenuOption, 
-  SideMenuProps, 
-  SideMenuPosition 
-} from './SideMenu/SideMenu.types';

@@ -16,23 +16,23 @@ export const exportToolsToJSON = (tools: Tool[]): void => {
   const exportData = tools.map(tool => ({
     name: tool.name,
     params: tool.params,
-    position: tool.position
+    position: tool.position,
   }));
-  
+
   const jsonString = JSON.stringify(exportData, null, 2);
   const blob = new Blob([jsonString], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-  
+
   const filename = `tool-canvas-${generateTimestamp()}.json`;
-  
+
   const link = document.createElement('a');
   link.href = url;
   link.download = filename;
   link.style.display = 'none';
-  
+
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  
+
   URL.revokeObjectURL(url);
 };
