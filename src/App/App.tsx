@@ -1,10 +1,9 @@
-import ToolCanvasV2 from '../components/ToolCanvasV2/ToolCanvasV2';
+import { ToolCanvasV2ReactFlow } from '../components/ToolCanvasV2/ToolCanvasV2ReactFlow';
 import React from 'react';
-import styles from './App.module.css';
 
 function App(): React.JSX.Element {
   return (
-    <div className={styles.App || 'App'} role='application'>
+    <div className="w-full h-screen overflow-hidden" role='application'>
       {/* ARIA live region for screen reader announcements */}
       <div
         id='live-region'
@@ -14,7 +13,7 @@ function App(): React.JSX.Element {
         aria-label='Status updates'
       />
 
-      <ToolCanvasV2 />
+      <ToolCanvasV2ReactFlow />
     </div>
   );
 }

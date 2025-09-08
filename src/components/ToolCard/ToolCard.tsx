@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import type { Tool } from '../../types';
-import { useDraggableDesktop } from './hooks/useDraggableDesktop';
 import { useParameterEditing } from './hooks/useParameterEditing';
 import { getToolDisplayName } from '../../utils/toolUtils';
-import styles from './ToolCard.module.css';
 
 interface ToolCardProps {
   tool: Tool;
@@ -45,48 +43,21 @@ export const ToolCard = ({
     handleCancelEdit,
   } = useParameterEditing({ tool, onUpdate });
 
-  const { dragProps, isDragging } = useDraggableDesktop({
-    initialPosition: tool.position,
-    onDragEnd: position => {
-      onUpdate({
-        ...tool,
-        position,
-      });
-    },
-  });
+  // Note: Drag and drop is now handled by ReactFlow
 
   return (
     <div
       ref={toolCardRef}
-      {...dragProps}
-      className={`${styles.toolCard || 'tool-card'} ${isDragging ? styles.dragging || 'dragging' : ''}`}
+      className="bg-white border-2 border-gray-200 rounded-lg shadow-sm p-4 min-w-72 hover:border-primary-500 hover:shadow-md transition-all"
       role='group'
       aria-labelledby={`tool-${tool.id}-name`}
       aria-describedby={`tool-${tool.id}-params`}
       tabIndex={0}
     >
-      <header className={styles.toolHeader || 'toolHeader'}>
-        <button
-          className={styles.dragHandle || 'dragHandle'}
-          data-drag-handle='true'
-          type='button'
-          aria-label={`Move ${displayName} tool. Use arrow keys to reposition.`}
-          onKeyDown={e => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              // Could implement keyboard-based repositioning here
-            }
-          }}
-        >
-          <div className={styles.dragIcon || 'dragIcon'} aria-hidden='true'>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </button>
+      <header className="flex items-center justify-between mb-3">
         <div
           id={`tool-${tool.id}-name`}
-          className={styles.toolName || 'toolName'}
+          className="font-semibold text-lg text-gray-900"
           role='heading'
           aria-level={3}
         >
@@ -94,7 +65,7 @@ export const ToolCard = ({
         </div>
         <button
           type='button'
-          className={styles.deleteBtn || 'deleteBtn'}
+          className="text-red-500 hover:text-red-700 p-1 rounded"
           onClick={() => onDelete(tool.id)}
           aria-label={`Delete ${displayName} tool`}
           title='Delete tool'
@@ -105,14 +76,14 @@ export const ToolCard = ({
 
       <div
         id={`tool-${tool.id}-params`}
-        className={styles.toolParams || 'toolParams'}
+        className="space-y-2"
         role='group'
         aria-label='Tool parameters'
       >
         {Object.entries(tool.params).map(([key, value]) => (
-          <div key={key} className={styles.paramRow || 'paramRow'}>
+          <div key={key} className="flex items-center gap-2">
             <label
-              className={styles.paramLabel || 'paramLabel'}
+              className="text-sm font-medium text-gray-600 min-w-20"
               htmlFor={`param-${tool.id}-${key}`}
               id={`label-${tool.id}-${key}`}
             >
@@ -124,7 +95,7 @@ export const ToolCard = ({
                 type='text'
                 value={editParams[key] || ''}
                 onChange={e => handleParamChange(key, e.target.value)}
-                className={styles.paramInput || 'paramInput'}
+                className="input flex-1"
                 aria-label={`Edit ${key} parameter`}
                 aria-describedby={`label-${tool.id}-${key}`}
                 autoFocus
@@ -139,7 +110,7 @@ export const ToolCard = ({
             ) : (
               <button
                 type='button'
-                className={styles.paramValue || 'paramValue'}
+                className="text-sm text-gray-900 bg-gray-50 px-2 py-1 rounded flex-1 text-left hover:bg-gray-100"
                 onClick={() => startEditing(key)}
                 onKeyDown={e => handleKeyPress(e, key)}
                 aria-label={`${key}: ${value || 'empty'}. Press Enter or Space to edit`}
@@ -154,11 +125,11 @@ export const ToolCard = ({
       </div>
 
       {isEditing && (
-        <div className={styles.editActions || 'editActions'} role='group' aria-label='Edit actions'>
+        <div className="flex gap-2 mt-4 pt-4 border-t border-gray-200" role='group' aria-label='Edit actions'>
           <button
             type='button'
             onClick={handleSaveParams}
-            className={styles.saveBtn || 'saveBtn'}
+            className="btn-primary"
             aria-label='Save parameter changes'
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -172,7 +143,7 @@ export const ToolCard = ({
           <button
             type='button'
             onClick={handleCancelEdit}
-            className={styles.cancelBtn || 'cancelBtn'}
+            className="btn-secondary"
             aria-label='Cancel parameter changes'
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {
