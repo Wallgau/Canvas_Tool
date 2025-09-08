@@ -22,21 +22,8 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
 
-      - name: Debug package files
-        run: |
-          echo "=== Package.json ==="
-          cat package.json
-          echo "=== Package-lock.json (first 50 lines) ==="
-          head -50 package-lock.json
-          echo "=== Node version ==="
-          node --version
-          echo "=== NPM version ==="
-          npm --version
-
       - name: Install dependencies
-        run: |
-          npm cache clean --force
-          npm ci --prefer-offline --no-audit
+        run: npm ci --prefer-offline --no-audit
 
       - name: Run type checking
         run: npm run type-check
@@ -76,21 +63,8 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
 
-      - name: Debug package files
-        run: |
-          echo "=== Package.json ==="
-          cat package.json
-          echo "=== Package-lock.json (first 50 lines) ==="
-          head -50 package-lock.json
-          echo "=== Node version ==="
-          node --version
-          echo "=== NPM version ==="
-          npm --version
-
       - name: Install dependencies
-        run: |
-          npm cache clean --force
-          npm ci --prefer-offline --no-audit
+        run: npm ci --prefer-offline --no-audit
 
       - name: Build application
         run: npm run build
