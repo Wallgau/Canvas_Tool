@@ -1,6 +1,6 @@
 import React, { memo, forwardRef } from 'react';
 import type { ButtonProps } from './Button.types';
-// import styles from './Button.module.css';
+import styles from './Button.module.css';
 
 // Types are now exported from src/types/components.ts
 
@@ -20,11 +20,11 @@ const Button = memo(
       ref
     ): React.JSX.Element => {
       const buttonClasses = [
-        'button',
-        variant,
-        size,
-        fullWidth && 'full-width',
-        isLoading && 'loading',
+        styles.button,
+        styles[variant],
+        styles[size],
+        fullWidth && styles['full-width'],
+        isLoading && styles.loading,
         className,
       ]
         .filter(Boolean)
@@ -40,12 +40,12 @@ const Button = memo(
           {...props}
         >
           {isLoading && (
-            <span className='spinner' aria-hidden='true'>
-              <span className='spinnerIcon'></span>
+            <span className={styles.spinner} aria-hidden='true'>
+              <span className={styles.spinnerIcon}></span>
             </span>
           )}
 
-          <span className='content'>{children}</span>
+          <span className={styles.content}>{children}</span>
         </button>
       );
     }

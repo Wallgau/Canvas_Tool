@@ -7,28 +7,32 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
-    // Memory optimizations - use processes instead of threads
+    // Ultra-fast configuration
     pool: 'forks',
     poolOptions: {
       forks: {
         singleFork: true,
       },
     },
-    // Reduce test timeout
-    testTimeout: 10000,
-    // Disable coverage for faster runs
+    // Very short timeout
+    testTimeout: 5000,
+    // Disable coverage
     coverage: {
       enabled: false,
     },
-    // Memory management
+    // Single test at a time
     maxConcurrency: 1,
-    // Reduce memory usage
-    isolate: true,
-    // Disable file watching
+    // No isolation for speed
+    isolate: false,
+    // No watching
     watch: false,
-    // Force sequential execution
+    // Sequential only
     sequence: {
       concurrent: false,
     },
+    // Skip slow tests
+    slowTestThreshold: 1000,
+    // Reporters
+    reporter: ['basic'],
   },
 });

@@ -1,10 +1,11 @@
 import ToolCanvasV2 from '../components/ToolCanvasV2/ToolCanvasV2';
 import React from 'react';
+import styles from './App.module.css';
 
 function App(): React.JSX.Element {
   return (
     <div
-      className='App'
+      className={styles.App}
       role='application'
       aria-label='Tool Canvas Application'
     >
