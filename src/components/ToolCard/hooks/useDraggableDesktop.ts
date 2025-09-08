@@ -4,11 +4,8 @@
  */
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-
-interface Position {
-  x: number;
-  y: number;
-}
+import type { Position } from '../../../types/global';
+import { pxToRem } from '../../../utils/positioning';
 
 interface UseDraggableDesktopOptions {
   onDragEnd?: (position: Position) => void;
@@ -46,7 +43,6 @@ export const useDraggableDesktop = ({
     startTop: 0,
   });
 
-  const pxToRem = (px: number): number => px / 16;
 
   /**
    * Handle desktop free positioning

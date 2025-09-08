@@ -1,9 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-
-interface Position {
-  x: number;
-  y: number;
-}
+import type { Position } from '../../../types/global';
+import { pxToRem } from '../../../utils/positioning';
 
 interface UseDraggableOptions {
   onDragEnd?: (position: Position) => void;
@@ -30,8 +27,6 @@ export const useDraggable = ({
     startTop: 0,
   });
 
-  // Convert pixels to rem (1rem = 16px typically)
-  const pxToRem = (px: number): number => px / 16;
 
   const handleMouseDown = (e: React.MouseEvent): void => {
     // Only drag if clicking on the drag handle

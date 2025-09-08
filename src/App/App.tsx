@@ -8,6 +8,15 @@ function App(): React.JSX.Element {
       role='application'
       aria-label='Tool Canvas Application'
     >
+      {/* ARIA live region for screen reader announcements */}
+      <div
+        id='live-region'
+        aria-live='polite'
+        aria-atomic='true'
+        className='sr-only'
+        aria-label='Status updates'
+      />
+      
       <ToolCanvasV2 />
     </div>
   );

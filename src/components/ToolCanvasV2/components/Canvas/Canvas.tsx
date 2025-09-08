@@ -29,7 +29,7 @@ export const Canvas = memo(
         aria-label='Tool canvas area'
       >
         {tools.length === 0 ? (
-          <div className='emptyState'>
+          <div className='emptyState' role='status' aria-live='polite'>
             <h2 className='emptyTitle'>No tools on canvas</h2>
             <p className='emptyDescription'>
               Click "Add Tool" to start building your tool workflow

@@ -27,7 +27,8 @@ const ConfirmationModal = lazy(() =>
 );
 
 // Utils
-import { exportToolsToJSON, canExport } from './utils/fileExport';
+import { exportToolsToJSON, canExport } from '../../utils/fileExport';
+import { announceToScreenReader } from '../../utils/accessibility';
 
 // CSS inlined in index.html for optimal performance
 
@@ -54,6 +55,8 @@ const ToolCanvasV2 = ({ className = '' }: ToolCanvasV2Props): React.JSX.Element 
   // Event handlers
   const handleAddTool = (): void => {
     setShowToolSelector(true);
+    // Announce to screen readers
+    announceToScreenReader('Tool selector opened. Use arrow keys to navigate and Enter to select.');
   };
 
   const handleSelectTool = (template: ToolTemplate): void => {
@@ -65,6 +68,9 @@ const ToolCanvasV2 = ({ className = '' }: ToolCanvasV2Props): React.JSX.Element 
 
     setShowToolSelector(false);
 
+    // Announce to screen readers
+    announceToScreenReader(`${template.displayName} tool added to canvas.`);
+
     // Clear the newly added tool ID after a delay
     setTimeout(() => {
       setNewlyAddedToolId(null);
@@ -73,6 +79,7 @@ const ToolCanvasV2 = ({ className = '' }: ToolCanvasV2Props): React.JSX.Element 
 
   const handleCloseSelector = (): void => {
     setShowToolSelector(false);
+    announceToScreenReader('Tool selector closed.');
   };
 
   const handleExport = (): void => {
@@ -81,6 +88,7 @@ const ToolCanvasV2 = ({ className = '' }: ToolCanvasV2Props): React.JSX.Element 
 
     if (canExport(tools)) {
       exportToolsToJSON(tools);
+      announceToScreenReader(`Exported ${tools.length} tools to JSON file.`);
     }
   };
 
@@ -91,6 +99,7 @@ const ToolCanvasV2 = ({ className = '' }: ToolCanvasV2Props): React.JSX.Element 
   const handleConfirmClear = (): void => {
     clearAllTools();
     setShowClearModal(false);
+    announceToScreenReader('All tools cleared from canvas.');
   };
 
   const handleCancelClear = (): void => {
