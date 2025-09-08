@@ -168,7 +168,7 @@ describe('ToolCanvasV2 - User Critical Features', () => {
     await user.click(clearButton);
 
     // Modal should open
-    expect(screen.getByText('Clear All Tools')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /clear all/i })).toBeInTheDocument();
     expect(
       screen.getByText(
         'Are you sure you want to clear all tools? This action cannot be undone.'

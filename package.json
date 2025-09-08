@@ -19,7 +19,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:run": "vitest run",
+    "test:run": "node --max-old-space-size=8192 ./node_modules/.bin/vitest run --reporter=verbose --run",
     "test:coverage": "vitest run --coverage",
     "test:a11y": "playwright test --config=playwright.config.js",
     "test:regression": "vitest run --reporter=verbose",
