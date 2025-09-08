@@ -3,7 +3,7 @@ import type { Tool } from '../../types';
 import { useDraggableDesktop } from './hooks/useDraggableDesktop';
 import { useParameterEditing } from './hooks/useParameterEditing';
 import { getToolDisplayName } from '../../utils/toolUtils';
-// import styles from './ToolCard.module.css';
+import styles from './ToolCard.module.css';
 
 interface ToolCardProps {
   tool: Tool;
@@ -59,15 +59,15 @@ export const ToolCard = ({
     <div
       ref={toolCardRef}
       {...dragProps}
-      className={`tool-card ${isDragging ? 'dragging' : ''}`}
+      className={`${styles.toolCard || 'tool-card'} ${isDragging ? styles.dragging || 'dragging' : ''}`}
       role='group'
       aria-labelledby={`tool-${tool.id}-name`}
       aria-describedby={`tool-${tool.id}-params`}
       tabIndex={0}
     >
-      <header className='toolHeader'>
+      <header className={styles.toolHeader || 'toolHeader'}>
         <button
-          className='dragHandle'
+          className={styles.dragHandle || 'dragHandle'}
           data-drag-handle='true'
           type='button'
           aria-label={`Move ${displayName} tool. Use arrow keys to reposition.`}
@@ -78,7 +78,7 @@ export const ToolCard = ({
             }
           }}
         >
-          <div className='dragIcon' aria-hidden='true'>
+          <div className={styles.dragIcon || 'dragIcon'} aria-hidden='true'>
             <span></span>
             <span></span>
             <span></span>
@@ -86,7 +86,7 @@ export const ToolCard = ({
         </button>
         <div
           id={`tool-${tool.id}-name`}
-          className='toolName'
+          className={styles.toolName || 'toolName'}
           role='heading'
           aria-level={3}
         >
@@ -94,7 +94,7 @@ export const ToolCard = ({
         </div>
         <button
           type='button'
-          className='deleteBtn'
+          className={styles.deleteBtn || 'deleteBtn'}
           onClick={() => onDelete(tool.id)}
           aria-label={`Delete ${displayName} tool`}
           title='Delete tool'
@@ -105,14 +105,14 @@ export const ToolCard = ({
 
       <div
         id={`tool-${tool.id}-params`}
-        className='toolParams'
+        className={styles.toolParams || 'toolParams'}
         role='group'
         aria-label='Tool parameters'
       >
         {Object.entries(tool.params).map(([key, value]) => (
-          <div key={key} className='paramRow'>
+          <div key={key} className={styles.paramRow || 'paramRow'}>
             <label
-              className='paramLabel'
+              className={styles.paramLabel || 'paramLabel'}
               htmlFor={`param-${tool.id}-${key}`}
               id={`label-${tool.id}-${key}`}
             >
@@ -124,7 +124,7 @@ export const ToolCard = ({
                 type='text'
                 value={editParams[key] || ''}
                 onChange={e => handleParamChange(key, e.target.value)}
-                className='paramInput'
+                className={styles.paramInput || 'paramInput'}
                 aria-label={`Edit ${key} parameter`}
                 aria-describedby={`label-${tool.id}-${key}`}
                 autoFocus
@@ -139,7 +139,7 @@ export const ToolCard = ({
             ) : (
               <button
                 type='button'
-                className='paramValue'
+                className={styles.paramValue || 'paramValue'}
                 onClick={() => startEditing(key)}
                 onKeyDown={e => handleKeyPress(e, key)}
                 aria-label={`${key}: ${value || 'empty'}. Press Enter or Space to edit`}
@@ -154,11 +154,11 @@ export const ToolCard = ({
       </div>
 
       {isEditing && (
-        <div className='editActions' role='group' aria-label='Edit actions'>
+        <div className={styles.editActions || 'editActions'} role='group' aria-label='Edit actions'>
           <button
             type='button'
             onClick={handleSaveParams}
-            className='saveBtn'
+            className={styles.saveBtn || 'saveBtn'}
             aria-label='Save parameter changes'
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -172,7 +172,7 @@ export const ToolCard = ({
           <button
             type='button'
             onClick={handleCancelEdit}
-            className='cancelBtn'
+            className={styles.cancelBtn || 'cancelBtn'}
             aria-label='Cancel parameter changes'
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {
