@@ -8,7 +8,7 @@ export const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout | null = null;
+  let timeout: ReturnType<typeof setTimeout> | null = null;
 
   return (...args: Parameters<T>): void => {
     if (timeout) clearTimeout(timeout);
@@ -87,7 +87,7 @@ export const optimizeImage = (img: HTMLImageElement): void => {
 
 // Performance monitoring
 export const measurePerformance = (name: string, fn: () => void): void => {
-  if (process.env.NODE_ENV === 'development') {
+  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'development') {
     const start = performance.now();
     fn();
     const end = performance.now();

@@ -23,13 +23,13 @@ const mockRemoveChild = vi.fn();
 const mockClick = vi.fn();
 
 beforeAll(() => {
-  // Mock global objects
-  Object.defineProperty(global, 'crypto', {
+  // Mock globalThis objects
+  Object.defineProperty(globalThis, 'crypto', {
     value: mockCrypto,
     writable: true,
   });
 
-  Object.defineProperty(global, 'URL', {
+  Object.defineProperty(globalThis, 'URL', {
     value: {
       createObjectURL: mockCreateObjectURL,
       revokeObjectURL: mockRevokeObjectURL,
@@ -37,7 +37,7 @@ beforeAll(() => {
     writable: true,
   });
 
-  Object.defineProperty(global, 'document', {
+  Object.defineProperty(globalThis, 'document', {
     value: {
       createElement: mockCreateElement,
       body: {
@@ -100,7 +100,7 @@ describe('fileExport', () => {
 
     it('should fallback to timestamp + random when crypto.randomUUID is not available', () => {
       // Mock crypto as undefined
-      Object.defineProperty(global, 'crypto', {
+      Object.defineProperty(globalThis, 'crypto', {
         value: undefined,
         writable: true,
       });
@@ -111,7 +111,7 @@ describe('fileExport', () => {
       expect(id.length).toBeGreaterThan(10); // timestamp + random string
 
       // Restore crypto mock
-      Object.defineProperty(global, 'crypto', {
+      Object.defineProperty(globalThis, 'crypto', {
         value: mockCrypto,
         writable: true,
       });
