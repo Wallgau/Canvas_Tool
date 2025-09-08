@@ -25,5 +25,14 @@
     "noUncheckedSideEffectImports": true
   },
   "include": ["src", "src/types/jsx.d.ts"],
-  "exclude": ["**/*.test.*", "**/*.spec.*", "**/*_backup.*", "**/*_fixed.*", "**/__tests__/**", "**/test/**", "**/vitest.config.*", "**/vite.config.*"]
+  "exclude": [
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/*_backup.*",
+    "**/*_fixed.*",
+    "**/__tests__/**",
+    "**/test/**",
+    "**/vitest.config.*",
+    "**/vite.config.*"
+  ]
 }

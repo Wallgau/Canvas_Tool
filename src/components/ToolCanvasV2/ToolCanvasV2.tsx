@@ -34,7 +34,9 @@ import { announceToScreenReader } from '../../utils/accessibility';
 
 // Types are now exported from src/types/components.ts
 
-const ToolCanvasV2 = ({ className = '' }: ToolCanvasV2Props): React.JSX.Element => {
+const ToolCanvasV2 = ({
+  className = '',
+}: ToolCanvasV2Props): React.JSX.Element => {
   // State for UI
   const [showToolSelector, setShowToolSelector] = useState(false);
   const [showClearModal, setShowClearModal] = useState(false);
@@ -56,7 +58,9 @@ const ToolCanvasV2 = ({ className = '' }: ToolCanvasV2Props): React.JSX.Element 
   const handleAddTool = (): void => {
     setShowToolSelector(true);
     // Announce to screen readers
-    announceToScreenReader('Tool selector opened. Use arrow keys to navigate and Enter to select.');
+    announceToScreenReader(
+      'Tool selector opened. Use arrow keys to navigate and Enter to select.'
+    );
   };
 
   const handleSelectTool = (template: ToolTemplate): void => {

@@ -27,7 +27,6 @@ export const useDraggable = ({
     startTop: 0,
   });
 
-
   const handleMouseDown = (e: React.MouseEvent): void => {
     // Only drag if clicking on the drag handle
     const target = e.target as HTMLElement;

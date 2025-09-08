@@ -5,7 +5,12 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "types": ["vitest/globals", "@types/react", "@types/react-dom", "@testing-library/jest-dom"],
+    "types": [
+      "vitest/globals",
+      "@types/react",
+      "@types/react-dom",
+      "@testing-library/jest-dom"
+    ],
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
@@ -19,13 +24,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "src/**/*.test.*",
-    "src/**/*.spec.*",
-    "src/test/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*.test.*", "src/**/*.spec.*", "src/test/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

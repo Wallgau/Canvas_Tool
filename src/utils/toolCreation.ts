@@ -28,12 +28,24 @@ export const getDefaultToolPosition = (canvasSize?: {
   width: number;
   height: number;
 }): Position => {
-  const defaultWidth = canvasSize?.width || LAYOUT_CONSTANTS.DEFAULT_CANVAS_WIDTH;
-  const defaultHeight = canvasSize?.height || LAYOUT_CONSTANTS.DEFAULT_CANVAS_HEIGHT;
-  
+  const defaultWidth =
+    canvasSize?.width || LAYOUT_CONSTANTS.DEFAULT_CANVAS_WIDTH;
+  const defaultHeight =
+    canvasSize?.height || LAYOUT_CONSTANTS.DEFAULT_CANVAS_HEIGHT;
+
   return {
-    x: Math.max(0, (defaultWidth - LAYOUT_CONSTANTS.TOOL_WIDTH_PX) / 2 / LAYOUT_CONSTANTS.REM_TO_PX_RATIO),
-    y: Math.max(0, (defaultHeight - LAYOUT_CONSTANTS.TOOL_HEIGHT_PX) / 2 / LAYOUT_CONSTANTS.REM_TO_PX_RATIO),
+    x: Math.max(
+      0,
+      (defaultWidth - LAYOUT_CONSTANTS.TOOL_WIDTH_PX) /
+        2 /
+        LAYOUT_CONSTANTS.REM_TO_PX_RATIO
+    ),
+    y: Math.max(
+      0,
+      (defaultHeight - LAYOUT_CONSTANTS.TOOL_HEIGHT_PX) /
+        2 /
+        LAYOUT_CONSTANTS.REM_TO_PX_RATIO
+    ),
   };
 };
 
@@ -52,14 +64,16 @@ export const isMobileViewport = (): boolean => {
 export const calculateNewToolPosition = (existingTools: Tool[]): Position => {
   // Default position if no tools exist
   if (existingTools.length === 0) {
-    return { 
-      x: LAYOUT_CONSTANTS.MARGIN_REM, 
-      y: LAYOUT_CONSTANTS.MARGIN_REM 
+    return {
+      x: LAYOUT_CONSTANTS.MARGIN_REM,
+      y: LAYOUT_CONSTANTS.MARGIN_REM,
     };
   }
 
-  const toolWidthRem = LAYOUT_CONSTANTS.TOOL_WIDTH_PX / LAYOUT_CONSTANTS.REM_TO_PX_RATIO;
-  const toolHeightRem = LAYOUT_CONSTANTS.TOOL_HEIGHT_PX / LAYOUT_CONSTANTS.REM_TO_PX_RATIO;
+  const toolWidthRem =
+    LAYOUT_CONSTANTS.TOOL_WIDTH_PX / LAYOUT_CONSTANTS.REM_TO_PX_RATIO;
+  const toolHeightRem =
+    LAYOUT_CONSTANTS.TOOL_HEIGHT_PX / LAYOUT_CONSTANTS.REM_TO_PX_RATIO;
   const spacing = isMobileViewport() ? 1 : 2; // 1rem for mobile, 2rem for desktop
 
   // Mobile: Always stack vertically
@@ -146,7 +160,8 @@ const calculateDesktopPosition = (
 
     // Calculate the actual width of the rightmost tool
     const rightmostToolWidth = config.toolWidth;
-    const newXRem = rightmostInRow.position.x + rightmostToolWidth + config.spacing;
+    const newXRem =
+      rightmostInRow.position.x + rightmostToolWidth + config.spacing;
 
     // Check if there's space in this row (using estimated width for new tool)
     const newToolWidth = config.toolWidth;

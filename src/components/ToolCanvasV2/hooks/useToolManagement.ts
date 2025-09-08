@@ -6,7 +6,10 @@ import { useCallback, useMemo } from 'react';
 import type { Tool, ToolTemplate } from '../../../types';
 import { PREDEFINED_TOOLS } from '../../../types';
 import type { ToolManagementActions } from '../ToolCanvasV2.types';
-import { createToolFromTemplate, getUsedToolNames } from '../../../utils/toolCreation';
+import {
+  createToolFromTemplate,
+  getUsedToolNames,
+} from '../../../utils/toolCreation';
 
 interface UseToolManagementProps {
   tools: Tool[];

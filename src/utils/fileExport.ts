@@ -18,7 +18,10 @@ export interface ExportData {
   version: string;
 }
 
-export const createExportData = (tools: Tool[], version: string = '2.0.0'): ExportData => {
+export const createExportData = (
+  tools: Tool[],
+  version: string = '2.0.0'
+): ExportData => {
   return {
     tools,
     timestamp: new Date().toISOString(),

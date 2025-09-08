@@ -16,7 +16,7 @@ function App(): React.JSX.Element {
         className='sr-only'
         aria-label='Status updates'
       />
-      
+
       <ToolCanvasV2 />
     </div>
   );

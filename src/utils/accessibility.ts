@@ -23,7 +23,10 @@ export const announceToScreenReader = (message: string): void => {
  * @param element - The element to focus
  * @param announcement - Optional announcement message
  */
-export const focusAndAnnounce = (element: HTMLElement, announcement?: string): void => {
+export const focusAndAnnounce = (
+  element: HTMLElement,
+  announcement?: string
+): void => {
   element.focus();
   if (announcement) {
     announceToScreenReader(announcement);

@@ -43,7 +43,6 @@ export const useDraggableDesktop = ({
     startTop: 0,
   });
 
-
   /**
    * Handle desktop free positioning
    */

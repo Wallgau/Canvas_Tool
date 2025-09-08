@@ -51,9 +51,13 @@ export const clampPosition = (
   position: Position,
   canvasSize: { width: number; height: number }
 ): Position => {
-  const maxX = (canvasSize.width - LAYOUT_CONSTANTS.TOOL_WIDTH_PX) / LAYOUT_CONSTANTS.REM_TO_PX_RATIO;
-  const maxY = (canvasSize.height - LAYOUT_CONSTANTS.TOOL_HEIGHT_PX) / LAYOUT_CONSTANTS.REM_TO_PX_RATIO;
-  
+  const maxX =
+    (canvasSize.width - LAYOUT_CONSTANTS.TOOL_WIDTH_PX) /
+    LAYOUT_CONSTANTS.REM_TO_PX_RATIO;
+  const maxY =
+    (canvasSize.height - LAYOUT_CONSTANTS.TOOL_HEIGHT_PX) /
+    LAYOUT_CONSTANTS.REM_TO_PX_RATIO;
+
   return {
     x: Math.max(0, Math.min(position.x, maxX)),
     y: Math.max(0, Math.min(position.y, maxY)),

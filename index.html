@@ -15,45 +15,169 @@
 
     <style>
       /* Critical CSS - Above the fold only */
-      *{box-sizing:border-box;margin:0;padding:0}
-      html, body {height:100%; background:#fff; font-family:system-ui,-apple-system,sans-serif; overflow-x:hidden}
-      #root {min-height:100%; position:relative}
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        background: #fff;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        overflow-x: hidden;
+      }
+      #root {
+        min-height: 100%;
+        position: relative;
+      }
       /* Use dynamic viewport on mobile */
       @supports (height: 100dvh) {
-        #root {min-height: 100dvh;}
+        #root {
+          min-height: 100dvh;
+        }
       }
 
       /* Critical LCP element styling - inline for instant render */
-      .toolbar{display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; border-bottom:1px solid #e9ecef; background:#fff}
-      .toolbar h1{margin:0; color:#333; font-size:1.5rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-      .actions{display:flex; gap:0.5rem; align-items:center; flex-shrink:0}
-      .skeleton-button{background:#e9ecef; border-radius:8px; height:36px; width:100px; animation:shimmer 1.5s infinite linear}
-      .canvas-container{position:relative; min-height:calc(100vh - 80px); background:#fff}
-      .skeleton-content{background:#f8f9fa; border-radius:8px; height:200px; margin:2rem; animation:shimmer 1.5s infinite linear}
-      @keyframes shimmer{0%{background-position:-200px 0}100%{background-position:calc(200px + 100%) 0}}
-      .loading-placeholder{display:flex; align-items:center; justify-content:center; padding:2rem; color:#666; font-size:0.9rem}
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid #e9ecef;
+        background: #fff;
+      }
+      .toolbar h1 {
+        margin: 0;
+        color: #333;
+        font-size: 1.5rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .skeleton-button {
+        background: #e9ecef;
+        border-radius: 8px;
+        height: 36px;
+        width: 100px;
+        animation: shimmer 1.5s infinite linear;
+      }
+      .canvas-container {
+        position: relative;
+        min-height: calc(100vh - 80px);
+        background: #fff;
+      }
+      .skeleton-content {
+        background: #f8f9fa;
+        border-radius: 8px;
+        height: 200px;
+        margin: 2rem;
+        animation: shimmer 1.5s infinite linear;
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: -200px 0;
+        }
+        100% {
+          background-position: calc(200px + 100%) 0;
+        }
+      }
+      .loading-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        color: #666;
+        font-size: 0.9rem;
+      }
       /* Performance optimizations */
-      .skip-link{position:absolute; top:-40px; left:6px; background:#000; color:#fff; padding:8px; text-decoration:none; border-radius:4px; z-index:1000}
-      .skip-link:focus{top:6px}
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: #000;
+        color: #fff;
+        padding: 8px;
+        text-decoration: none;
+        border-radius: 4px;
+        z-index: 1000;
+      }
+      .skip-link:focus {
+        top: 6px;
+      }
       /* Preload critical resources */
-      link[rel="preload"]{as:style; onload:"this.onload=null;this.rel='stylesheet'"}
+      link[rel='preload'] {
+        as: style;
+        onload: "this.onload=null;this.rel='stylesheet'";
+      }
       /* Optimize font loading */
-      @font-face{font-family:system-ui; font-display:swap}
-      .canvas-container{flex:1; min-height:calc(100vh - 80px); background:#fff}
-      .skeleton-content{height:100%; background:#fff}
-      
+      @font-face {
+        font-family: system-ui;
+        font-display: swap;
+      }
+      .canvas-container {
+        flex: 1;
+        min-height: calc(100vh - 80px);
+        background: #fff;
+      }
+      .skeleton-content {
+        height: 100%;
+        background: #fff;
+      }
+
       /* Loading placeholder */
-      .loading-placeholder{display:flex; align-items:center; justify-content:center; padding:2rem; color:#666; font-size:0.9rem}
-      
-      .skip-link{position:absolute; top:-40px; left:6px; background:#000; color:#fff; padding:8px; text-decoration:none; z-index:1001; border-radius:4px}
-      .skip-link:focus{top:6px}
-      
+      .loading-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: #000;
+        color: #fff;
+        padding: 8px;
+        text-decoration: none;
+        z-index: 1001;
+        border-radius: 4px;
+      }
+      .skip-link:focus {
+        top: 6px;
+      }
+
       /* Screen reader only content */
-      .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
 
       /* Optional: avoid animation work during load */
       @media (prefers-reduced-motion: reduce) {
-        .shimmer {animation: none}
+        .shimmer {
+          animation: none;
+        }
       }
     </style>
   </head>
@@ -70,7 +194,7 @@
           <div class="skeleton-button"></div>
         </div>
       </header>
-      
+
       <!-- Main content area with minimal skeleton -->
       <main class="canvas-container">
         <div class="skeleton-content"></div>

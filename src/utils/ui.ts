@@ -14,7 +14,7 @@ export const debounce = <T extends (...args: unknown[]) => unknown>(
   wait: number
 ): ((...args: Parameters<T>) => void) => {
   let timeout: NodeJS.Timeout;
-  
+
   return (...args: Parameters<T>): void => {
     clearTimeout(timeout);
     timeout = setTimeout(() => func(...args), wait);
@@ -32,7 +32,7 @@ export const throttle = <T extends (...args: unknown[]) => unknown>(
   limit: number
 ): ((...args: Parameters<T>) => void) => {
   let inThrottle: boolean;
-  
+
   return (...args: Parameters<T>): void => {
     if (!inThrottle) {
       func(...args);
@@ -52,7 +52,8 @@ export const isInViewport = (element: Element): boolean => {
   return (
     rect.top >= 0 &&
     rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 };
@@ -135,13 +136,15 @@ export const createCSSVariable = (property: string, value: string): string => {
  * @param layer - The layer name
  * @returns The z-index value
  */
-export const getZIndex = (layer: 'modal' | 'tooltip' | 'dropdown' | 'overlay'): number => {
+export const getZIndex = (
+  layer: 'modal' | 'tooltip' | 'dropdown' | 'overlay'
+): number => {
   const zIndexMap = {
     modal: 1000,
     tooltip: 1100,
     dropdown: 1200,
     overlay: 1300,
   };
-  
+
   return zIndexMap[layer];
 };

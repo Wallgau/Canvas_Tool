@@ -29,36 +29,33 @@ export const useParameterEditing = ({
   const [editParams, setEditParams] = useState(tool.params);
   const [editingParam, setEditingParam] = useState<string | null>(null);
 
-  const handleParamChange = useCallback(
-    (key: string, value: string) => {
-      // Determine input type based on parameter name and tool type
-      const inputType = getInputTypeForParam(key);
+  const handleParamChange = useCallback((key: string, value: string) => {
+    // Determine input type based on parameter name and tool type
+    const inputType = getInputTypeForParam(key);
 
-      // Sanitize and validate input
-      const result = validateInput(value, inputType, {
-        maxLength: 1000,
-        trimWhitespace: true,
-        escapeHtml: true,
-      });
+    // Sanitize and validate input
+    const result = validateInput(value, inputType, {
+      maxLength: 1000,
+      trimWhitespace: true,
+      escapeHtml: true,
+    });
 
-      // Update with sanitized value
-      setEditParams(prev => ({
-        ...prev,
-        [key]: result.sanitizedValue,
-      }));
+    // Update with sanitized value
+    setEditParams(prev => ({
+      ...prev,
+      [key]: result.sanitizedValue,
+    }));
 
-      // Log warnings if any
-      if (result.warnings.length > 0) {
-        // Parameter warnings - silently handle
-      }
+    // Log warnings if any
+    if (result.warnings.length > 0) {
+      // Parameter warnings - silently handle
+    }
 
-      // Log errors if any (but still allow editing)
-      if (result.errors.length > 0) {
-        // Parameter errors - silently handle
-      }
-    },
-    [tool.name]
-  );
+    // Log errors if any (but still allow editing)
+    if (result.errors.length > 0) {
+      // Parameter errors - silently handle
+    }
+  }, []);
 
   const startEditing = useCallback((paramKey: string) => {
     setIsEditing(true);

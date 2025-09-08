@@ -401,12 +401,30 @@ export function sanitizeToolData(
   tool: Record<string, unknown>
 ): Record<string, unknown> {
   return {
-    id: sanitizeText(tool.id as string, { maxLength: 100, type: 'alphanumeric' }),
-    name: sanitizeText(tool.name as string, { maxLength: 50, type: 'alphanumeric' }),
+    id: sanitizeText(tool.id as string, {
+      maxLength: 100,
+      type: 'alphanumeric',
+    }),
+    name: sanitizeText(tool.name as string, {
+      maxLength: 50,
+      type: 'alphanumeric',
+    }),
     params: sanitizeToolParams(tool.params as Record<string, unknown>),
     position: {
-      x: Math.max(0, Math.min(10000, Number((tool.position as Record<string, unknown>)?.x) || 0)),
-      y: Math.max(0, Math.min(10000, Number((tool.position as Record<string, unknown>)?.y) || 0)),
+      x: Math.max(
+        0,
+        Math.min(
+          10000,
+          Number((tool.position as Record<string, unknown>)?.x) || 0
+        )
+      ),
+      y: Math.max(
+        0,
+        Math.min(
+          10000,
+          Number((tool.position as Record<string, unknown>)?.y) || 0
+        )
+      ),
     },
   };
 }
