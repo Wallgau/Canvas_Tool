@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tool-canvas.example.com/sitemap.xml
+Sitemap: https://splendorous-frangollo-1b56dd.netlify.app/sitemap.xml
 
-
+# Crawl-delay: 1
