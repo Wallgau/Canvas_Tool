@@ -20,11 +20,11 @@ const Button = memo(
       ref
     ): React.JSX.Element => {
       const buttonClasses = [
-        styles.button,
-        styles[variant],
-        styles[size],
-        fullWidth && styles['full-width'],
-        isLoading && styles.loading,
+        styles.button || 'button',
+        styles[variant] || variant,
+        styles[size] || size,
+        fullWidth && (styles['full-width'] || 'full-width'),
+        isLoading && (styles.loading || 'loading'),
         className,
       ]
         .filter(Boolean)
@@ -40,12 +40,12 @@ const Button = memo(
           {...props}
         >
           {isLoading && (
-            <span className={styles.spinner} aria-hidden='true'>
-              <span className={styles.spinnerIcon}></span>
+            <span className={styles.spinner || 'spinner'} aria-hidden='true'>
+              <span className={styles.spinnerIcon || 'spinnerIcon'}></span>
             </span>
           )}
 
-          <span className={styles.content}>{children}</span>
+          <span className={styles.content || 'content'}>{children}</span>
         </button>
       );
     }

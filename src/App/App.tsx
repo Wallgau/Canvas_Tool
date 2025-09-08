@@ -5,7 +5,7 @@ import styles from './App.module.css';
 function App(): React.JSX.Element {
   return (
     <div
-      className={styles.App}
+      className={styles.App || 'App'}
       role='application'
       aria-label='Tool Canvas Application'
     >

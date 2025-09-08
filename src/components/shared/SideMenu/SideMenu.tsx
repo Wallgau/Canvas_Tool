@@ -89,10 +89,10 @@ const SideMenu = <T,>({
   };
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={`${styles.overlay || 'overlay'}`} onClick={onClose}>
       <div
         ref={sideMenuRef}
-        className={`${styles.sideMenu} ${styles[position]}`}
+        className={`${styles.sideMenu || 'side-menu'} ${styles[position] || position}`}
         onClick={(e: MouseEvent) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
         role='dialog'
@@ -101,8 +101,8 @@ const SideMenu = <T,>({
         tabIndex={-1}
       >
         {/* Header */}
-        <header className={styles.header}>
-          <h3 id='side-menu-title' className={styles.title}>
+        <header className={styles.header || 'header'}>
+          <h3 id='side-menu-title' className={styles.title || 'title'}>
             {title}
           </h3>
           <Button
@@ -110,18 +110,18 @@ const SideMenu = <T,>({
             size='sm'
             onClick={onClose}
             aria-label='Close menu'
-            className={styles.closeButton}
+            className={styles.closeButton || 'closeButton'}
           >
             ×
           </Button>
         </header>
 
         {/* Options */}
-        <div className={styles.content}>
+        <div className={styles.content || 'content'}>
           {options.length === 0 ? (
-            <p className={styles.emptyState}>No options available</p>
+            <p className={styles.emptyState || 'emptyState'}>No options available</p>
           ) : (
-            <div className={styles.optionsList}>
+            <div className={styles.optionsList || 'optionsList'}>
               {options.map((option: SideMenuOption<T>, index: number) => (
                 <Button
                   key={option.id}
@@ -130,13 +130,13 @@ const SideMenu = <T,>({
                   onClick={() => handleSelect(option)}
                   onKeyDown={handleOptionKeyDown}
                   disabled={option.disabled}
-                  className={`${styles.option} ${option.disabled ? styles.disabled : ''}`}
+                  className={`${styles.option || 'option'} ${option.disabled ? (styles.disabled || 'disabled') : ''}`}
                   aria-label={`Select ${option.title}`}
                 >
-                  <div className={styles.optionContent}>
-                    <div className={styles.optionTitle}>{option.title}</div>
+                  <div className={styles.optionContent || 'optionContent'}>
+                    <div className={styles.optionTitle || 'optionTitle'}>{option.title}</div>
                     {option.description && (
-                      <div className={styles.optionDescription}>
+                      <div className={styles.optionDescription || 'optionDescription'}>
                         {option.description}
                       </div>
                     )}
