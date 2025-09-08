@@ -152,7 +152,7 @@ describe('Input Sanitization', () => {
         units: 'celsius',
         days: '5',
       };
-      const result = sanitizeToolParams(params, 'weather_forecast');
+      const result = sanitizeToolParams(params);
       expect(result.location).toBe('New York');
       expect(result.units).toBe('celsius');
       expect(result.days).toBe(5);
@@ -164,7 +164,7 @@ describe('Input Sanitization', () => {
         subject: 'Hello<script>alert(1)</script>',
         message: 'Test message',
       };
-      const result = sanitizeToolParams(params, 'email_sender');
+      const result = sanitizeToolParams(params);
       expect(result.to).toBe('test@example.com');
       expect(result.subject).toBe('Hello');
       expect(result.message).toBe('Test message');
@@ -175,7 +175,7 @@ describe('Input Sanitization', () => {
         query: 'weather<script>alert(1)</script>',
         results: '10',
       };
-      const result = sanitizeToolParams(params, 'web_search');
+      const result = sanitizeToolParams(params);
       expect(result.query).toBe('weather');
       expect(result.results).toBe(10);
     });
@@ -195,8 +195,8 @@ describe('Input Sanitization', () => {
       const result = sanitizeToolData(tool);
       expect(result.id).toBe('tool-1');
       expect(result.name).toBe('weather_forecast');
-      expect(result.params.location).toBe('New York');
-      expect(result.params.units).toBe('celsius');
+      expect((result.params as Record<string, unknown>).location).toBe('New York');
+      expect((result.params as Record<string, unknown>).units).toBe('celsius');
       expect(result.position).toEqual({ x: 100, y: 200 });
     });
 
@@ -208,8 +208,8 @@ describe('Input Sanitization', () => {
         position: { x: -100, y: 20000 },
       };
       const result = sanitizeToolData(tool);
-      expect(result.position.x).toBe(0);
-      expect(result.position.y).toBe(10000);
+      expect((result.position as Record<string, unknown>).x).toBe(0);
+      expect((result.position as Record<string, unknown>).y).toBe(10000);
     });
   });
 
@@ -267,8 +267,8 @@ describe('Input Sanitization', () => {
       ]);
       const result = validateLocalStorageData(corruptedData);
       expect(result.isValid).toBe(true);
-      expect(result.sanitizedData[0].id).toBe('tool-1');
-      expect(result.sanitizedData[0].params.location).toBe('New York');
+      expect((result.sanitizedData as Record<string, unknown>[])[0].id).toBe('tool-1');
+      expect(((result.sanitizedData as Record<string, unknown>[])[0].params as Record<string, unknown>).location).toBe('New York');
     });
   });
 
@@ -319,8 +319,8 @@ describe('Input Sanitization', () => {
     });
 
     it('should handle null and undefined', () => {
-      const result1 = validateInput(null as unknown, 'text');
-      const result2 = validateInput(undefined as unknown, 'text');
+      const result1 = validateInput(null as unknown as string, 'text');
+      const result2 = validateInput(undefined as unknown as string, 'text');
       expect(result1.isValid).toBe(true);
       expect(result2.isValid).toBe(true);
     });

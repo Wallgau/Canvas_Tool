@@ -6,7 +6,7 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '../Button/Button';
-import styles from './ConfirmationModal.module.css';
+// import styles from './ConfirmationModal.module.css';
 
 export interface ConfirmationModalProps {
   isOpen: boolean;
@@ -68,39 +68,39 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   };
 
   const modalContent = (
-    <div className={styles.overlay} onClick={handleBackdropClick}>
+    <div className='overlay' onClick={handleBackdropClick}>
       <div
-        className={styles.modal}
+        className='modal'
         role='dialog'
         aria-modal='true'
         aria-labelledby='modal-title'
         aria-describedby='modal-message'
         tabIndex={-1}
       >
-        <div className={styles.header}>
-          <h2 id='modal-title' className={styles.title}>
+        <div className="header">
+          <h2 id='modal-title' className="title">
             {title}
           </h2>
         </div>
 
-        <div className={styles.content}>
-          <p id='modal-message' className={styles.message}>
+        <div className="content">
+          <p id='modal-message' className="message">
             {message}
           </p>
         </div>
 
-        <div className={styles.actions}>
+        <div className="actions">
           <Button
             variant='outline'
             onClick={onCancel}
-            className={styles.cancelButton}
+            className="cancelButton"
           >
             {cancelText}
           </Button>
           <Button
             variant={variant === 'danger' ? 'destructive' : 'primary'}
             onClick={handleConfirm}
-            className={styles.confirmButton}
+            className="confirmButton"
             autoFocus
           >
             {confirmText}

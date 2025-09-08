@@ -6,68 +6,68 @@ import { getInputTypeForParam } from '../inputTypeUtils';
 
 describe('getInputTypeForParam', () => {
   it('should return email for email-related parameters', () => {
-    expect(getInputTypeForParam('email', 'test-tool')).toBe('email');
-    expect(getInputTypeForParam('to', 'test-tool')).toBe('email');
-    expect(getInputTypeForParam('recipient', 'test-tool')).toBe('email');
-    expect(getInputTypeForParam('userEmail', 'test-tool')).toBe('email');
+    expect(getInputTypeForParam('email')).toBe('email');
+    expect(getInputTypeForParam('to')).toBe('email');
+    expect(getInputTypeForParam('recipient')).toBe('email');
+    expect(getInputTypeForParam('userEmail')).toBe('email');
   });
 
   it('should return url for URL-related parameters', () => {
-    expect(getInputTypeForParam('url', 'test-tool')).toBe('url');
-    expect(getInputTypeForParam('link', 'test-tool')).toBe('url');
-    expect(getInputTypeForParam('href', 'test-tool')).toBe('url');
-    expect(getInputTypeForParam('websiteUrl', 'test-tool')).toBe('url');
+    expect(getInputTypeForParam('url')).toBe('url');
+    expect(getInputTypeForParam('link')).toBe('url');
+    expect(getInputTypeForParam('href')).toBe('url');
+    expect(getInputTypeForParam('websiteUrl')).toBe('url');
   });
 
   it('should return phone for phone-related parameters', () => {
-    expect(getInputTypeForParam('phone', 'test-tool')).toBe('phone');
-    expect(getInputTypeForParam('mobile', 'test-tool')).toBe('phone');
-    expect(getInputTypeForParam('tel', 'test-tool')).toBe('phone');
-    expect(getInputTypeForParam('phoneNumber', 'test-tool')).toBe('phone');
+    expect(getInputTypeForParam('phone')).toBe('phone');
+    expect(getInputTypeForParam('mobile')).toBe('phone');
+    expect(getInputTypeForParam('tel')).toBe('phone');
+    expect(getInputTypeForParam('phoneNumber')).toBe('phone');
   });
 
   it('should return integer for numeric parameters', () => {
-    expect(getInputTypeForParam('count', 'test-tool')).toBe('integer');
-    expect(getInputTypeForParam('number', 'test-tool')).toBe('integer');
-    expect(getInputTypeForParam('days', 'test-tool')).toBe('integer');
-    expect(getInputTypeForParam('results', 'test-tool')).toBe('integer');
-    expect(getInputTypeForParam('delay', 'test-tool')).toBe('integer');
-    expect(getInputTypeForParam('timeout', 'test-tool')).toBe('integer');
+    expect(getInputTypeForParam('count')).toBe('integer');
+    expect(getInputTypeForParam('number')).toBe('integer');
+    expect(getInputTypeForParam('days')).toBe('integer');
+    expect(getInputTypeForParam('results')).toBe('integer');
+    expect(getInputTypeForParam('delay')).toBe('integer');
+    expect(getInputTypeForParam('timeout')).toBe('integer');
   });
 
   it('should return json for JSON-related parameters', () => {
-    expect(getInputTypeForParam('data', 'test-tool')).toBe('json');
-    expect(getInputTypeForParam('json', 'test-tool')).toBe('json');
-    expect(getInputTypeForParam('config', 'test-tool')).toBe('json');
-    expect(getInputTypeForParam('jsonData', 'test-tool')).toBe('json');
+    expect(getInputTypeForParam('data')).toBe('json');
+    expect(getInputTypeForParam('json')).toBe('json');
+    expect(getInputTypeForParam('config')).toBe('json');
+    expect(getInputTypeForParam('jsonData')).toBe('json');
   });
 
   it('should return text for text-related parameters', () => {
-    expect(getInputTypeForParam('message', 'test-tool')).toBe('text');
-    expect(getInputTypeForParam('description', 'test-tool')).toBe('text');
-    expect(getInputTypeForParam('text', 'test-tool')).toBe('text');
-    expect(getInputTypeForParam('query', 'test-tool')).toBe('text');
-    expect(getInputTypeForParam('subject', 'test-tool')).toBe('text');
-    expect(getInputTypeForParam('title', 'test-tool')).toBe('text');
+    expect(getInputTypeForParam('message')).toBe('text');
+    expect(getInputTypeForParam('description')).toBe('text');
+    expect(getInputTypeForParam('text')).toBe('text');
+    expect(getInputTypeForParam('query')).toBe('text');
+    expect(getInputTypeForParam('subject')).toBe('text');
+    expect(getInputTypeForParam('title')).toBe('text');
   });
 
   it('should return alphanumeric for unknown parameters', () => {
-    expect(getInputTypeForParam('unknown', 'test-tool')).toBe('alphanumeric');
-    expect(getInputTypeForParam('custom', 'test-tool')).toBe('alphanumeric');
-    expect(getInputTypeForParam('param', 'test-tool')).toBe('alphanumeric');
+    expect(getInputTypeForParam('unknown')).toBe('alphanumeric');
+    expect(getInputTypeForParam('custom')).toBe('alphanumeric');
+    expect(getInputTypeForParam('param')).toBe('alphanumeric');
   });
 
   it('should be case insensitive', () => {
-    expect(getInputTypeForParam('EMAIL', 'test-tool')).toBe('email');
-    expect(getInputTypeForParam('URL', 'test-tool')).toBe('url');
-    expect(getInputTypeForParam('Phone', 'test-tool')).toBe('phone');
-    expect(getInputTypeForParam('Count', 'test-tool')).toBe('integer');
+    expect(getInputTypeForParam('EMAIL')).toBe('email');
+    expect(getInputTypeForParam('URL')).toBe('url');
+    expect(getInputTypeForParam('Phone')).toBe('phone');
+    expect(getInputTypeForParam('Count')).toBe('integer');
   });
 
   it('should handle partial matches', () => {
-    expect(getInputTypeForParam('userEmail', 'test-tool')).toBe('email');
-    expect(getInputTypeForParam('websiteUrl', 'test-tool')).toBe('url');
-    expect(getInputTypeForParam('phoneNumber', 'test-tool')).toBe('phone');
-    expect(getInputTypeForParam('resultCount', 'test-tool')).toBe('integer');
+    expect(getInputTypeForParam('userEmail')).toBe('email');
+    expect(getInputTypeForParam('websiteUrl')).toBe('url');
+    expect(getInputTypeForParam('phoneNumber')).toBe('phone');
+    expect(getInputTypeForParam('resultCount')).toBe('integer');
   });
 });

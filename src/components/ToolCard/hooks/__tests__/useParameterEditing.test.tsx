@@ -129,7 +129,7 @@ describe('useParameterEditing', () => {
     const mockEvent = {
       key: 'Enter',
       preventDefault: vi.fn(),
-    } as React.KeyboardEvent<HTMLInputElement>;
+    } as unknown as React.KeyboardEvent<HTMLInputElement>;
 
     act(() => {
       result.current.handleKeyPress(mockEvent, 'location');

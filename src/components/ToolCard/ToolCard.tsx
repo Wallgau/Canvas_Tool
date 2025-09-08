@@ -3,7 +3,7 @@ import type { Tool } from '../../types';
 import { useDraggableDesktop } from './hooks/useDraggableDesktop';
 import { useParameterEditing } from './hooks/useParameterEditing';
 import { getToolDisplayName } from '../../utils/toolUtils';
-import styles from './ToolCard.module.css';
+// import styles from './ToolCard.module.css';
 
 interface ToolCardProps {
   tool: Tool;
@@ -12,12 +12,12 @@ interface ToolCardProps {
   isNew?: boolean;
 }
 
-export const ToolCard: React.FC<ToolCardProps> = ({
+export const ToolCard = ({
   tool,
   onUpdate,
   onDelete,
   isNew = false,
-}): JSX.Element => {
+}: ToolCardProps): React.JSX.Element => {
   const toolCardRef = useRef<HTMLDivElement>(null);
 
   // Get the display name for this tool
@@ -59,16 +59,16 @@ export const ToolCard: React.FC<ToolCardProps> = ({
     <div
       ref={toolCardRef}
       {...dragProps}
-      className={`${styles.toolCard} ${isDragging ? styles.dragging : ''}`}
+      className={`tool-card ${isDragging ? 'dragging' : ''}`}
       role='group'
       aria-labelledby={`tool-${tool.id}-name`}
       aria-describedby={`tool-${tool.id}-params`}
       tabIndex={0}
       aria-label={`${displayName} tool card`}
     >
-      <header className={styles.toolHeader}>
+      <header className="toolHeader">
         <button
-          className={styles.dragHandle}
+          className="dragHandle"
           data-drag-handle='true'
           type='button'
           aria-label={`Move ${displayName} tool. Use arrow keys to reposition.`}
@@ -79,7 +79,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
             }
           }}
         >
-          <div className={styles.dragIcon} aria-hidden='true'>
+          <div className="dragIcon" aria-hidden='true'>
             <span></span>
             <span></span>
             <span></span>
@@ -87,7 +87,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
         </button>
         <div
           id={`tool-${tool.id}-name`}
-          className={styles.toolName}
+          className="toolName"
           role='heading'
           aria-level={3}
         >
@@ -95,7 +95,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
         </div>
         <button
           type='button'
-          className={styles.deleteBtn}
+          className="deleteBtn"
           onClick={() => onDelete(tool.id)}
           aria-label={`Delete ${displayName} tool`}
           title='Delete tool'
@@ -106,14 +106,14 @@ export const ToolCard: React.FC<ToolCardProps> = ({
 
       <div
         id={`tool-${tool.id}-params`}
-        className={styles.toolParams}
+        className="toolParams"
         role='group'
         aria-label='Tool parameters'
       >
         {Object.entries(tool.params).map(([key, value]) => (
-          <div key={key} className={styles.paramRow}>
+          <div key={key} className="paramRow">
             <label
-              className={styles.paramLabel}
+              className="paramLabel"
               htmlFor={`param-${tool.id}-${key}`}
               id={`label-${tool.id}-${key}`}
             >
@@ -125,7 +125,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
                 type='text'
                 value={editParams[key] || ''}
                 onChange={e => handleParamChange(key, e.target.value)}
-                className={styles.paramInput}
+                className="paramInput"
                 aria-label={`Edit ${key} parameter`}
                 aria-describedby={`label-${tool.id}-${key}`}
                 autoFocus
@@ -140,7 +140,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
             ) : (
               <button
                 type='button'
-                className={styles.paramValue}
+                className="paramValue"
                 onClick={() => startEditing(key)}
                 onKeyDown={e => handleKeyPress(e, key)}
                 aria-label={`${key}: ${value || 'empty'}. Press Enter or Space to edit`}
@@ -156,14 +156,14 @@ export const ToolCard: React.FC<ToolCardProps> = ({
 
       {isEditing && (
         <div
-          className={styles.editActions}
+          className="editActions"
           role='group'
           aria-label='Edit actions'
         >
           <button
             type='button'
             onClick={handleSaveParams}
-            className={styles.saveBtn}
+            className="saveBtn"
             aria-label='Save parameter changes'
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -177,7 +177,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
           <button
             type='button'
             onClick={handleCancelEdit}
-            className={styles.cancelBtn}
+            className="cancelBtn"
             aria-label='Cancel parameter changes'
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') {
