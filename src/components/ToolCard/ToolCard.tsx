@@ -64,7 +64,6 @@ export const ToolCard = ({
       aria-labelledby={`tool-${tool.id}-name`}
       aria-describedby={`tool-${tool.id}-params`}
       tabIndex={0}
-      aria-label={`${displayName} tool card`}
     >
       <header className='toolHeader'>
         <button

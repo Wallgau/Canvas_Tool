@@ -7,7 +7,6 @@ function App(): React.JSX.Element {
     <div
       className={styles.App || 'App'}
       role='application'
-      aria-label='Tool Canvas Application'
     >
       {/* ARIA live region for screen reader announcements */}
       <div

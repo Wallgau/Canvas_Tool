@@ -37,6 +37,7 @@ const Button = memo(
           ref={ref}
           className={buttonClasses}
           disabled={isDisabled}
+          aria-label={isLoading ? 'Loading...' : undefined}
           {...props}
         >
           {isLoading && (
