@@ -5,10 +5,10 @@ import { vi, afterEach } from 'vitest';
 afterEach(() => {
   // Clear all mocks after each test
   vi.clearAllMocks();
-  
+
   // Clear timers
   vi.clearAllTimers();
-  
+
   // Force garbage collection if available
   if (global.gc) {
     global.gc();
