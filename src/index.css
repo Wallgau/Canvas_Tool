@@ -37,18 +37,18 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+/* Global button styles - minimal to avoid conflicts with CSS modules */
+button:not([class*="button"]) {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.5em 1em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
-  color: #ffffff;
   cursor: pointer;
   transition: border-color 0.25s;
   margin: 0;
+  /* Remove padding to let CSS modules handle it */
+  padding: 0;
 }
 
 /* Fallback styles for when CSS modules fail to load */
@@ -64,11 +64,37 @@ button {
   z-index: 1001;
   min-width: 320px;
   max-width: 400px;
+  /* Default slide from left */
+  animation: slideInLeft 0.3s ease-out;
 }
 
 .side-menu.right {
   left: auto;
   right: 2rem;
+  /* Slide from right when position is right */
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .overlay {

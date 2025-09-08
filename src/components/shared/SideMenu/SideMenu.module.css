@@ -179,14 +179,18 @@
 }
 
 .sideMenu {
-  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Default animation for left position */
+}
+
+.sideMenu.left {
+  animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .overlay {
   animation: fadeIn 0.3s ease-out;
 }
 
-@keyframes slideIn {
+@keyframes slideInLeft {
   from {
     opacity: 0;
     transform: translateX(-2rem);

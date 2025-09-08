@@ -42,6 +42,7 @@
 .primary {
   background-color: #007bff !important;
   color: #ffffff !important;
+  border-color: #007bff !important;
 }
 
 .primary .content {
@@ -49,12 +50,14 @@
 }
 
 .primary:hover {
-  background-color: #0056b3;
+  background-color: #0056b3 !important;
+  border-color: #0056b3 !important;
 }
 
 .secondary {
   background-color: #6c757d !important;
   color: #ffffff !important;
+  border-color: #6c757d !important;
 }
 
 .secondary .content {
@@ -62,12 +65,14 @@
 }
 
 .secondary:hover {
-  background-color: #545b62;
+  background-color: #545b62 !important;
+  border-color: #545b62 !important;
 }
 
 .destructive {
   background-color: #dc3545 !important;
   color: #ffffff !important;
+  border-color: #dc3545 !important;
 }
 
 .destructive .content {
@@ -75,7 +80,8 @@
 }
 
 .destructive:hover {
-  background-color: #c82333;
+  background-color: #c82333 !important;
+  border-color: #c82333 !important;
 }
 
 .outline {
@@ -89,8 +95,24 @@
 }
 
 .outline:hover {
-  background-color: #007bff;
-  color: white;
+  background-color: #007bff !important;
+  color: white !important;
+  border-color: #007bff !important;
+}
+
+.ghost {
+  background-color: transparent !important;
+  color: #333 !important;
+  border-color: transparent !important;
+}
+
+.ghost .content {
+  color: #333 !important;
+}
+
+.ghost:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #222 !important;
 }
 
 /* Loading state */
