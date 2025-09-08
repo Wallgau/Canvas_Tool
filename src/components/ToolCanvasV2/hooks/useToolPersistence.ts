@@ -1,81 +1,118 @@
 /**
- * Optimized tool persistence with lazy initialization
- * Performance-focused: minimal useEffects, lazy loading, debounced saves
+ * Ultra-optimized tool persistence with minimal performance impact
+ * Performance-focused: lazy loading, non-blocking saves, minimal re-renders
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Tool } from '../../../types';
-import type { CanvasSize } from '../ToolCanvasV2.types';
 import { CANVAS_CONSTANTS } from '../utils/constants';
 import { getDefaultPosition } from '../utils/positioning';
 
-interface UseToolPersistenceProps {
-  canvasSize: CanvasSize;
-}
-
-export const useToolPersistence = ({ canvasSize }: UseToolPersistenceProps) => {
-  
+export const useToolPersistence = (): {
+  tools: Tool[];
+  setTools: React.Dispatch<React.SetStateAction<Tool[]>>;
+} => {
   // Track if this is initial load to prevent saving default data immediately
   const isInitialLoadRef = useRef(true);
   const lastSavedRef = useRef<string>('');
-  
-  // Lazy initialization - DISABLED for performance testing
-  const [tools, setTools] = useState<Tool[]>(() => {
-    // Skip localStorage loading for performance testing
-    return [];
-  });
+  const saveTimeoutRef = useRef<number | null>(null);
 
-  // No default tools - start with clean canvas
+  // Start with empty array to avoid blocking render
+  const [tools, setTools] = useState<Tool[]>([]);
 
-  // Mark initial load as complete after first render
+  // Load from localStorage asynchronously using requestIdleCallback
   useEffect(() => {
+    const loadTools = (): void => {
+      try {
+        const saved = localStorage.getItem(CANVAS_CONSTANTS.STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setTools(parsed);
+          }
+        }
+      } catch {
+        // Failed to load tools from localStorage - silently fail
+      }
+    };
+
+    // Use requestIdleCallback for non-blocking load with longer timeout
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadTools, { timeout: 1000 });
+    } else {
+      // Fallback for browsers without requestIdleCallback
+      setTimeout(loadTools, 100);
+    }
+
+    // Mark initial load as complete
     isInitialLoadRef.current = false;
   }, []);
 
-  // Optimized debounced save - only when data actually changes
+  // Optimized debounced save - only when data actually changes and not empty
   useEffect(() => {
     if (isInitialLoadRef.current) return;
-    
+
+    // Skip save if tools array is empty
+    if (tools.length === 0) {
+      // Clear localStorage if tools are empty
+      if (lastSavedRef.current !== '') {
+        localStorage.removeItem(CANVAS_CONSTANTS.STORAGE_KEY);
+        lastSavedRef.current = '';
+      }
+      return;
+    }
+
     const serialized = JSON.stringify(tools);
-    
+
     // Skip if no actual changes
     if (serialized === lastSavedRef.current) return;
-    
-    const timeoutId = window.setTimeout(() => {
+
+    // Clear existing timeout
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+
+    // Debounced save with longer delay for better performance
+    saveTimeoutRef.current = window.setTimeout(() => {
       try {
-        // Use requestIdleCallback for non-blocking save if available
-        const saveOperation = () => {
-          // Skip localStorage for performance testing
-          // localStorage.setItem(CANVAS_CONSTANTS.STORAGE_KEY, serialized);
+        // Use requestIdleCallback for non-blocking save
+        const saveOperation = (): void => {
+          localStorage.setItem(CANVAS_CONSTANTS.STORAGE_KEY, serialized);
           lastSavedRef.current = serialized;
         };
-        
+
         if ('requestIdleCallback' in window) {
-          requestIdleCallback(saveOperation, { timeout: 1000 });
+          requestIdleCallback(saveOperation, { timeout: 2000 });
         } else {
           saveOperation();
         }
-      } catch (error) {
-        console.error('Failed to save tools to localStorage:', error);
+      } catch {
+        // Failed to save tools to localStorage - silently fail
       }
-    }, 300); // Faster debounce for better UX
-    
-    return () => window.clearTimeout(timeoutId);
+    }, 500); // Longer debounce for better performance
+
+    return (): void => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+    };
   }, [tools]);
 
   // Optimized default tool position updater
-  const updateDefaultToolPosition = useCallback(() => {
+  const updateDefaultToolPosition = useCallback((): void => {
     setTools(prev => {
-      const hasDefaultTool = prev.some(tool => tool.id === CANVAS_CONSTANTS.DEFAULT_TOOL_ID);
+      const hasDefaultTool = prev.some(
+        tool => tool.id === CANVAS_CONSTANTS.DEFAULT_TOOL_ID
+      );
       if (!hasDefaultTool) return prev; // Early return if no default tool
-      
-      return prev.map(tool => 
-        tool.id === CANVAS_CONSTANTS.DEFAULT_TOOL_ID 
-          ? { ...tool, position: getDefaultPosition(canvasSize) }
+
+      return prev.map(tool =>
+        tool.id === CANVAS_CONSTANTS.DEFAULT_TOOL_ID
+          ? { ...tool, position: getDefaultPosition() }
           : tool
       );
     });
-  }, [canvasSize]);
+  }, []);
 
   // Clear storage with cleanup
   const clearStorage = useCallback(() => {
@@ -94,6 +131,6 @@ export const useToolPersistence = ({ canvasSize }: UseToolPersistenceProps) => {
     setTools,
     updateDefaultToolPosition,
     clearStorage,
-    hasUnsavedChanges
+    hasUnsavedChanges,
   };
 };
