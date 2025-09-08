@@ -20,7 +20,8 @@ describe('App', () => {
   it('should have the correct CSS class', () => {
     const { container } = render(<App />);
 
-    expect(container.firstChild).toHaveClass('App');
+    // Check that the element has a class that contains 'App' (CSS module hash)
+    expect(container.firstChild).toHaveClass(expect.stringContaining('App'));
   });
 
   it('should render ToolCanvasV2 component', () => {

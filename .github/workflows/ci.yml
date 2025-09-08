@@ -34,7 +34,9 @@ jobs:
 
       - name: Run tests
         run: npm run test:run
-        timeout-minutes: 3
+        timeout-minutes: 5
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
 
       - name: Build application
         run: npm run build

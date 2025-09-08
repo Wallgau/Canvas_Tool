@@ -7,7 +7,13 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
-    // Simple, fast configuration
+    // Memory-efficient configuration
+    pool: 'forks',
+    poolOptions: {
+      forks: {
+        singleFork: true,
+      },
+    },
     testTimeout: 10000,
     // Disable coverage for speed
     coverage: {
@@ -15,7 +21,10 @@ export default defineConfig({
     },
     // No watching
     watch: false,
-    // Basic reporter
-    reporter: ['basic'],
+    // Use default reporter instead of deprecated 'basic'
+    reporter: ['default'],
+    // Memory management
+    maxConcurrency: 1,
+    isolate: true,
   },
 });
