@@ -21,6 +21,7 @@ const SideMenu = <T,>({
   onClose,
   title = 'Select an option',
   position = 'left',
+  'data-testid': dataTestId,
 }: SideMenuProps<T>): React.JSX.Element | null => {
   const handleSelect = (option: SideMenuOption<T>): void => {
     if (option.disabled) return;
@@ -29,7 +30,11 @@ const SideMenu = <T,>({
 
   return (
     <Sheet open={isVisible} onOpenChange={onClose}>
-      <SheetContent side={position} className='w-[400px] sm:w-[540px]'>
+      <SheetContent
+        side={position}
+        className='w-[400px] sm:w-[540px]'
+        data-testid={dataTestId}
+      >
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
           <SheetDescription>

@@ -5,13 +5,11 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Tool } from '../types';
-import { STORAGE_KEYS, TOOL_IDS } from '../utils/constants';
-import { getDefaultPosition } from '../utils/positioning';
+import { STORAGE_KEYS } from '../utils/constants';
 
 export const useToolPersistence = (): {
   tools: Tool[];
   setTools: React.Dispatch<React.SetStateAction<Tool[]>>;
-  updateDefaultToolPosition: () => void;
   clearStorage: () => void;
   hasUnsavedChanges: () => boolean;
 } => {
@@ -32,16 +30,13 @@ export const useToolPersistence = (): {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) {
             setTools(parsed);
+          } else {
+            // No tools saved - start with empty array
+            setTools([]);
           }
         } else {
-          // Add a default tool for testing if no tools exist
-          const defaultTool: Tool = {
-            id: 'test-tool-1',
-            name: 'get_weather',
-            params: { location: 'Durham, NC', date: 'tomorrow' },
-            position: { x: 100, y: 100 },
-          };
-          setTools([defaultTool]);
+          // No saved state - start with empty array
+          setTools([]);
         }
       } catch {
         // Failed to load tools from localStorage - silently fail
@@ -110,22 +105,6 @@ export const useToolPersistence = (): {
     };
   }, [tools]);
 
-  // Optimized default tool position updater
-  const updateDefaultToolPosition = useCallback((): void => {
-    setTools(prev => {
-      const hasDefaultTool = prev.some(
-        tool => tool.id === TOOL_IDS.DEFAULT_WEATHER_TOOL
-      );
-      if (!hasDefaultTool) return prev; // Early return if no default tool
-
-      return prev.map(tool =>
-        tool.id === TOOL_IDS.DEFAULT_WEATHER_TOOL
-          ? { ...tool, position: getDefaultPosition() }
-          : tool
-      );
-    });
-  }, []);
-
   // Clear storage with cleanup
   const clearStorage = useCallback(() => {
     localStorage.removeItem(STORAGE_KEYS.TOOL_CANVAS_STATE);
@@ -141,7 +120,6 @@ export const useToolPersistence = (): {
   return {
     tools,
     setTools,
-    updateDefaultToolPosition,
     clearStorage,
     hasUnsavedChanges,
   };

@@ -52,12 +52,12 @@ describe('constants', () => {
   });
 
   describe('TOOL_IDS', () => {
-    it('should have correct tool ID', () => {
-      expect(TOOL_IDS.DEFAULT_WEATHER_TOOL).toBe('default-weather-tool');
+    it('should be empty object', () => {
+      expect(Object.keys(TOOL_IDS)).toHaveLength(0);
     });
 
     it('should be readonly', () => {
-      // Test that all properties are strings
+      // Test that all properties are strings (when they exist)
       Object.values(TOOL_IDS).forEach(value => {
         expect(typeof value).toBe('string');
       });
@@ -136,8 +136,8 @@ describe('constants', () => {
       expect(STORAGE_KEYS).toHaveProperty('TOOL_CANVAS_STATE');
     });
 
-    it('should have expected tool ID', () => {
-      expect(TOOL_IDS).toHaveProperty('DEFAULT_WEATHER_TOOL');
+    it('should have empty tool IDs object', () => {
+      expect(Object.keys(TOOL_IDS)).toHaveLength(0);
     });
   });
 });
