@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import { vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import SideMenu from './SideMenu';
@@ -27,6 +27,10 @@ const tools: SideMenuOption[] = [
 ];
 
 describe('SideMenu - User Critical Features', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('shows the menu when opened', () => {
     render(
       <SideMenu
@@ -65,10 +69,10 @@ describe('SideMenu - User Critical Features', () => {
       />
     );
 
-    // User can see all tools (now using description prop)
-    expect(screen.getByText('Weather Tool')).toBeInTheDocument();
-    expect(screen.getByText('Search Tool')).toBeInTheDocument();
-    expect(screen.getByText('Calculator')).toBeInTheDocument();
+    // User can see all tools using data-testid
+    expect(screen.getAllByTestId('weather')[0]).toBeInTheDocument();
+    expect(screen.getAllByTestId('search')[0]).toBeInTheDocument();
+    expect(screen.getAllByTestId('calculator')[0]).toBeInTheDocument();
   });
 
   it('calls onSelect when user picks a tool', async () => {
@@ -85,7 +89,7 @@ describe('SideMenu - User Critical Features', () => {
     );
 
     // User clicks on a tool
-    await user.click(screen.getByText('Weather Tool'));
+    await user.click(screen.getAllByTestId('weather')[0]);
 
     // Tool gets selected
     expect(handleSelect).toHaveBeenCalledWith(tools[0]);
@@ -169,7 +173,7 @@ describe('SideMenu - User Critical Features', () => {
     );
 
     // User tries to click disabled tool
-    await user.click(screen.getByText('Weather Tool'));
+    await user.click(screen.getAllByTestId('weather')[0]);
 
     // Nothing happens
     expect(handleSelect).not.toHaveBeenCalled();

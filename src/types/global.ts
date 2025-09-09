@@ -1,8 +1,3 @@
-/**
- * Global types used across multiple components
- * This file contains types that are imported and used throughout the application
- */
-
 // Core application types
 export interface Tool {
   id: string;

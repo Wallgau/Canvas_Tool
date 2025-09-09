@@ -65,6 +65,7 @@ const SideMenu = <T,>({
                   aria-label={`Select ${option.title}`}
                   description={option.title}
                   data-id={option.id || option.title}
+                  data-testid={option.id}
                 />
               ))}
             </div>
