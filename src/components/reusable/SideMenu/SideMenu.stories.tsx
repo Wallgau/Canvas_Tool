@@ -9,18 +9,21 @@ const sampleOptions: SideMenuOption[] = [
     id: '1',
     title: 'Option 1',
     description: 'First option description',
+    value: 'option1',
     disabled: false,
   },
   {
     id: '2',
     title: 'Option 2',
     description: 'Second option description',
+    value: 'option2',
     disabled: false,
   },
   {
     id: '3',
     title: 'Option 3',
     description: 'Third option description',
+    value: 'option3',
     disabled: true,
   },
 ];
