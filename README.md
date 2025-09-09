@@ -56,19 +56,19 @@ A modern, accessible visual workflow builder that allows you to create, organize
 
 ## 📋 Available Scripts
 
-| Command              | Description                     |
-| -------------------- | ------------------------------- |
-| `npm run dev`        | Start development server        |
-| `npm run build`      | Build for production            |
-| `npm run preview`    | Preview production build        |
-| `npm run test`       | Run tests in watch mode         |
-| `npm run test:run`   | Run tests once                  |
-| `npm run lint`       | Check code quality              |
-| `npm run lint:fix`   | Fix linting issues              |
-| `npm run format`     | Format code with Prettier       |
-| `npm run type-check` | Check TypeScript types          |
-| `npm run ladle`      | Start component library         |
-| `npm run ladle:build`| Build component library         |
+| Command               | Description               |
+| --------------------- | ------------------------- |
+| `npm run dev`         | Start development server  |
+| `npm run build`       | Build for production      |
+| `npm run preview`     | Preview production build  |
+| `npm run test`        | Run tests in watch mode   |
+| `npm run test:run`    | Run tests once            |
+| `npm run lint`        | Check code quality        |
+| `npm run lint:fix`    | Fix linting issues        |
+| `npm run format`      | Format code with Prettier |
+| `npm run type-check`  | Check TypeScript types    |
+| `npm run ladle`       | Start component library   |
+| `npm run ladle:build` | Build component library   |
 
 ## 🏗️ Project Architecture
 
@@ -114,6 +114,7 @@ src/
 ### Component Architecture
 
 #### Reusable Components (`src/components/reusable/`)
+
 - **Generic & Composable**: Can be used across different contexts
 - **Type-Safe**: Full TypeScript support with proper interfaces
 - **Accessible**: WCAG 2.1 AA compliant
@@ -121,6 +122,7 @@ src/
 - **Consistent**: Unified styling and behavior patterns
 
 #### Tool-Specific Components
+
 - **ToolCard**: Specialized card for tool workflows
 - **Toolbar**: Main application toolbar
 - **ToolSelector**: Tool selection interface
@@ -191,26 +193,31 @@ node --version
 ### Local Development Setup
 
 1. **Ensure Node.js 22+ is installed**
+
    ```bash
    node --version  # Should show v22.x.x or higher
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Start development server**
+
    ```bash
    npm run dev
    ```
 
 4. **Start component library**
+
    ```bash
    npm run ladle
    ```
 
 5. **Run tests**
+
    ```bash
    npm run test:run
    ```

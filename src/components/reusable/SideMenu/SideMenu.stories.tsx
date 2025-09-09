@@ -35,16 +35,16 @@ export const Default: Story = () => {
   };
 
   return (
-    <div className="relative h-screen bg-gray-100">
-      <div className="p-4">
+    <div className='relative h-screen bg-gray-100'>
+      <div className='p-4'>
         <button
           onClick={() => setIsVisible(!isVisible)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
         >
           {isVisible ? 'Hide' : 'Show'} SideMenu
         </button>
         {selectedOption && (
-          <p className="mt-2 text-sm text-gray-600">
+          <p className='mt-2 text-sm text-gray-600'>
             Selected: {selectedOption}
           </p>
         )}
@@ -55,7 +55,7 @@ export const Default: Story = () => {
         isVisible={isVisible}
         onSelect={handleSelect}
         onClose={() => setIsVisible(false)}
-        title="Select a Tool"
+        title='Select a Tool'
       />
     </div>
   );
@@ -64,11 +64,11 @@ export const Default: Story = () => {
 export const LeftPosition: Story = () => {
   const [isVisible, setIsVisible] = useState(true);
   return (
-    <div className="relative h-screen bg-gray-100">
-      <div className="p-4">
+    <div className='relative h-screen bg-gray-100'>
+      <div className='p-4'>
         <button
           onClick={() => setIsVisible(!isVisible)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
         >
           Toggle SideMenu
         </button>
@@ -77,10 +77,10 @@ export const LeftPosition: Story = () => {
       <SideMenu
         options={sampleOptions}
         isVisible={isVisible}
-        onSelect={(option) => console.log('Selected:', option)}
+        onSelect={option => console.log('Selected:', option)}
         onClose={() => setIsVisible(false)}
-        title="Left Side Menu"
-        position="left"
+        title='Left Side Menu'
+        position='left'
       />
     </div>
   );
@@ -89,11 +89,11 @@ export const LeftPosition: Story = () => {
 export const RightPosition: Story = () => {
   const [isVisible, setIsVisible] = useState(true);
   return (
-    <div className="relative h-screen bg-gray-100">
-      <div className="p-4">
+    <div className='relative h-screen bg-gray-100'>
+      <div className='p-4'>
         <button
           onClick={() => setIsVisible(!isVisible)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
         >
           Toggle SideMenu
         </button>
@@ -102,10 +102,10 @@ export const RightPosition: Story = () => {
       <SideMenu
         options={sampleOptions}
         isVisible={isVisible}
-        onSelect={(option) => console.log('Selected:', option)}
+        onSelect={option => console.log('Selected:', option)}
         onClose={() => setIsVisible(false)}
-        title="Right Side Menu"
-        position="right"
+        title='Right Side Menu'
+        position='right'
       />
     </div>
   );
@@ -114,11 +114,11 @@ export const RightPosition: Story = () => {
 export const Empty: Story = () => {
   const [isVisible, setIsVisible] = useState(true);
   return (
-    <div className="relative h-screen bg-gray-100">
-      <div className="p-4">
+    <div className='relative h-screen bg-gray-100'>
+      <div className='p-4'>
         <button
           onClick={() => setIsVisible(!isVisible)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
         >
           Toggle Empty Menu
         </button>
@@ -127,9 +127,9 @@ export const Empty: Story = () => {
       <SideMenu
         options={[]}
         isVisible={isVisible}
-        onSelect={(option) => console.log('Selected:', option)}
+        onSelect={option => console.log('Selected:', option)}
         onClose={() => setIsVisible(false)}
-        title="Empty Menu"
+        title='Empty Menu'
       />
     </div>
   );

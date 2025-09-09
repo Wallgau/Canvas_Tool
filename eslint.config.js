@@ -7,7 +7,7 @@ import tsparser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
 
 export default [
-  { 
+  {
     ignores: [
       'dist/**',
       'node_modules/**',
@@ -19,8 +19,8 @@ export default [
       'vitest.config.ts',
       'playwright.config.js',
       '**/*.stories.*',
-      '.storybook/**'
-    ] 
+      '.storybook/**',
+    ],
   },
   js.configs.recommended,
   {

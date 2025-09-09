@@ -17,17 +17,17 @@ export const Default: Story = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className='p-8'>
       <button
         onClick={() => setIsVisible(true)}
-        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+        className='px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
       >
         Show Confirmation Modal
       </button>
 
       <ConfirmationModal
         isVisible={isVisible}
-        description="Are you sure you want to delete this item? This action cannot be undone."
+        description='Are you sure you want to delete this item? This action cannot be undone.'
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       />
@@ -38,10 +38,10 @@ export const Default: Story = () => {
 export const AlwaysVisible: Story = () => {
   const [isVisible, setIsVisible] = useState(true);
   return (
-    <div className="p-8">
+    <div className='p-8'>
       <ConfirmationModal
         isVisible={isVisible}
-        description="Delete item?"
+        description='Delete item?'
         onConfirm={() => {
           console.log('Confirmed!');
           setIsVisible(false);
@@ -58,10 +58,10 @@ export const AlwaysVisible: Story = () => {
 export const LongDescription: Story = () => {
   const [isVisible, setIsVisible] = useState(true);
   return (
-    <div className="p-8">
+    <div className='p-8'>
       <ConfirmationModal
         isVisible={isVisible}
-        description="Are you absolutely sure you want to permanently delete this item and all of its associated data? This action cannot be undone and will affect all users who have access to this item. Please confirm that you understand the consequences of this action."
+        description='Are you absolutely sure you want to permanently delete this item and all of its associated data? This action cannot be undone and will affect all users who have access to this item. Please confirm that you understand the consequences of this action.'
         onConfirm={() => {
           console.log('Confirmed!');
           setIsVisible(false);
@@ -80,24 +80,24 @@ export const MultipleModals: Story = () => {
   const [modal2, setModal2] = useState(false);
 
   return (
-    <div className="p-8 space-x-4">
+    <div className='p-8 space-x-4'>
       <button
         onClick={() => setModal1(true)}
-        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+        className='px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
       >
         Delete Item
       </button>
 
       <button
         onClick={() => setModal2(true)}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
       >
         Clear All
       </button>
 
       <ConfirmationModal
         isVisible={modal1}
-        description="Are you sure you want to delete this item?"
+        description='Are you sure you want to delete this item?'
         onConfirm={() => {
           console.log('Item deleted!');
           setModal1(false);
@@ -107,7 +107,7 @@ export const MultipleModals: Story = () => {
 
       <ConfirmationModal
         isVisible={modal2}
-        description="Are you sure you want to clear all items? This action cannot be undone."
+        description='Are you sure you want to clear all items? This action cannot be undone.'
         onConfirm={() => {
           console.log('All items cleared!');
           setModal2(false);

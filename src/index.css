@@ -57,7 +57,7 @@
     @apply bg-background text-foreground;
     font-size: 16px; /* Accessibility recommended minimum: 16px */
   }
-  
+
   /* Enable dark mode by default */
   .dark {
     color-scheme: dark;
