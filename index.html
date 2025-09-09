@@ -174,33 +174,6 @@
         align-items: center;
         flex-shrink: 0;
       }
-      .skeleton-button {
-        background: #e9ecef;
-        border-radius: 8px;
-        height: 36px;
-        width: 100px;
-        animation: shimmer 1.5s infinite linear;
-      }
-      .canvas-container {
-        position: relative;
-        min-height: calc(100vh - 80px);
-        background: #fff;
-      }
-      .skeleton-content {
-        background: #f8f9fa;
-        border-radius: 8px;
-        height: 200px;
-        margin: 2rem;
-        animation: shimmer 1.5s infinite linear;
-      }
-      @keyframes shimmer {
-        0% {
-          background-position: -200px 0;
-        }
-        100% {
-          background-position: calc(200px + 100%) 0;
-        }
-      }
       .loading-placeholder {
         display: flex;
         align-items: center;
@@ -233,15 +206,6 @@
       @font-face {
         font-family: system-ui;
         font-display: swap;
-      }
-      .canvas-container {
-        flex: 1;
-        min-height: calc(100vh - 80px);
-        background: #fff;
-      }
-      .skeleton-content {
-        height: 100%;
-        background: #fff;
       }
 
       /* Loading placeholder */
@@ -294,27 +258,7 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <div id="root">
-      <!-- Real LCP element - inlined for instant scoring -->
-      <header class="toolbar" role="banner">
-        <h1 id="main-heading">🛠️ Tool Canvas - Visual Workflow Builder</h1>
-        <div class="actions" role="toolbar" aria-label="Canvas actions">
-          <div class="skeleton-button"></div>
-          <div class="skeleton-button"></div>
-          <div class="skeleton-button"></div>
-        </div>
-      </header>
-
-      <!-- Main content area with minimal skeleton -->
-      <main id="main-content" class="canvas-container" role="main">
-        <div class="skeleton-content">
-          <h2 style="display: none">Visual Workflow Builder</h2>
-          <p style="display: none">
-            Create, organize, and manage your tool workflows with our intuitive
-            visual interface. Build efficient tool chains and automate your
-            workflow processes.
-          </p>
-        </div>
-      </main>
+      <!-- React app will mount here -->
     </div>
 
     <!-- In production, Vite injects modulepreload tags.

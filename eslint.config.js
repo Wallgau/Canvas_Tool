@@ -2,25 +2,36 @@ import js from '@eslint/js';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import tseslint from 'typescript-eslint';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsparser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
-import prettierConfig from 'eslint-config-prettier';
 
-export default tseslint.config([
-  { ignores: ['dist', 'node_modules', 'coverage', '*.config.js'] },
+export default [
+  { 
+    ignores: [
+      'dist/**',
+      'node_modules/**',
+      'coverage/**',
+      '*.config.js',
+      'lighthouserc.js',
+      'performance-test.js',
+      'tests/**',
+      'vitest.config.ts',
+      'playwright.config.js',
+      '**/*.stories.*',
+      '.storybook/**'
+    ] 
+  },
+  js.configs.recommended,
   {
     files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-      prettierConfig,
-    ],
     languageOptions: {
       ecmaVersion: 2022,
-      globals: globals.browser,
-      parser: tseslint.parser,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+      parser: tsparser,
       parserOptions: {
         ecmaVersion: 2022,
         sourceType: 'module',
@@ -30,6 +41,9 @@ export default tseslint.config([
       },
     },
     plugins: {
+      '@typescript-eslint': tseslint,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
       prettier,
     },
     rules: {
@@ -60,4 +74,4 @@ export default tseslint.config([
       'prettier/prettier': 'error',
     },
   },
-]);
+];

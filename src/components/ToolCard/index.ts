@@ -1,2 +1,2 @@
 export { ToolCard } from './ToolCard';
-export { useDraggable } from './hooks/useDraggable';
+export type { ToolCardProps } from './ToolCard';

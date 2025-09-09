@@ -67,7 +67,7 @@ export default defineConfig(({ command }) => {
     // Optimized CSS handling
     css: {
       devSourcemap: false,
-      postcss: undefined,
+      postcss: './postcss.config.js',
       preprocessorOptions: {},
       modules: {
         localsConvention: 'camelCase',

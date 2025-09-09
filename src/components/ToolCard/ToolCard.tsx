@@ -1,35 +1,27 @@
-import React, { useEffect, useRef } from 'react';
-import type { Tool } from '../../types';
+import React from 'react';
+import { Card } from '../reusable/Card/Card';
+import Input from '../reusable/Input/Input';
 import { useParameterEditing } from './hooks/useParameterEditing';
+import { getParameterSection } from './utils/parameterUtils';
 import { getToolDisplayName } from '../../utils/toolUtils';
+import type { Tool } from '../../types';
 
-interface ToolCardProps {
+export interface ToolCardProps {
   tool: Tool;
-  onUpdate: (updatedTool: Tool) => void;
+  onUpdate: (id: string, updates: Partial<Tool>) => void;
   onDelete: (toolId: string) => void;
   isNew?: boolean;
+  className?: string;
 }
 
-export const ToolCard = ({
+export const ToolCard: React.FC<ToolCardProps> = ({
   tool,
   onUpdate,
   onDelete,
   isNew = false,
-}: ToolCardProps): React.JSX.Element => {
-  const toolCardRef = useRef<HTMLDivElement>(null);
-
-  // Get the display name for this tool
+  className = '',
+}): React.JSX.Element => {
   const displayName = getToolDisplayName(tool);
-
-  // Focus the tool card when it's newly added
-  useEffect(() => {
-    if (isNew && toolCardRef.current) {
-      // Small delay to ensure the card is rendered
-      setTimeout(() => {
-        toolCardRef.current?.focus();
-      }, 100);
-    }
-  }, [isNew]);
 
   // Parameter editing logic
   const {
@@ -37,125 +29,64 @@ export const ToolCard = ({
     editParams,
     editingParam,
     handleParamChange,
-    startEditing,
     handleKeyPress,
     handleSaveParams,
     handleCancelEdit,
   } = useParameterEditing({ tool, onUpdate });
 
-  // Note: Drag and drop is now handled by ReactFlow
+  const parameterSection = getParameterSection(tool, isEditing, editingParam);
 
-  return (
-    <div
-      ref={toolCardRef}
-      className="bg-white border-2 border-gray-200 rounded-lg shadow-sm p-4 min-w-72 hover:border-primary-500 hover:shadow-md transition-all"
-      role='group'
-      aria-labelledby={`tool-${tool.id}-name`}
-      aria-describedby={`tool-${tool.id}-params`}
-      tabIndex={0}
-    >
-      <header className="flex items-center justify-between mb-3">
-        <div
-          id={`tool-${tool.id}-name`}
-          className="font-semibold text-lg text-gray-900"
-          role='heading'
-          aria-level={3}
-        >
-          {displayName}
-        </div>
-        <button
-          type='button'
-          className="text-red-500 hover:text-red-700 p-1 rounded"
-          onClick={() => onDelete(tool.id)}
-          aria-label={`Delete ${displayName} tool`}
-          title='Delete tool'
-        >
-          <span aria-hidden='true'>×</span>
-        </button>
-      </header>
+  const renderParameters = (): React.ReactNode => {
+    if (!parameterSection.hasParameters) {
+      return null;
+    }
 
-      <div
-        id={`tool-${tool.id}-params`}
-        className="space-y-2"
-        role='group'
-        aria-label='Tool parameters'
-      >
-        {Object.entries(tool.params).map(([key, value]) => (
-          <div key={key} className="flex items-center gap-2">
+    return (
+      <div className='space-y-3'>
+        {parameterSection.fields.map(field => (
+          <div key={field.name} className='space-y-1'>
             <label
-              className="text-sm font-medium text-gray-600 min-w-20"
-              htmlFor={`param-${tool.id}-${key}`}
-              id={`label-${tool.id}-${key}`}
+              htmlFor={field.id}
+              className='block text-sm font-medium text-gray-600'
             >
-              {key}:
+              {field.name}
             </label>
-            {isEditing && editingParam === key ? (
-              <input
-                id={`param-${tool.id}-${key}`}
-                type='text'
-                value={editParams[key] || ''}
-                onChange={e => handleParamChange(key, e.target.value)}
-                className="input flex-1"
-                aria-label={`Edit ${key} parameter`}
-                aria-describedby={`label-${tool.id}-${key}`}
-                autoFocus
-                onKeyDown={e => {
-                  if (e.key === 'Enter') {
-                    handleSaveParams();
-                  } else if (e.key === 'Escape') {
-                    handleCancelEdit();
-                  }
-                }}
-              />
-            ) : (
-              <button
-                type='button'
-                className="text-sm text-gray-900 bg-gray-50 px-2 py-1 rounded flex-1 text-left hover:bg-gray-100"
-                onClick={() => startEditing(key)}
-                onKeyDown={e => handleKeyPress(e, key)}
-                aria-label={`${key}: ${value || 'empty'}. Press Enter or Space to edit`}
-                aria-describedby={`label-${tool.id}-${key}`}
-                title='Click to edit'
-              >
-                {value || '<empty>'}
-              </button>
-            )}
+            <Input
+              id={field.id}
+              type='text'
+              value={editParams[field.name] || field.value}
+              onChange={e => handleParamChange(field.name, e.target.value)}
+              onKeyDown={e => handleKeyPress(e, field.name)}
+              placeholder={`Enter ${field.name}`}
+            />
           </div>
         ))}
-      </div>
-
-      {isEditing && (
-        <div className="flex gap-2 mt-4 pt-4 border-t border-gray-200" role='group' aria-label='Edit actions'>
+        <div className='flex gap-1 mt-3'>
           <button
-            type='button'
             onClick={handleSaveParams}
-            className="btn-primary"
-            aria-label='Save parameter changes'
-            onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleSaveParams();
-              }
-            }}
+            className='flex-1 px-2 py-1.5 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition-colors'
           >
             Save
           </button>
           <button
-            type='button'
             onClick={handleCancelEdit}
-            className="btn-secondary"
-            aria-label='Cancel parameter changes'
-            onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleCancelEdit();
-              }
-            }}
+            className='flex-1 px-2 py-1.5 text-xs bg-gray-400 text-white rounded hover:bg-gray-500 transition-colors'
           >
             Cancel
           </button>
         </div>
-      )}
-    </div>
+      </div>
+    );
+  };
+
+  return (
+    <Card
+      id={tool.id}
+      title={displayName}
+      content={renderParameters()}
+      onDelete={onDelete}
+      isNew={isNew}
+      className={className}
+    />
   );
 };
