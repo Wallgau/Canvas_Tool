@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent, MouseEvent } from 'react';
 import type { SideMenuProps, SideMenuOption } from './SideMenu.types';
 import Button from '../Button/Button';
@@ -18,10 +18,12 @@ const SideMenu = <T,>({
 }: SideMenuProps<T>): React.JSX.Element | null => {
   const firstOptionRef = useRef<HTMLButtonElement>(null);
   const sideMenuRef = useRef<HTMLDivElement>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  // Focus management when menu opens/closes
+  // Focus management and animation when menu opens/closes
   useEffect(() => {
     if (isVisible) {
+      setIsAnimating(true);
       // Focus the first option when menu opens
       setTimeout(() => {
         if (firstOptionRef.current) {
@@ -29,11 +31,13 @@ const SideMenu = <T,>({
         } else if (sideMenuRef.current) {
           sideMenuRef.current.focus();
         }
-      }, 0);
+      }, 100); // Small delay to allow animation to start
 
       // Prevent body scroll when menu is open
       document.body.style.overflow = 'hidden';
     } else {
+      // Start exit animation
+      setIsAnimating(false);
       // Restore body scroll when menu closes
       document.body.style.overflow = 'unset';
     }
@@ -43,7 +47,19 @@ const SideMenu = <T,>({
     };
   }, [isVisible]);
 
-  if (!isVisible) return null;
+  // Handle exit animation completion
+  useEffect(() => {
+    if (!isVisible && isAnimating) {
+      const timer = setTimeout(() => {
+        setIsAnimating(false);
+      }, 300); // Match the animation duration
+
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, isAnimating]);
+
+  // Don't render if not visible and not animating out
+  if (!isVisible && !isAnimating) return null;
 
   const handleSelect = (option: SideMenuOption<T>): void => {
     if (option.disabled) return;
@@ -56,13 +72,17 @@ const SideMenu = <T,>({
 
   return (
     <div
-      className='fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-start p-4'
+      className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-start justify-start p-4 transition-all duration-300 ease-in-out ${
+        isAnimating ? 'opacity-100' : 'opacity-0'
+      }`}
       onClick={onClose}
     >
       <div
         ref={sideMenuRef}
-        className={`bg-white rounded-lg shadow-xl w-fit max-w-md mt-20 ${
-          position === 'right' ? 'ml-auto' : 'mr-auto'
+        className={`bg-white rounded-lg shadow-xl w-fit max-w-md mt-20 transform transition-all duration-300 ease-in-out ${
+          position === 'right' 
+            ? `ml-auto ${isAnimating ? 'translate-x-0' : 'translate-x-full'}` 
+            : `mr-auto ${isAnimating ? 'translate-x-0' : '-translate-x-full'}`
         }`}
         onClick={(e: MouseEvent) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
