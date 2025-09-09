@@ -7,6 +7,7 @@ export default defineConfig(({ command }) => {
   const isProduction = command === 'build';
 
   return {
+    base: '/tool-canvas-v2/',
     plugins: [
       react({
         // Disable React DevTools in dev
@@ -119,7 +120,6 @@ export default defineConfig(({ command }) => {
           manualChunks: {
             'react-vendor': ['react', 'react-dom'],
             components: [
-              './src/components/ToolCanvasV2/ToolCanvasV2.tsx',
               './src/components/ToolCard/ToolCard.tsx',
             ],
           },
