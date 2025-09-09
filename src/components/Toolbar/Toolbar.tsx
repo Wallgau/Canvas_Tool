@@ -1,8 +1,3 @@
-/**
- * Toolbar - Reusable UI component for action toolbars
- * Pure UI component with no business logic
- */
-
 import React from 'react';
 import Button from '../reusable/Button/Button';
 import type { ToolbarProps } from './Toolbar.types';

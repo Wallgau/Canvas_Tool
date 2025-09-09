@@ -41,6 +41,20 @@ export function getInputTypeForParam(paramKey: string): InputType {
     return 'phone';
   }
 
+  // Mathematical expression parameters
+  if (
+    lowerKey.includes('expression') ||
+    lowerKey.includes('formula') ||
+    lowerKey.includes('equation') ||
+    lowerKey.includes('calculation') ||
+    lowerKey.includes('math') ||
+    lowerKey.includes('calculator') ||
+    lowerKey.includes('compute') ||
+    lowerKey.includes('calculate')
+  ) {
+    return 'math';
+  }
+
   // Numeric parameters
   if (
     lowerKey.includes('count') ||
