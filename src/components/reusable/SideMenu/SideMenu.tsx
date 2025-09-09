@@ -63,7 +63,8 @@ const SideMenu = <T,>({
                         : 'hover:bg-accent hover:border-accent-foreground/20'
                   }`}
                   aria-label={`Select ${option.title}`}
-                  description={option.description || ''}
+                  description={option.title}
+                  data-id={option.id || option.title}
                 />
               ))}
             </div>

@@ -15,6 +15,8 @@ interface ButtonProps {
     | 'success';
   autoFocus?: boolean;
   disabled?: boolean;
+  'data-id'?: string;
+  'aria-label'?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -25,6 +27,8 @@ const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   autoFocus = false,
   disabled = false,
+  'data-id': dataId,
+  'aria-label': ariaLabel,
 }) => {
   const getVariantClasses = (): string => {
     switch (variant) {
@@ -59,6 +63,8 @@ const Button: React.FC<ButtonProps> = ({
       className={`${baseClasses} ${variantClasses} ${disabledClasses} ${className || ''}`}
       autoFocus={autoFocus}
       disabled={disabled}
+      data-id={dataId}
+      aria-label={ariaLabel}
     >
       {description}
     </button>
