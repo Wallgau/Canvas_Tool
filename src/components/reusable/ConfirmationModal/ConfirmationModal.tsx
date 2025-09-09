@@ -24,19 +24,17 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onCancel,
   onConfirm,
   confirmButtonText,
-  variant = 'destructive'
+  variant = 'destructive',
 }): React.JSX.Element | null => {
   return (
     <Dialog open={isVisible} onOpenChange={onCancel}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>Confirm Action</DialogTitle>
-          <DialogDescription>
-            {description}
-          </DialogDescription>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" onClick={onCancel} description="Cancel" />
+          <Button variant='outline' onClick={onCancel} description='Cancel' />
           <Button
             variant={variant}
             onClick={onConfirm}

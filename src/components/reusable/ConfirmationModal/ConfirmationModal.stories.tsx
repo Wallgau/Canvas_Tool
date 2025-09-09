@@ -30,7 +30,7 @@ export const Default: Story = () => {
         description='Are you sure you want to delete this item? This action cannot be undone.'
         onConfirm={handleConfirm}
         onCancel={handleCancel}
-        confirmButtonText="Delete"
+        confirmButtonText='Delete'
       />
     </div>
   );
@@ -63,8 +63,8 @@ export const SaveConfirmation: Story = () => {
         description='Are you sure you want to save these parameter changes?'
         onConfirm={handleConfirm}
         onCancel={handleCancel}
-        confirmButtonText="Save"
-        variant="success"
+        confirmButtonText='Save'
+        variant='success'
       />
     </div>
   );
@@ -85,7 +85,7 @@ export const AlwaysVisible: Story = () => {
           console.log('Cancelled!');
           setIsVisible(false);
         }}
-        confirmButtonText="Delete"
+        confirmButtonText='Delete'
       />
     </div>
   );
@@ -106,7 +106,7 @@ export const LongDescription: Story = () => {
           console.log('Cancelled!');
           setIsVisible(false);
         }}
-        confirmButtonText="Delete"
+        confirmButtonText='Delete'
       />
     </div>
   );
@@ -140,7 +140,7 @@ export const MultipleModals: Story = () => {
           setModal1(false);
         }}
         onCancel={() => setModal1(false)}
-        confirmButtonText="Delete"
+        confirmButtonText='Delete'
       />
 
       <ConfirmationModal
@@ -151,7 +151,7 @@ export const MultipleModals: Story = () => {
           setModal2(false);
         }}
         onCancel={() => setModal2(false)}
-        confirmButtonText="Clear"
+        confirmButtonText='Clear'
       />
     </div>
   );

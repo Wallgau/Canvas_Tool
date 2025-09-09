@@ -29,25 +29,25 @@ const SideMenu = <T,>({
 
   return (
     <Sheet open={isVisible} onOpenChange={onClose}>
-      <SheetContent side={position} className="w-[400px] sm:w-[540px]">
+      <SheetContent side={position} className='w-[400px] sm:w-[540px]'>
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
           <SheetDescription>
             Choose an option from the list below
           </SheetDescription>
         </SheetHeader>
-        
-        <div className="mt-6">
+
+        <div className='mt-6'>
           {options.length === 0 ? (
-            <p className="text-base text-muted-foreground text-center py-6">
+            <p className='text-base text-muted-foreground text-center py-6'>
               No options available
             </p>
           ) : (
-            <div className="space-y-3">
+            <div className='space-y-3'>
               {options.map((option: SideMenuOption<T>) => (
                 <Button
                   key={option.id}
-                  variant="ghost"
+                  variant='ghost'
                   onClick={() => handleSelect(option)}
                   disabled={option.disabled}
                   className={`w-full text-left justify-start p-4 border border-border rounded-lg transition-all duration-200 ${

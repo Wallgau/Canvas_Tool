@@ -50,9 +50,9 @@ export const ToolCard: React.FC<ToolCardProps> = ({
     setShowSaveConfirmation(false);
     // Show success toast
     toast({
-      title: "Changes saved",
-      description: "Parameter changes have been saved successfully.",
-      variant: "success",
+      title: 'Changes saved',
+      description: 'Parameter changes have been saved successfully.',
+      variant: 'success',
     });
   };
 
@@ -115,11 +115,11 @@ export const ToolCard: React.FC<ToolCardProps> = ({
       />
       <ConfirmationModal
         isVisible={showSaveConfirmation}
-        description="Are you sure you want to save these parameter changes?"
+        description='Are you sure you want to save these parameter changes?'
         onConfirm={handleConfirmSave}
         onCancel={handleCancelSave}
-        confirmButtonText="Save"
-        variant="success"
+        confirmButtonText='Save'
+        variant='success'
       />
     </>
   );
