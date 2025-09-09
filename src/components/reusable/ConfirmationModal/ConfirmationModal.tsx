@@ -6,6 +6,8 @@ export interface ConfirmationModalProps {
   description: string;
   onCancel: () => void;
   onConfirm: () => void;
+  confirmButtonText: string;
+  variant?: 'destructive' | 'primary' | 'success';
 }
 
 export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -13,6 +15,8 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   description,
   onCancel,
   onConfirm,
+  confirmButtonText,
+  variant = 'destructive'
 }): React.JSX.Element | null => {
   if (!isVisible) return null;
 
@@ -31,11 +35,11 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             </p>
           </div>
           <div className='flex gap-3 justify-center'>
-            <Button variant='outline' onClick={onCancel} description='Cancel' />
+            <Button variant='outline' onClick={onCancel} description="Cancel"/>
             <Button
-              variant='destructive'
+              variant={variant}
               onClick={onConfirm}
-              description='Remove'
+              description={confirmButtonText}
             />
           </div>
         </div>

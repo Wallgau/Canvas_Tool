@@ -9,7 +9,8 @@ export type ButtonVariant =
   | 'destructive'
   | 'outline'
   | 'ghost'
-  | 'link';
+  | 'link'
+  | 'success';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

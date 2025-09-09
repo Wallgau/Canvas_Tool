@@ -180,6 +180,7 @@ const ToolCanvasPage: React.FC = (): React.JSX.Element => {
         description='Are you sure you want to remove all tools from the canvas?'
         onConfirm={handleConfirmClear}
         onCancel={handleCancelClear}
+        confirmButtonText="Remove"
       />
 
       <div className='flex-1 h-full bg-white'>

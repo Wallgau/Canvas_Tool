@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '../reusable/Card/Card';
 import Input from '../reusable/Input/Input';
+import { ConfirmationModal } from '../reusable/ConfirmationModal/ConfirmationModal';
 import { useParameterEditing } from './hooks/useParameterEditing';
 import { getParameterSection } from './utils/parameterUtils';
 import { getToolDisplayName } from '../../utils/toolUtils';
@@ -22,6 +23,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
   className = '',
 }): React.JSX.Element => {
   const displayName = getToolDisplayName(tool);
+  const [showSaveConfirmation, setShowSaveConfirmation] = useState(false);
 
   // Parameter editing logic
   const {
@@ -30,11 +32,25 @@ export const ToolCard: React.FC<ToolCardProps> = ({
     editingParam,
     handleParamChange,
     handleKeyPress,
-    handleSaveParams,
+    handleSaveParams: originalHandleSaveParams,
     handleCancelEdit,
   } = useParameterEditing({ tool, onUpdate });
 
   const parameterSection = getParameterSection(tool, isEditing, editingParam);
+
+  // Save confirmation handlers
+  const handleSaveClick = (): void => {
+    setShowSaveConfirmation(true);
+  };
+
+  const handleConfirmSave = (): void => {
+    originalHandleSaveParams();
+    setShowSaveConfirmation(false);
+  };
+
+  const handleCancelSave = (): void => {
+    setShowSaveConfirmation(false);
+  };
 
   const renderParameters = (): React.ReactNode => {
     if (!parameterSection.hasParameters) {
@@ -63,7 +79,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
         ))}
         <div className='flex gap-1 mt-3'>
           <button
-            onClick={handleSaveParams}
+            onClick={handleSaveClick}
             className='flex-1 px-2 py-1.5 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition-colors'
           >
             Save
@@ -80,13 +96,23 @@ export const ToolCard: React.FC<ToolCardProps> = ({
   };
 
   return (
-    <Card
-      id={tool.id}
-      title={displayName}
-      content={renderParameters()}
-      onDelete={onDelete}
-      isNew={isNew}
-      className={className}
-    />
+    <>
+      <Card
+        id={tool.id}
+        title={displayName}
+        content={renderParameters()}
+        onDelete={onDelete}
+        isNew={isNew}
+        className={className}
+      />
+      <ConfirmationModal
+        isVisible={showSaveConfirmation}
+        description="Are you sure you want to save these parameter changes?"
+        onConfirm={handleConfirmSave}
+        onCancel={handleCancelSave}
+        confirmButtonText="Save"
+        variant="success"
+      />
+    </>
   );
 };

@@ -11,7 +11,8 @@ interface ButtonProps {
     | 'destructive'
     | 'outline'
     | 'ghost'
-    | 'link';
+    | 'link'
+    | 'success';
   autoFocus?: boolean;
   disabled?: boolean;
 }
@@ -39,6 +40,8 @@ const Button: React.FC<ButtonProps> = ({
         return 'text-gray-700 hover:bg-gray-100 focus:ring-gray-500';
       case 'link':
         return 'text-blue-600 underline hover:text-blue-800 focus:ring-blue-500';
+      case 'success':
+        return 'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500';
       default:
         return 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500';
     }
