@@ -7,7 +7,7 @@ export default defineConfig(({ command }) => {
   const isProduction = command === 'build';
 
   return {
-    base: '/',
+    base: '/Canvas_Tool/',
     plugins: [
       react({
         // Disable React DevTools in dev
@@ -115,8 +115,12 @@ export default defineConfig(({ command }) => {
       minify: 'esbuild',
       cssMinify: true,
       sourcemap: false,
+      assetsDir: 'assets',
       rollupOptions: {
         output: {
+          assetFileNames: 'assets/[name]-[hash][extname]',
+          chunkFileNames: 'assets/[name]-[hash].js',
+          entryFileNames: 'assets/[name]-[hash].js',
           manualChunks: {
             'react-vendor': ['react', 'react-dom'],
             components: [
