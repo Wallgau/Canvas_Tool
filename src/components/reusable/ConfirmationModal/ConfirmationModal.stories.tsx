@@ -30,6 +30,41 @@ export const Default: Story = () => {
         description='Are you sure you want to delete this item? This action cannot be undone.'
         onConfirm={handleConfirm}
         onCancel={handleCancel}
+        confirmButtonText='Delete'
+      />
+    </div>
+  );
+};
+
+export const SaveConfirmation: Story = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleConfirm = () => {
+    console.log('Saved!');
+    setIsVisible(false);
+  };
+
+  const handleCancel = () => {
+    console.log('Cancelled!');
+    setIsVisible(false);
+  };
+
+  return (
+    <div className='p-8'>
+      <button
+        onClick={() => setIsVisible(true)}
+        className='px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600'
+      >
+        Show Save Confirmation
+      </button>
+
+      <ConfirmationModal
+        isVisible={isVisible}
+        description='Are you sure you want to save these parameter changes?'
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+        confirmButtonText='Save'
+        variant='success'
       />
     </div>
   );
@@ -50,6 +85,7 @@ export const AlwaysVisible: Story = () => {
           console.log('Cancelled!');
           setIsVisible(false);
         }}
+        confirmButtonText='Delete'
       />
     </div>
   );
@@ -70,6 +106,7 @@ export const LongDescription: Story = () => {
           console.log('Cancelled!');
           setIsVisible(false);
         }}
+        confirmButtonText='Delete'
       />
     </div>
   );
@@ -103,6 +140,7 @@ export const MultipleModals: Story = () => {
           setModal1(false);
         }}
         onCancel={() => setModal1(false)}
+        confirmButtonText='Delete'
       />
 
       <ConfirmationModal
@@ -113,6 +151,7 @@ export const MultipleModals: Story = () => {
           setModal2(false);
         }}
         onCancel={() => setModal2(false)}
+        confirmButtonText='Clear'
       />
     </div>
   );

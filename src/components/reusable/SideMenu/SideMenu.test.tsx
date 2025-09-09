@@ -104,8 +104,8 @@ describe('SideMenu - User Critical Features', () => {
       />
     );
 
-    // User clicks close button (now using Button component)
-    const closeButton = screen.getByLabelText('Close menu');
+    // User clicks close button (shadcn Sheet uses different structure)
+    const closeButton = screen.getByRole('button', { name: /close/i });
     await user.click(closeButton);
 
     // Menu closes
@@ -116,7 +116,7 @@ describe('SideMenu - User Critical Features', () => {
     const user = userEvent.setup();
     const handleClose = vi.fn();
 
-    const { container } = render(
+    render(
       <SideMenu
         options={tools}
         isVisible={true}
@@ -125,10 +125,8 @@ describe('SideMenu - User Critical Features', () => {
       />
     );
 
-    // User clicks on overlay (outside the menu content)
-    const overlay = container.querySelector('.fixed.inset-0');
-    expect(overlay).toBeInTheDocument();
-    await user.click(overlay as HTMLElement);
+    // User presses Escape key (shadcn Sheet handles this automatically)
+    await user.keyboard('{Escape}');
 
     // Menu closes
     expect(handleClose).toHaveBeenCalled();

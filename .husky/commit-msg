@@ -1,0 +1,2 @@
+# Check commit message format (optional - can be removed if not needed)
+# npx commitlint --edit $1

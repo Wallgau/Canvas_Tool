@@ -1,0 +1,14 @@
+# Run full test suite before push
+npm run test:run
+
+# Run type checking
+npm run type-check
+
+# Run linting check
+npm run lint
+
+# Run prettier check
+npm run format:check
+
+# Run build to ensure everything compiles
+npm run build
