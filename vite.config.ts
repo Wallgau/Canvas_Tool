@@ -7,7 +7,7 @@ export default defineConfig(({ command }) => {
   const isProduction = command === 'build';
 
   return {
-    base: '/Canvas_Tool/',
+    base: '/',
     plugins: [
       react({
         // Disable React DevTools in dev
@@ -111,16 +111,16 @@ export default defineConfig(({ command }) => {
     },
     // Performance optimizations
     build: {
-      target: 'es2015',
+      target: 'es2020',
       minify: 'esbuild',
       cssMinify: true,
       sourcemap: false,
-      assetsDir: 'assets',
       rollupOptions: {
         output: {
-          assetFileNames: 'assets/[name]-[hash][extname]',
-          chunkFileNames: 'assets/[name]-[hash].js',
+          format: 'es',
           entryFileNames: 'assets/[name]-[hash].js',
+          chunkFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash].[ext]',
           manualChunks: {
             'react-vendor': ['react', 'react-dom'],
             components: [
@@ -129,10 +129,6 @@ export default defineConfig(({ command }) => {
           },
         },
       },
-      reportCompressedSize: true,
-      chunkSizeWarningLimit: 1000,
-      assetsInlineLimit: 4096,
-      cssCodeSplit: true, // Split CSS for better caching
     },
     // Faster builds - esbuild config moved up
     test: {
