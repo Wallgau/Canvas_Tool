@@ -7,7 +7,7 @@ export default defineConfig(({ command }) => {
   const isProduction = command === 'build';
 
   return {
-    base: '/Canvas_Tool/',
+    base: '/',
     plugins: [
       react({
         // Disable React DevTools in dev
