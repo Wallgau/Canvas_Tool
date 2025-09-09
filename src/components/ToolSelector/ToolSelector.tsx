@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { ItemSelector } from '../ItemSelector/ItemSelector';
-import type { ToolTemplate } from '../../../types';
+import type { ToolTemplate } from '@/types';
 
 export interface ToolSelectorProps {
   isVisible: boolean;

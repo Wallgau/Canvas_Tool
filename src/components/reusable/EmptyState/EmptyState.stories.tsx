@@ -7,7 +7,7 @@ export const Default: Story = () => (
   <div className='min-h-96 flex items-center justify-center'>
     <EmptyState
       title='No tools have been added'
-      description='Get started by adding your first tool to the canvas. You can drag and drop tools from the sidebar or use the add button.'
+      description='Get started by adding your first tool to the canvas. You can use the add tool button.'
     />
   </div>
 );
@@ -16,7 +16,7 @@ export const WithAction: Story = () => (
   <div className='min-h-96 flex items-center justify-center'>
     <EmptyState
       title='No tools have been added'
-      description='Get started by adding your first tool to the canvas. You can drag and drop tools from the sidebar or use the add button.'
+      description='Get started by adding your first tool to the canvas. You can use the add tool button.'
       actionText='Add First Tool'
       onAction={() => console.log('Add tool clicked')}
     />
@@ -27,7 +27,7 @@ export const CustomIcon: Story = () => (
   <div className='min-h-96 flex items-center justify-center'>
     <EmptyState
       title='No tools have been added'
-      description='Get started by adding your first tool to the canvas. You can drag and drop tools from the sidebar or use the add button.'
+      description='Get started by adding your first tool to the canvas. You can use the add button.'
       actionText='Add First Tool'
       onAction={() => console.log('Add tool clicked')}
       icon={
@@ -53,7 +53,7 @@ export const WithCustomStyling: Story = () => (
   <div className='min-h-96 flex items-center justify-center bg-gray-50'>
     <EmptyState
       title='No tools have been added'
-      description='Get started by adding your first tool to the canvas. You can drag and drop tools from the sidebar or use the add button.'
+      description='Get started by adding your first tool to the canvas. You can use the add tool button.'
       actionText='Get Started'
       onAction={() => console.log('Get started clicked')}
       className='bg-white rounded-lg shadow-sm p-8 border border-gray-200'
