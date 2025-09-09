@@ -1,16 +1,18 @@
 # 🛠️ Tool Canvas V2
 
-A modern, accessible visual workflow builder that allows you to create, organize, and manage tool workflows on a drag-and-drop canvas.
+A modern, accessible visual workflow builder that allows you to create, organize, and manage tool workflows on a drag-and-drop canvas using ReactFlow.
 
 ![Tool Canvas V2](https://img.shields.io/badge/version-2.0.0-blue)
 ![Node.js](https://img.shields.io/badge/node-%3E%3D22.12.0-green)
 ![React](https://img.shields.io/badge/react-19.1.1-blue)
-![TypeScript](https://img.shields.io/badge/typescript-5.8.3-blue)
+![TypeScript](https://img.shields.io/badge/typescript-5.9.2-blue)
 ![Vite](https://img.shields.io/badge/vite-7.1.5-purple)
+![Tailwind CSS](https://img.shields.io/badge/tailwindcss-3.4.0-blue)
+![ReactFlow](https://img.shields.io/badge/reactflow-12.0.0-orange)
 
 ## ✨ Features
 
-- **🎨 Visual Workflow Builder** - Drag and drop tools to create workflows
+- **🎨 Visual Workflow Builder** - Drag and drop tools using ReactFlow
 - **🔧 5 Built-in Tools** - Weather, Wikipedia, Email, Calculator, Translator
 - **📱 Responsive Design** - Works on desktop and mobile devices
 - **♿ Accessibility** - WCAG 2.1 AA compliant with screen reader support
@@ -18,6 +20,8 @@ A modern, accessible visual workflow builder that allows you to create, organize
 - **📤 Export/Import** - Save and share configurations as JSON
 - **🎯 TypeScript** - Full type safety and IntelliSense
 - **⚡ Performance** - Optimized with lazy loading and code splitting
+- **🎨 Modern UI** - Built with Tailwind CSS and reusable components
+- **📚 Component Library** - Documented with Ladle for easy development
 
 ## 🚀 Quick Start
 
@@ -31,8 +35,8 @@ A modern, accessible visual workflow builder that allows you to create, organize
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/Wallgau/Tool_Canvas.git
-   cd Tool_Canvas
+   git clone https://github.com/Wallgau/Canvas_Tool.git
+   cd Canvas_Tool
    ```
 
 2. **Install dependencies**
@@ -52,37 +56,75 @@ A modern, accessible visual workflow builder that allows you to create, organize
 
 ## 📋 Available Scripts
 
-| Command              | Description               |
-| -------------------- | ------------------------- |
-| `npm run dev`        | Start development server  |
-| `npm run build`      | Build for production      |
-| `npm run preview`    | Preview production build  |
-| `npm run test`       | Run tests in watch mode   |
-| `npm run test:run`   | Run tests once            |
-| `npm run lint`       | Check code quality        |
-| `npm run lint:fix`   | Fix linting issues        |
-| `npm run format`     | Format code with Prettier |
-| `npm run type-check` | Check TypeScript types    |
+| Command              | Description                     |
+| -------------------- | ------------------------------- |
+| `npm run dev`        | Start development server        |
+| `npm run build`      | Build for production            |
+| `npm run preview`    | Preview production build        |
+| `npm run test`       | Run tests in watch mode         |
+| `npm run test:run`   | Run tests once                  |
+| `npm run lint`       | Check code quality              |
+| `npm run lint:fix`   | Fix linting issues              |
+| `npm run format`     | Format code with Prettier       |
+| `npm run type-check` | Check TypeScript types          |
+| `npm run ladle`      | Start component library         |
+| `npm run ladle:build`| Build component library         |
 
-## 🏗️ Project Structure
+## 🏗️ Project Architecture
+
+### Tech Stack
+
+- **Frontend**: React 19.1.1 with TypeScript 5.9.2
+- **Build Tool**: Vite 7.1.5 with ESBuild
+- **Styling**: Tailwind CSS 3.4.0
+- **Canvas**: ReactFlow 12.0.0 for drag-and-drop functionality
+- **Testing**: Vitest with React Testing Library
+- **Component Library**: Ladle for component documentation
+- **Code Quality**: ESLint + Prettier
+- **Deployment**: GitHub Actions + GitHub Pages
+
+### Project Structure
 
 ```
 src/
-├── App/                    # Main app component
+├── App/                           # Main app component
 ├── components/
-│   ├── shared/            # Reusable components
-│   │   ├── Button/        # Button component
-│   │   ├── SideMenu/      # Side menu component
-│   │   └── ConfirmationModal/
-│   ├── ToolCanvasV2/      # Main canvas component
-│   │   ├── components/    # Canvas sub-components
-│   │   ├── hooks/         # Custom hooks
-│   │   └── utils/         # Canvas utilities
-│   └── ToolCard/          # Individual tool cards
-├── types/                 # TypeScript type definitions
-├── utils/                 # Utility functions
-└── test/                  # Test setup files
+│   ├── reusable/                  # 🆕 Generic, reusable UI components
+│   │   ├── Button/               # Button component with variants
+│   │   ├── Input/                # Input component with validation
+│   │   ├── Card/                 # Generic card container
+│   │   ├── SideMenu/             # Side menu/drawer component
+│   │   ├── ConfirmationModal/    # Confirmation dialog
+│   │   ├── index.ts              # Clean exports
+│   │   └── README.md             # Component documentation
+│   ├── ToolCard/                 # Tool-specific card component
+│   ├── Toolbar/                  # Main toolbar component
+│   ├── ToolSelector/             # Tool selection component
+│   └── ItemSelector/             # Generic item selector wrapper
+├── pages/
+│   └── ToolCanvasPage.tsx        # Main canvas page with ReactFlow
+├── hooks/
+│   ├── useToolManagement.ts      # Tool CRUD operations
+│   └── useToolPersistence.ts     # LocalStorage persistence
+├── types/                        # TypeScript type definitions
+├── utils/                        # Utility functions
+└── test/                         # Test setup files
 ```
+
+### Component Architecture
+
+#### Reusable Components (`src/components/reusable/`)
+- **Generic & Composable**: Can be used across different contexts
+- **Type-Safe**: Full TypeScript support with proper interfaces
+- **Accessible**: WCAG 2.1 AA compliant
+- **Documented**: Stories available in Ladle component library
+- **Consistent**: Unified styling and behavior patterns
+
+#### Tool-Specific Components
+- **ToolCard**: Specialized card for tool workflows
+- **Toolbar**: Main application toolbar
+- **ToolSelector**: Tool selection interface
+- **ItemSelector**: Generic wrapper for selection UIs
 
 ## 🎯 How to Use
 
@@ -98,15 +140,17 @@ src/
 
 ### 2. Configuring Tools
 
-- Click on any parameter to edit it
+- Click on any parameter to edit it inline
 - Press **Enter** to save or **Escape** to cancel
 - Parameters are validated based on input type
+- All fields are editable with real-time validation
 
 ### 3. Organizing Workflow
 
-- **Drag and drop** tools to rearrange them
+- **Drag and drop** tools using ReactFlow
 - Tools automatically save their positions
 - Visual feedback during dragging
+- Zoom and pan support for large workflows
 
 ### 4. Exporting Workflow
 
@@ -116,8 +160,8 @@ src/
 
 ### 5. Starting Over
 
-- Click **"Clear"** to remove all tools
-- Confirmation dialog prevents accidental clearing
+- Click **"Clear All"** to remove all tools
+- Confirmation modal prevents accidental clearing
 
 ## 🛠️ Development
 
@@ -151,39 +195,38 @@ node --version
    node --version  # Should show v22.x.x or higher
    ```
 
-````
-
 2. **Install dependencies**
- ```bash
-npm install
-````
+   ```bash
+   npm install
+   ```
 
 3. **Start development server**
    ```bash
    npm run dev
    ```
 
-````
+4. **Start component library**
+   ```bash
+   npm run ladle
+   ```
 
-4. **Run tests**
- ```bash
-npm run test:run
-````
+5. **Run tests**
+   ```bash
+   npm run test:run
+   ```
 
-5. **Check code quality**
+6. **Check code quality**
    ```bash
    npm run lint
    npm run type-check
    ```
-
-````
 
 ### Building for Production
 
 ```bash
 npm run build
 npm run preview
-````
+```
 
 ## 🧪 Testing
 
@@ -201,6 +244,22 @@ npm run test        # Watch mode
 npm run test:run    # Single run
 ```
 
+## 📚 Component Library
+
+The project includes a component library built with **Ladle**:
+
+- **Interactive Stories** - See components in different states
+- **Live Documentation** - Real-time component examples
+- **Development Tool** - Test components in isolation
+
+**Start the component library:**
+
+```bash
+npm run ladle
+```
+
+Visit `http://localhost:61000` to explore the component library.
+
 ## ♿ Accessibility
 
 This project is built with accessibility in mind:
@@ -216,7 +275,8 @@ This project is built with accessibility in mind:
 ### GitHub Pages (Automatic)
 
 - Pushes to `main` branch automatically deploy
-- Available at: `https://wallgau.github.io/Tool_Canvas/`
+- Available at: `https://wallgau.github.io/Canvas_Tool/`
+- Includes `.nojekyll` file for proper static file serving
 
 ### Netlify
 
@@ -241,15 +301,17 @@ No environment variables required for basic functionality.
 ### Customization
 
 - **Add new tools** - Edit `src/types/global.ts`
-- **Modify styling** - Update CSS modules in component folders
-- **Change behavior** - Modify hooks in `src/components/ToolCanvasV2/hooks/`
+- **Modify styling** - Update Tailwind classes or create custom CSS
+- **Change behavior** - Modify hooks in `src/hooks/`
+- **Add components** - Create new components in `src/components/reusable/`
 
 ## 📊 Performance
 
 - **Lazy loading** - Components loaded on demand
 - **Code splitting** - Reduced initial bundle size
-- **CSS optimization** - Critical CSS inlined
+- **ReactFlow optimization** - Efficient canvas rendering
 - **React optimizations** - Memoization and efficient re-renders
+- **Tailwind CSS** - Optimized CSS with purging
 
 ## 🤝 Contributing
 
@@ -268,6 +330,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **React** - UI library
 - **TypeScript** - Type safety
 - **Vite** - Build tool
+- **ReactFlow** - Canvas functionality
+- **Tailwind CSS** - Styling framework
+- **Ladle** - Component library
 - **Vitest** - Testing framework
 - **Testing Library** - Component testing utilities
 
@@ -275,7 +340,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues or have questions:
 
-1. Check the [Issues](https://github.com/Wallgau/Tool_Canvas/issues) page
+1. Check the [Issues](https://github.com/Wallgau/Canvas_Tool/issues) page
 2. Ensure you're using Node.js 22.12.0 or higher
 3. Verify all dependencies are installed correctly
 4. Create a new issue with detailed information
