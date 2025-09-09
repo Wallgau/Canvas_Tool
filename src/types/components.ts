@@ -8,13 +8,13 @@ export type {
   ButtonVariant,
   ButtonSize,
   ButtonProps,
-} from '../components/Button/Button.types';
+} from '../components/reusable/Button/Button.types';
 
 // SideMenu component types
 export type {
   SideMenuOption,
   SideMenuProps,
   SideMenuPosition,
-} from '../components/SideMenu/SideMenu.types';
+} from '../components/reusable/SideMenu/SideMenu.types';
 
 // ToolCanvasV2 component types - removed as ToolCanvasV2 was refactored into pages

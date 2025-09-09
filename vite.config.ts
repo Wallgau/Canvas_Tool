@@ -123,9 +123,7 @@ export default defineConfig(({ command }) => {
           assetFileNames: 'assets/[name]-[hash].[ext]',
           manualChunks: {
             'react-vendor': ['react', 'react-dom'],
-            components: [
-              './src/components/ToolCard/ToolCard.tsx',
-            ],
+            components: ['./src/components/ToolCard/ToolCard.tsx'],
           },
         },
       },
