@@ -1,12 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
-import type { KeyboardEvent, MouseEvent } from 'react';
+import React from 'react';
 import type { SideMenuProps, SideMenuOption } from './SideMenu.types';
 import Button from '../Button/Button';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from '../../ui/sheet';
 
 // Types are now exported from src/types/components.ts
 
 /**
- * Super simple SideMenu - removed all unnecessary complexity
+ * SideMenu using shadcn Sheet component with smooth animations
  */
 const SideMenu = <T,>({
   options,
@@ -16,131 +22,40 @@ const SideMenu = <T,>({
   title = 'Select an option',
   position = 'left',
 }: SideMenuProps<T>): React.JSX.Element | null => {
-  const firstOptionRef = useRef<HTMLButtonElement>(null);
-  const sideMenuRef = useRef<HTMLDivElement>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  // Focus management and animation when menu opens/closes
-  useEffect(() => {
-    if (isVisible) {
-      setIsAnimating(true);
-      // Focus the first option when menu opens
-      setTimeout(() => {
-        if (firstOptionRef.current) {
-          firstOptionRef.current.focus();
-        } else if (sideMenuRef.current) {
-          sideMenuRef.current.focus();
-        }
-      }, 100); // Small delay to allow animation to start
-
-      // Prevent body scroll when menu is open
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Start exit animation
-      setIsAnimating(false);
-      // Restore body scroll when menu closes
-      document.body.style.overflow = 'unset';
-    }
-
-    return (): void => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isVisible]);
-
-  // Handle exit animation completion
-  useEffect(() => {
-    if (!isVisible && isAnimating) {
-      const timer = setTimeout(() => {
-        setIsAnimating(false);
-      }, 300); // Match the animation duration
-
-      return () => clearTimeout(timer);
-    }
-  }, [isVisible, isAnimating]);
-
-  // Don't render if not visible and not animating out
-  if (!isVisible && !isAnimating) return null;
-
   const handleSelect = (option: SideMenuOption<T>): void => {
     if (option.disabled) return;
     onSelect(option);
   };
 
-  const handleKeyDown = (e: KeyboardEvent): void => {
-    if (e.key === 'Escape') onClose();
-  };
-
   return (
-    <div
-      className={`fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-start justify-start p-4 transition-all duration-300 ease-in-out ${
-        isAnimating ? 'opacity-100' : 'opacity-0'
-      }`}
-      onClick={onClose}
-    >
-      <div
-        ref={sideMenuRef}
-        className={`bg-white rounded-lg shadow-xl w-fit max-w-md mt-20 transform transition-all duration-300 ease-in-out ${
-          position === 'right' 
-            ? `ml-auto ${isAnimating ? 'translate-x-0' : 'translate-x-full'}` 
-            : `mr-auto ${isAnimating ? 'translate-x-0' : '-translate-x-full'}`
-        }`}
-        onClick={(e: MouseEvent) => e.stopPropagation()}
-        onKeyDown={handleKeyDown}
-        role='dialog'
-        aria-modal='true'
-        aria-labelledby='side-menu-title'
-        tabIndex={-1}
-      >
-        {/* Header */}
-        <header className='flex items-center justify-between p-6 border-b border-gray-200'>
-          <h3
-            id='side-menu-title'
-            className='text-xl font-semibold text-gray-900'
-          >
-            {title}
-          </h3>
-          <button
-            onClick={onClose}
-            aria-label='Close menu'
-            className='text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors'
-            title='Close'
-          >
-            <svg
-              width='20'
-              height='20'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <line x1='18' y1='6' x2='6' y2='18'></line>
-              <line x1='6' y1='6' x2='18' y2='18'></line>
-            </svg>
-          </button>
-        </header>
-
-        {/* Options */}
-        <div className='p-6'>
+    <Sheet open={isVisible} onOpenChange={onClose}>
+      <SheetContent side={position} className="w-[400px] sm:w-[540px]">
+        <SheetHeader>
+          <SheetTitle>{title}</SheetTitle>
+          <SheetDescription>
+            Choose an option from the list below
+          </SheetDescription>
+        </SheetHeader>
+        
+        <div className="mt-6">
           {options.length === 0 ? (
-            <p className='text-base text-gray-500 text-center py-6'>
+            <p className="text-base text-muted-foreground text-center py-6">
               No options available
             </p>
           ) : (
-            <div className='space-y-3'>
+            <div className="space-y-3">
               {options.map((option: SideMenuOption<T>) => (
                 <Button
                   key={option.id}
-                  variant='ghost'
+                  variant="ghost"
                   onClick={() => handleSelect(option)}
                   disabled={option.disabled}
-                  className={`w-full text-left justify-start p-4 border border-gray-200 rounded-lg transition-all duration-200 ${
+                  className={`w-full text-left justify-start p-4 border border-border rounded-lg transition-all duration-200 ${
                     option.disabled
-                      ? 'opacity-50 cursor-not-allowed border-gray-100'
+                      ? 'opacity-50 cursor-not-allowed border-muted'
                       : option.isUsed || option.isActive
-                        ? 'border-2 border-blue-500 bg-blue-50 text-blue-700 hover:bg-blue-100'
-                        : 'hover:bg-gray-50 hover:border-gray-300'
+                        ? 'border-2 border-primary bg-primary/10 text-primary hover:bg-primary/20'
+                        : 'hover:bg-accent hover:border-accent-foreground/20'
                   }`}
                   aria-label={`Select ${option.title}`}
                   description={option.description || ''}
@@ -149,8 +64,8 @@ const SideMenu = <T,>({
             </div>
           )}
         </div>
-      </div>
-    </div>
+      </SheetContent>
+    </Sheet>
   );
 };
 

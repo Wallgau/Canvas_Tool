@@ -5,6 +5,7 @@ import { ConfirmationModal } from '../reusable/ConfirmationModal/ConfirmationMod
 import { useParameterEditing } from './hooks/useParameterEditing';
 import { getParameterSection } from './utils/parameterUtils';
 import { getToolDisplayName } from '../../utils/toolUtils';
+import { useToast } from '../../hooks/use-toast';
 import type { Tool } from '../../types';
 
 export interface ToolCardProps {
@@ -24,6 +25,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
 }): React.JSX.Element => {
   const displayName = getToolDisplayName(tool);
   const [showSaveConfirmation, setShowSaveConfirmation] = useState(false);
+  const { toast } = useToast();
 
   // Parameter editing logic
   const {
@@ -46,6 +48,12 @@ export const ToolCard: React.FC<ToolCardProps> = ({
   const handleConfirmSave = (): void => {
     originalHandleSaveParams();
     setShowSaveConfirmation(false);
+    // Show success toast
+    toast({
+      title: "Changes saved",
+      description: "Parameter changes have been saved successfully.",
+      variant: "success",
+    });
   };
 
   const handleCancelSave = (): void => {

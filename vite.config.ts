@@ -8,6 +8,11 @@ export default defineConfig(({ command }) => {
 
   return {
     base: '/',
+    resolve: {
+      alias: {
+        '@': new URL('./src', import.meta.url).pathname,
+      },
+    },
     plugins: [
       react({
         // Disable React DevTools in dev
