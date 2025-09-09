@@ -33,6 +33,7 @@ export const ItemSelector = <T extends SelectableItem>({
       onClose={onClose}
       title={title}
       position={position}
+      data-testid='tool-selector'
     />
   );
 };

@@ -13,6 +13,7 @@ import 'reactflow/dist/style.css';
 import { Toolbar } from '../components/Toolbar';
 import { ToolSelector } from '../components/ToolSelector';
 import { ConfirmationModal } from '../components/reusable/ConfirmationModal/ConfirmationModal';
+import { EmptyState } from '../components/reusable/EmptyState/EmptyState';
 import { useToolManagement } from '../hooks/useToolManagement';
 import { useToolPersistence } from '../hooks/useToolPersistence';
 import type { ToolTemplate, Tool } from '../types';
@@ -184,28 +185,45 @@ const ToolCanvasPage: React.FC = (): React.JSX.Element => {
       />
 
       <div className='flex-1 h-full bg-white'>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          nodeTypes={nodeTypes}
-          onNodesChange={changes => {
-            onNodesChange(changes);
-            // Handle position changes
-            changes.forEach(change => {
-              if (change.type === 'position' && change.position) {
-                handleNodePositionChange(change.id, change.position);
+        {tools.length === 0 ? (
+          <EmptyState
+            title='No tools have been added'
+            description='Get started by adding your first tool to the canvas. You can drag and drop tools from the sidebar or use the add button.'
+            actionText='Add First Tool'
+            onAction={() => {
+              // Focus on the tool selector to help users get started
+              const toolSelector = document.querySelector(
+                '[data-testid="tool-selector"]'
+              ) as HTMLElement;
+              if (toolSelector) {
+                toolSelector.focus();
               }
-            });
-          }}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          defaultViewport={{ x: 0, y: 0, zoom: 0 }}
-          fitView
-        >
-          <Controls />
-          <MiniMap />
-          <Background gap={12} size={1} />
-        </ReactFlow>
+            }}
+          />
+        ) : (
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            onNodesChange={changes => {
+              onNodesChange(changes);
+              // Handle position changes
+              changes.forEach(change => {
+                if (change.type === 'position' && change.position) {
+                  handleNodePositionChange(change.id, change.position);
+                }
+              });
+            }}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            defaultViewport={{ x: 0, y: 0, zoom: 0 }}
+            fitView
+          >
+            <Controls />
+            <MiniMap />
+            <Background gap={12} size={1} />
+          </ReactFlow>
+        )}
       </div>
     </div>
   );

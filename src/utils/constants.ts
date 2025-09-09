@@ -17,7 +17,5 @@ export const STORAGE_KEYS = {
   TOOL_CANVAS_STATE: 'tool-canvas-state',
 } as const;
 
-// Tool IDs
-export const TOOL_IDS = {
-  DEFAULT_WEATHER_TOOL: 'default-weather-tool',
-} as const;
+// Tool IDs - currently none defined
+export const TOOL_IDS = {} as const;

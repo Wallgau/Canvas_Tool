@@ -20,6 +20,7 @@ export interface SideMenuProps<T = unknown> {
   onClose: () => void;
   title?: string;
   position?: 'left' | 'right';
+  'data-testid'?: string;
 }
 
 export type SideMenuPosition = 'left' | 'right';
