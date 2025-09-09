@@ -1,6 +1,3 @@
-/**
- * Button component types and interfaces
- */
 import type { ReactNode, ButtonHTMLAttributes } from 'react';
 
 export type ButtonVariant =

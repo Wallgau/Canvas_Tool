@@ -188,17 +188,9 @@ const ToolCanvasPage: React.FC = (): React.JSX.Element => {
         {tools.length === 0 ? (
           <EmptyState
             title='No tools have been added'
-            description='Get started by adding your first tool to the canvas. You can drag and drop tools from the sidebar or use the add button.'
+            description='Get started by adding your first tool to the canvas. You can use the add tool button.'
             actionText='Add First Tool'
-            onAction={() => {
-              // Focus on the tool selector to help users get started
-              const toolSelector = document.querySelector(
-                '[data-testid="tool-selector"]'
-              ) as HTMLElement;
-              if (toolSelector) {
-                toolSelector.focus();
-              }
-            }}
+            onAction={() => setShowToolSelector(true)}
           />
         ) : (
           <ReactFlow

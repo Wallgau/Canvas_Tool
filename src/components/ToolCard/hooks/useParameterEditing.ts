@@ -23,11 +23,13 @@ export const useParameterEditing = ({
   isEditing: boolean;
   editParams: Record<string, string>;
   editingParam: string | null;
+  validationErrors: Record<string, string[]>;
   handleParamChange: (key: string, value: string) => void;
   startEditing: (paramKey: string) => void;
   handleKeyPress: (e: React.KeyboardEvent, paramKey: string) => void;
   handleSaveParams: () => void;
   handleCancelEdit: () => void;
+  setValidationErrors: (errors: Record<string, string[]>) => void;
 } => {
   const [state, setState] = useState<ParameterEditingState>(() =>
     createParameterEditingState(tool)
@@ -40,8 +42,16 @@ export const useParameterEditing = ({
 
   const actions = createParameterEditingActions(config, state, setState);
 
+  const setValidationErrors = (errors: Record<string, string[]>): void => {
+    setState(prev => ({
+      ...prev,
+      validationErrors: errors,
+    }));
+  };
+
   return {
     ...state,
     ...actions,
+    setValidationErrors,
   };
 };

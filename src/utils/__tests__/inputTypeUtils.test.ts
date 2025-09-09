@@ -70,4 +70,21 @@ describe('getInputTypeForParam', () => {
     expect(getInputTypeForParam('phoneNumber')).toBe('phone');
     expect(getInputTypeForParam('resultCount')).toBe('integer');
   });
+
+  it('should detect math expression parameters', () => {
+    expect(getInputTypeForParam('expression')).toBe('math');
+    expect(getInputTypeForParam('formula')).toBe('math');
+    expect(getInputTypeForParam('equation')).toBe('math');
+    expect(getInputTypeForParam('calculation')).toBe('math');
+    expect(getInputTypeForParam('math')).toBe('math');
+    expect(getInputTypeForParam('calculator')).toBe('math');
+    expect(getInputTypeForParam('compute')).toBe('math');
+    expect(getInputTypeForParam('calculate')).toBe('math');
+  });
+
+  it('should handle math parameter partial matches', () => {
+    expect(getInputTypeForParam('mathExpression')).toBe('math');
+    expect(getInputTypeForParam('calculatorFormula')).toBe('math');
+    expect(getInputTypeForParam('computeResult')).toBe('math');
+  });
 });

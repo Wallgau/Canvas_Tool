@@ -353,4 +353,99 @@ describe('Input Sanitization', () => {
       expect(result.isValid).toBe(true);
     });
   });
+
+  describe('math validation', () => {
+    it('should validate valid mathematical expressions', () => {
+      const validExpressions = [
+        '2 + 3',
+        '10 - 5',
+        '4 * 6',
+        '15 / 3',
+        '(2 + 3) * 4',
+        '2.5 + 3.7',
+        '1 + 2 * 3 - 4 / 2',
+        '((1 + 2) * 3) / 4',
+      ];
+
+      validExpressions.forEach(expr => {
+        const result = validateInput(expr, 'math');
+        expect(result.isValid).toBe(true);
+      });
+    });
+
+    it('should reject invalid mathematical expressions', () => {
+      const invalidExpressions = [
+        '2 + abc',
+        'hello world',
+        '2 + @ 3',
+        '2 + # 3',
+        '2 + $ 3',
+        '2 + % 3',
+        '2 + & 3',
+        '2 + ! 3',
+        '2 + ? 3',
+        '2 + [ 3',
+        '2 + ] 3',
+        '2 + { 3',
+        '2 + } 3',
+        '2 + | 3',
+        '2 + \\ 3',
+        '2 + : 3',
+        '2 + ; 3',
+        '2 + " 3',
+        "2 + ' 3",
+        '2 + < 3',
+        '2 + > 3',
+        '2 + , 3',
+        '2 + ~ 3',
+        '2 + ` 3',
+      ];
+
+      invalidExpressions.forEach(expr => {
+        const result = validateInput(expr, 'math');
+        expect(result.isValid).toBe(false);
+        expect(result.errors).toContain(
+          'Invalid mathematical expression. Only numbers, +, -, *, /, (, ), and spaces are allowed'
+        );
+      });
+    });
+
+    it('should validate balanced parentheses', () => {
+      const balancedExpressions = [
+        '(2 + 3)',
+        '((2 + 3) * 4)',
+        '2 * (3 + 4)',
+        '((1 + 2) * (3 + 4))',
+      ];
+
+      balancedExpressions.forEach(expr => {
+        const result = validateInput(expr, 'math');
+        expect(result.isValid).toBe(true);
+      });
+    });
+
+    it('should reject unbalanced parentheses', () => {
+      const unbalancedExpressions = [
+        '(2 + 3',
+        '2 + 3)',
+        '((2 + 3)',
+        '2 + 3))',
+        '((2 + 3) * 4',
+        '2 * (3 + 4))',
+      ];
+
+      unbalancedExpressions.forEach(expr => {
+        const result = validateInput(expr, 'math');
+        expect(result.isValid).toBe(false);
+        expect(result.errors).toContain(
+          'Unbalanced parentheses in mathematical expression'
+        );
+      });
+    });
+
+    it('should handle empty math expressions', () => {
+      const result = validateInput('', 'math');
+      expect(result.isValid).toBe(true);
+    });
+  });
 });

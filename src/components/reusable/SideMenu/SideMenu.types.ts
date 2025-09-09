@@ -1,7 +1,3 @@
-/**
- * SideMenu component types and interfaces
- */
-
 export interface SideMenuOption<T = unknown> {
   id: string;
   title: string;

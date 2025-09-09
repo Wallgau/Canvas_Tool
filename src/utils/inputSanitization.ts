@@ -68,6 +68,7 @@ const ALPHANUMERIC_REGEX =
 const HTML_TAG_REGEX = /<[a-zA-Z][^>]*>/g; // More specific: must start with a letter
 const NUMERIC_REGEX = /^-?\d+(\.\d+)?$/;
 const INTEGER_REGEX = /^-?\d+$/;
+const MATH_EXPRESSION_REGEX = /^[0-9+\-*/().\s]+$/; // Allow numbers, basic math operators, parentheses, and spaces
 
 // Maximum lengths for different input types
 const MAX_LENGTHS = {
@@ -77,6 +78,7 @@ const MAX_LENGTHS = {
   TEXT: 1000,
   JSON: 10000,
   ALPHANUMERIC: 1000,
+  MATH: 500,
 } as const;
 
 export type InputType =
@@ -87,7 +89,8 @@ export type InputType =
   | 'numeric'
   | 'integer'
   | 'alphanumeric'
-  | 'json';
+  | 'json'
+  | 'math';
 
 export interface SanitizationOptions {
   maxLength?: number;
@@ -294,6 +297,25 @@ export function validateInput(
       } catch {
         result.errors.push('Invalid JSON format');
         result.isValid = false;
+      }
+      break;
+
+    case 'math':
+      if (sanitizedValue && !MATH_EXPRESSION_REGEX.test(sanitizedValue)) {
+        result.errors.push(
+          'Invalid mathematical expression. Only numbers, +, -, *, /, (, ), and spaces are allowed'
+        );
+        result.isValid = false;
+      } else if (sanitizedValue) {
+        // Additional validation: check for balanced parentheses
+        const openParens = (sanitizedValue.match(/\(/g) || []).length;
+        const closeParens = (sanitizedValue.match(/\)/g) || []).length;
+        if (openParens !== closeParens) {
+          result.errors.push(
+            'Unbalanced parentheses in mathematical expression'
+          );
+          result.isValid = false;
+        }
       }
       break;
 

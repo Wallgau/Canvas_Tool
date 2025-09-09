@@ -5,6 +5,8 @@ import { ConfirmationModal } from '../reusable/ConfirmationModal/ConfirmationMod
 import { useParameterEditing } from './hooks/useParameterEditing';
 import { getParameterSection } from './utils/parameterUtils';
 import { getToolDisplayName } from '../../utils/toolUtils';
+import { validateInput } from '../../utils/inputSanitization';
+import { getInputTypeForParam } from '../../utils/inputTypeUtils';
 import { useToast } from '../../hooks/use-toast';
 import type { Tool } from '../../types';
 
@@ -32,16 +34,37 @@ export const ToolCard: React.FC<ToolCardProps> = ({
     isEditing,
     editParams,
     editingParam,
+    validationErrors,
     handleParamChange,
     handleKeyPress,
     handleSaveParams: originalHandleSaveParams,
     handleCancelEdit,
+    setValidationErrors,
   } = useParameterEditing({ tool, onUpdate });
 
   const parameterSection = getParameterSection(tool, isEditing, editingParam);
 
   // Save confirmation handlers
   const handleSaveClick = (): void => {
+    // Validate all parameters before showing confirmation modal
+    const validationErrors: Record<string, string[]> = {};
+
+    Object.entries(editParams).forEach(([key, value]) => {
+      const inputType = getInputTypeForParam(key);
+      const validation = validateInput(value, inputType);
+
+      if (!validation.isValid) {
+        validationErrors[key] = validation.errors;
+      }
+    });
+
+    // If there are validation errors, show them and don't show confirmation modal
+    if (Object.keys(validationErrors).length > 0) {
+      setValidationErrors(validationErrors);
+      return;
+    }
+
+    // No errors, show confirmation modal
     setShowSaveConfirmation(true);
   };
 
@@ -67,24 +90,41 @@ export const ToolCard: React.FC<ToolCardProps> = ({
 
     return (
       <div className='space-y-3'>
-        {parameterSection.fields.map(field => (
-          <div key={field.name} className='space-y-1'>
-            <label
-              htmlFor={field.id}
-              className='block text-sm font-medium text-gray-600'
-            >
-              {field.name}
-            </label>
-            <Input
-              id={field.id}
-              type='text'
-              value={editParams[field.name] || field.value}
-              onChange={e => handleParamChange(field.name, e.target.value)}
-              onKeyDown={e => handleKeyPress(e, field.name)}
-              placeholder={`Enter ${field.name}`}
-            />
-          </div>
-        ))}
+        {parameterSection.fields.map(field => {
+          const fieldErrors = validationErrors[field.name] || [];
+          const hasError = fieldErrors.length > 0;
+
+          return (
+            <div key={field.name} className='space-y-1'>
+              <label
+                htmlFor={field.id}
+                className='block text-sm font-medium text-gray-600'
+              >
+                {field.name}
+              </label>
+              <Input
+                id={field.id}
+                type='text'
+                value={editParams[field.name] || field.value}
+                onChange={e => handleParamChange(field.name, e.target.value)}
+                onKeyDown={e => handleKeyPress(e, field.name)}
+                placeholder={`Enter ${field.name}`}
+                className={
+                  hasError
+                    ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                    : ''
+                }
+              />
+              {hasError && (
+                <div className='text-xs text-red-600 space-y-1'>
+                  {fieldErrors.map((error, index) => (
+                    <div key={index}>{error}</div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
         <div className='flex gap-1 mt-3'>
           <button
             onClick={handleSaveClick}

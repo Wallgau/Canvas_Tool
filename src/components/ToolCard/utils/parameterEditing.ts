@@ -10,6 +10,7 @@ export interface ParameterEditingState {
   isEditing: boolean;
   editParams: Record<string, string>;
   editingParam: string | null;
+  validationErrors: Record<string, string[]>;
 }
 
 export interface ParameterEditingActions {
@@ -35,6 +36,7 @@ export const createParameterEditingState = (
   isEditing: true,
   editParams: { ...tool.params },
   editingParam: null,
+  validationErrors: {},
 });
 
 /**
@@ -65,10 +67,23 @@ export const createParameterEditingActions = (
   };
 
   const handleParamChange = (key: string, value: string): void => {
-    if (validateParameterValue(key, value)) {
-      updateState({
-        editParams: { ...state.editParams, [key]: value },
-      });
+    // Always update the value so user can see what they're typing
+    updateState({
+      editParams: { ...state.editParams, [key]: value },
+    });
+
+    // Clear validation error for this field if it becomes valid
+    if (state.validationErrors[key]) {
+      const inputType = getInputTypeForParam(key);
+      const validation = validateInput(value, inputType);
+
+      if (validation.isValid) {
+        const newValidationErrors = { ...state.validationErrors };
+        delete newValidationErrors[key];
+        updateState({
+          validationErrors: newValidationErrors,
+        });
+      }
     }
   };
 
@@ -89,11 +104,33 @@ export const createParameterEditingActions = (
   };
 
   const handleSaveParams = (): void => {
+    // Validate all parameters when save is clicked
+    const validationErrors: Record<string, string[]> = {};
+
+    Object.entries(state.editParams).forEach(([key, value]) => {
+      const inputType = getInputTypeForParam(key);
+      const validation = validateInput(value, inputType);
+
+      if (!validation.isValid) {
+        validationErrors[key] = validation.errors;
+      }
+    });
+
+    // If there are validation errors, show them and don't save
+    if (Object.keys(validationErrors).length > 0) {
+      updateState({
+        validationErrors,
+      });
+      return;
+    }
+
+    // No errors, proceed with save
     const updatedParams = { ...state.editParams };
     onUpdate(tool.id, { params: updatedParams });
     updateState({
       isEditing: false,
       editingParam: null,
+      validationErrors: {},
     });
   };
 
@@ -102,6 +139,7 @@ export const createParameterEditingActions = (
       isEditing: false,
       editingParam: null,
       editParams: { ...tool.params },
+      validationErrors: {},
     });
   };
 
