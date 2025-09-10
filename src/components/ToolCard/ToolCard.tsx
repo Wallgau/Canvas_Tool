@@ -35,6 +35,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
     editParams,
     editingParam,
     validationErrors,
+    hasChanges,
     handleParamChange,
     handleKeyPress,
     handleSaveParams: originalHandleSaveParams,
@@ -128,13 +129,23 @@ export const ToolCard: React.FC<ToolCardProps> = ({
         <div className='flex gap-1 mt-3'>
           <button
             onClick={handleSaveClick}
-            className='flex-1 px-2 py-1.5 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition-colors'
+            disabled={!hasChanges}
+            className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
+              hasChanges
+                ? 'bg-green-500 text-white hover:bg-green-600'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
           >
             Save
           </button>
           <button
             onClick={handleCancelEdit}
-            className='flex-1 px-2 py-1.5 text-xs bg-gray-400 text-white rounded hover:bg-gray-500 transition-colors'
+            disabled={!hasChanges}
+            className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
+              hasChanges
+                ? 'bg-gray-400 text-white hover:bg-gray-500'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
           >
             Cancel
           </button>

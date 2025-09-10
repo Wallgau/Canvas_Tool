@@ -11,6 +11,8 @@ export interface ParameterEditingState {
   editParams: Record<string, string>;
   editingParam: string | null;
   validationErrors: Record<string, string[]>;
+  hasChanges: boolean;
+  originalParams: Record<string, string>;
 }
 
 export interface ParameterEditingActions {
@@ -37,7 +39,33 @@ export const createParameterEditingState = (
   editParams: { ...tool.params },
   editingParam: null,
   validationErrors: {},
+  hasChanges: false,
+  originalParams: { ...tool.params },
 });
+
+/**
+ * Check if parameters have changed from original
+ */
+export const checkParametersChanged = (
+  editParams: Record<string, string>,
+  originalParams: Record<string, string>
+): boolean => {
+  // Compare each parameter value
+  for (const [key, value] of Object.entries(editParams)) {
+    if (value !== originalParams[key]) {
+      return true;
+    }
+  }
+
+  // Check if any original keys are missing in editParams
+  for (const key of Object.keys(originalParams)) {
+    if (!(key in editParams)) {
+      return true;
+    }
+  }
+
+  return false;
+};
 
 /**
  * Validate parameter value
@@ -68,8 +96,15 @@ export const createParameterEditingActions = (
 
   const handleParamChange = (key: string, value: string): void => {
     // Always update the value so user can see what they're typing
+    const newEditParams = { ...state.editParams, [key]: value };
+    const hasChanges = checkParametersChanged(
+      newEditParams,
+      state.originalParams
+    );
+
     updateState({
-      editParams: { ...state.editParams, [key]: value },
+      editParams: newEditParams,
+      hasChanges,
     });
 
     // Clear validation error for this field if it becomes valid
@@ -131,6 +166,8 @@ export const createParameterEditingActions = (
       isEditing: false,
       editingParam: null,
       validationErrors: {},
+      hasChanges: false,
+      originalParams: updatedParams,
     });
   };
 
@@ -140,6 +177,7 @@ export const createParameterEditingActions = (
       editingParam: null,
       editParams: { ...tool.params },
       validationErrors: {},
+      hasChanges: false,
     });
   };
 
