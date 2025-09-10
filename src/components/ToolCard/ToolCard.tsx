@@ -126,7 +126,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
             </div>
           );
         })}
-        <div className='flex gap-1 mt-3'>
+        <div className='flex flex-col sm:flex-row gap-2 sm:gap-1 mt-3'>
           <button
             onClick={handleSaveClick}
             disabled={!hasChanges}
