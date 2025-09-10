@@ -24,6 +24,7 @@ export const useParameterEditing = ({
   editParams: Record<string, string>;
   editingParam: string | null;
   validationErrors: Record<string, string[]>;
+  hasChanges: boolean;
   handleParamChange: (key: string, value: string) => void;
   startEditing: (paramKey: string) => void;
   handleKeyPress: (e: React.KeyboardEvent, paramKey: string) => void;
